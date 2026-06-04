@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Locked — Salesforce case study · Aditya Yellamraju</title>
+<meta name="description" content="This case study contains confidential Salesforce work. Enter the magic word to view."/>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  :root {
+    --brand: #491cff;
+    --brand-pink: #ff99d4;
+    --bg: #0a0a14;
+    --bg-elev: #14141f;
+    --bg-elev-2: #1d1d2c;
+    --border-soft: rgba(255,255,255,0.08);
+    --border-mid: rgba(167,143,255,0.25);
+    --text-mid: rgba(255,255,255,0.78);
+    --text-muted: rgba(255,255,255,0.55);
+    --text-faint: rgba(255,255,255,0.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; min-height: 100vh; }
+  body {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    background: var(--bg);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* Background — match Bold portfolio aesthetic */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(73,28,255,0.35), transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(255,153,212,0.28), transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(167,143,255,0.08), transparent 70%),
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 56px 56px, 56px 56px;
+  }
+
+  /* NAV */
+  nav {
+    position: relative; z-index: 10;
+    padding: 20px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,10,20,0.7); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: ui-monospace, Menlo, monospace; font-size: 13px; font-weight: 700; color: #fff;
+    text-decoration: none;
+  }
+  .nav-brand .logo {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: linear-gradient(135deg, #491cff, #ff99d4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 900; letter-spacing: -1px;
+  }
+  .nav-back {
+    font-family: ui-monospace, Menlo, monospace; font-size: 12px;
+    color: var(--text-muted); text-decoration: none;
+    padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .nav-back:hover { color: #fff; border-color: rgba(167,143,255,0.4); background: rgba(73,28,255,0.1); }
+
+  /* MAIN GATE */
+  .gate-wrap {
+    position: relative; z-index: 1;
+    min-height: calc(100vh - 73px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 64px 24px;
+  }
+  .gate {
+    width: 100%; max-width: 560px;
+    display: flex; flex-direction: column; gap: 28px;
+    align-items: center; text-align: center;
+  }
+
+  /* Vault icon — minimal lock with concentric pulse */
+  .vault {
+    position: relative;
+    width: 88px; height: 88px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 4px;
+  }
+  .vault::before, .vault::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(167,143,255,0.3);
+    animation: vaultPulse 3s ease-out infinite;
+  }
+  .vault::after { animation-delay: 1.5s; }
+  @keyframes vaultPulse {
+    0%   { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  .vault-core {
+    position: relative; z-index: 2;
+    width: 64px; height: 64px; border-radius: 16px;
+    background: linear-gradient(135deg, rgba(73,28,255,0.4), rgba(255,153,212,0.2));
+    border: 1px solid rgba(167,143,255,0.4);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 40px rgba(73,28,255,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .vault-core svg { width: 28px; height: 28px; color: #fff; }
+
+  .gate-kicker {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--brand-pink); font-weight: 700;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .gate-kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-pink); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .gate h1 {
+    font-size: clamp(32px, 4.5vw, 48px);
+    font-weight: 900; line-height: 1.1; letter-spacing: -1.2px;
+    color: #fff; margin: 0;
+    max-width: 480px;
+  }
+  .gate h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #a78fff, #ff99d4);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gate p {
+    font-size: 16px; color: var(--text-mid); line-height: 1.65; margin: 0;
+    max-width: 480px;
+  }
+
+  /* CARD */
+  .gate-card {
+    width: 100%;
+    background: rgba(20,20,31,0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-mid);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 40px 100px rgba(73,28,255,0.25);
+    display: flex; flex-direction: column; gap: 16px;
+    text-align: left;
+  }
+  .gate-card-label {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: ui-monospace, Menlo, monospace; font-size: 11px;
+    color: var(--text-faint); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .gate-card-label .meta { display: flex; align-items: center; gap: 6px; }
+  .gate-card-label .meta-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; }
+
+  .gate-input-wrap {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px;
+    background: rgba(10,10,20,0.6);
+    border: 1.5px solid var(--border-soft);
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .gate-input-wrap.has-focus { border-color: rgba(167,143,255,0.6); background: rgba(73,28,255,0.08); }
+  .gate-input-wrap.error { border-color: rgba(255,99,132,0.6); animation: shake 0.4s; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+  .gate-input-wrap .prompt { font-family: ui-monospace, Menlo, monospace; color: #a78fff; font-size: 14px; }
+  .gate-input {
+    flex: 1; background: transparent; border: none; outline: none;
+    color: #fff; font-size: 16px; font-family: 'Source Sans 3', sans-serif;
+    letter-spacing: 1px;
+  }
+  .gate-input::placeholder { color: var(--text-faint); letter-spacing: 0; }
+
+  .gate-toggle {
+    background: transparent; border: none; cursor: pointer;
+    color: var(--text-faint); font-size: 12px; font-family: ui-monospace, Menlo, monospace;
+    padding: 4px 8px; border-radius: 6px; transition: color 0.2s, background 0.2s;
+  }
+  .gate-toggle:hover { color: #fff; background: rgba(255,255,255,0.06); }
+
+  .gate-submit {
+    background: linear-gradient(135deg, #491cff, #ff99d4);
+    color: #fff; border: none; cursor: pointer;
+    padding: 14px 20px; border-radius: 12px;
+    font-size: 15px; font-weight: 700; font-family: inherit;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 8px 24px rgba(73,28,255,0.4);
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .gate-submit:hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(73,28,255,0.55); }
+  .gate-submit:active { transform: translateY(0); }
+  .gate-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .gate-error {
+    font-size: 13px; color: #ff99d4;
+    display: none; align-items: center; gap: 6px;
+    font-family: ui-monospace, Menlo, monospace;
+  }
+  .gate-error.show { display: flex; }
+
+  /* HINT BLOCK */
+  .gate-hint {
+    width: 100%;
+    border: 1px dashed rgba(167,143,255,0.25);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+    background: rgba(73,28,255,0.05);
+    text-align: left;
+  }
+  .gate-hint-icon {
+    flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(255,153,212,0.12); border: 1px solid rgba(255,153,212,0.25);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--brand-pink);
+  }
+  .gate-hint-icon svg { width: 16px; height: 16px; }
+  .gate-hint-text { display: flex; flex-direction: column; gap: 4px; }
+  .gate-hint-title { font-size: 13px; font-weight: 700; color: #fff; }
+  .gate-hint-body { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+  .gate-hint-body a { color: var(--brand-pink); text-decoration: none; border-bottom: 1px solid rgba(255,153,212,0.4); }
+  .gate-hint-body a:hover { color: #fff; border-color: #fff; }
+
+  /* FOOTER META */
+  .gate-meta {
+    margin-top: 8px;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 11px; color: var(--text-faint); letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;
+  }
+  .gate-meta .sep { opacity: 0.4; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 14px 16px; }
+    .nav-brand { font-size: 11px; }
+    .gate-wrap { padding: 40px 16px; }
+    .gate { gap: 22px; }
+    .gate h1 { font-size: 28px; letter-spacing: -0.6px; }
+    .gate p { font-size: 15px; }
+    .gate-card { padding: 22px; }
+    .gate-input { font-size: 15px; }
+    .vault { width: 72px; height: 72px; }
+    .vault-core { width: 56px; height: 56px; border-radius: 14px; }
+    .vault-core svg { width: 24px; height: 24px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <span class="logo">AY</span>
+      <span>aditya.design</span>
+    </a>
+    <a href="index.html" class="nav-back">← back to portfolio</a>
+  </nav>
+
+  <!-- GATE -->
+  <main class="gate-wrap">
+    <div class="gate">
+      <!-- Vault visual -->
+      <div class="vault">
+        <div class="vault-core">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="11" width="16" height="10" rx="2"/>
+            <path d="M8 11V7a4 4 0 018 0v4"/>
+            <circle cx="12" cy="16" r="1.2" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <span class="gate-kicker"><span class="dot"></span>Confidential · Salesforce</span>
+      <h1>This work is <em>under wraps</em>.</h1>
+      <p>
+        Everything I shipped at Salesforce — flows, screens, customer research, decision rationale — is confidential to my employer. If you have the magic word, you're welcome inside. If not, drop me a line and I'll happily walk you through it.
+      </p>
+
+      <!-- Form card -->
+      <form class="gate-card" id="gateForm" autocomplete="off">
+        <div class="gate-card-label">
+          <span>Enter the magic word</span>
+          <span class="meta"><span class="meta-dot"></span> session-locked</span>
+        </div>
+        <div class="gate-input-wrap" id="inputWrap">
+          <span class="prompt">›</span>
+          <input
+            id="passInput"
+            class="gate-input"
+            type="password"
+            placeholder="magic word…"
+            autofocus
+            spellcheck="false"
+            autocapitalize="off"
+            autocorrect="off"
+          />
+          <button type="button" class="gate-toggle" id="toggleVis" aria-label="Show password">show</button>
+        </div>
+        <div class="gate-error" id="gateError">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span id="errorText">Not quite — try again, or ping me for the word.</span>
+        </div>
+        <button type="submit" class="gate-submit" id="gateSubmit">
+          Unlock case study
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+
+      <!-- Hint -->
+      <div class="gate-hint">
+        <div class="gate-hint-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="gate-hint-text">
+          <span class="gate-hint-title">Don't have the magic word?</span>
+          <span class="gate-hint-body">
+            Email me at <a href="mailto:hello@adityay.com">hello@adityay.com</a> with a quick note about the role you're hiring for. I usually reply within a day.
+          </span>
+        </div>
+      </div>
+
+      <div class="gate-meta">
+        <span>protected work</span>
+        <span class="sep">·</span>
+        <span>respect for client confidentiality</span>
+        <span class="sep">·</span>
+        <span>vibe-coded</span>
+      </div>
+    </div>
+  </main>
+
+<script>
+  // ── Gate logic ──────────────────────────────────────────────
+  // The "magic word". To change: update MAGIC and reload.
+  // (This is portfolio-grade gating, not real security — the case study
+  //  HTML is still served if someone digs around. For tighter control,
+  //  serve the private file from a backend with auth.)
+  const MAGIC = 'magic';                       // ← change this to your password
+  const TARGET = 'case-personalization-private.html';
+  const SESSION_KEY = 'cs_personalization_unlocked';
+
+  // If already unlocked this session, jump straight in.
+  try {
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      window.location.replace(TARGET);
+    }
+  } catch (e) { /* sessionStorage may be blocked — show gate normally */ }
+
+  const form = document.getElementById('gateForm');
+  const input = document.getElementById('passInput');
+  const wrap = document.getElementById('inputWrap');
+  const errorEl = document.getElementById('gateError');
+  const errorText = document.getElementById('errorText');
+  const toggle = document.getElementById('toggleVis');
+  const submit = document.getElementById('gateSubmit');
+
+  input.addEventListener('focus', () => wrap.classList.add('has-focus'));
+  input.addEventListener('blur', () => wrap.classList.remove('has-focus'));
+  input.addEventListener('input', () => {
+    wrap.classList.remove('error');
+    errorEl.classList.remove('show');
+  });
+
+  toggle.addEventListener('click', () => {
+    if (input.type === 'password') {
+      input.type = 'text';
+      toggle.textContent = 'hide';
+    } else {
+      input.type = 'password';
+      toggle.textContent = 'show';
+    }
+    input.focus();
+  });
+
+  let attempts = 0;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = input.value.trim().toLowerCase();
+    if (!val) { input.focus(); return; }
+
+    if (val === MAGIC.toLowerCase()) {
+      // Success — set session flag, animate, redirect
+      try { sessionStorage.setItem(SESSION_KEY, '1'); } catch (e) {}
+      submit.disabled = true;
+      submit.innerHTML = 'Unlocking…';
+      wrap.style.borderColor = 'rgba(74,222,128,0.6)';
+      wrap.style.background = 'rgba(74,222,128,0.08)';
+      setTimeout(() => { window.location.href = TARGET; }, 450);
+    } else {
+      attempts++;
+      wrap.classList.add('error');
+      errorEl.classList.add('show');
+      if (attempts >= 3) {
+        errorText.innerHTML = 'Still not it? Email <a href="mailto:hello@adityay.com" style="color:#ff99d4;">hello@adityay.com</a> for the word.';
+      }
+      input.select();
+    }
+  });
+</script>
+</body>
+</html>
