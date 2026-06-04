@@ -322,7 +322,7 @@ const SafeProjects = () => (
 const SafeProjectCard = ({ c }) => {
   const [hov, setHov] = React.useState(false);
   return (
-    <a href={c.slug === "personalization" ? "case-personalization.html" : c.slug === "recommendations-engine" ? "case-recommendations-engine.html" : c.slug === "pulse-nexio" ? "case-tableau-pulse.html" : c.slug === "data-stories" ? "case-data-stories.html" : `#case-${c.slug}`}
+    <a href={c.slug === "personalization" ? "case-personalization-private.html" : c.slug === "recommendations-engine" ? "case-recommendations-engine.html" : c.slug === "pulse-nexio" ? "case-tableau-pulse.html" : c.slug === "data-stories" ? "case-data-stories.html" : `#case-${c.slug}`}
       onClick={(c.slug === "personalization" || c.slug === "recommendations-engine" || c.slug === "pulse-nexio" || c.slug === "data-stories") ? undefined : (e=>e.preventDefault())}
       onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
       style={{
@@ -369,10 +369,59 @@ const Tag = ({ children, pink }) => (
 // Shared mock visuals per case (used by both Safe + Bold)
 const MiniMock = ({ slug }) => {
   if (slug === "personalization") return <FlowMock/>;
+  if (slug === "recommendations-engine") return <RecsMock/>;
   if (slug === "pulse-nexio") return <PulseMock/>;
   if (slug === "data-stories") return <NLGMock/>;
   return <ABMock/>;
 };
+
+// Recommendations engine: content variants → qualifying logic → audience → delivered
+const RecsMock = () => (
+  <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
+    {/* content variants */}
+    <div style={{ display: "flex", gap: 6 }}>
+      {[
+        { c: "linear-gradient(135deg,#491cff,#a78fff)", l: "A" },
+        { c: "linear-gradient(135deg,#c4006d,#ff99d4)", l: "B" },
+        { c: "linear-gradient(135deg,#1d4ed8,#93c5fd)", l: "C" },
+        { c: "rgba(255,255,255,0.10)", l: "D" },
+      ].map((v, i) => (
+        <div key={i} style={{ flex: 1, borderRadius: 8, padding: "10px 8px", background: v.c, border: "1px solid rgba(255,255,255,0.14)", display: "flex", flexDirection: "column", gap: 6, alignItems: "center" }}>
+          <div style={{ width: "80%", height: 5, borderRadius: 3, background: "rgba(255,255,255,0.55)" }}/>
+          <div style={{ width: "55%", height: 5, borderRadius: 3, background: "rgba(255,255,255,0.30)" }}/>
+          <div style={{ fontSize: 9, fontWeight: 800, color: "rgba(255,255,255,0.85)", letterSpacing: 0.5 }}>{v.l}</div>
+        </div>
+      ))}
+    </div>
+
+    {/* funnel arrows into logic */}
+    <div style={{ textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.35)", lineHeight: 0.8 }}>↓ ↓ ↓ ↓</div>
+
+    {/* qualifying logic node */}
+    <div style={{ background: "rgba(73,28,255,0.22)", border: "1px solid rgba(167,143,255,0.5)", borderRadius: 10, padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <span style={{ width: 22, height: 22, borderRadius: 6, background: "linear-gradient(135deg,#491cff,#ff99d4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>✦</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>Decisioning logic</span>
+      </div>
+      <span style={{ fontSize: 10, fontWeight: 700, color: "#a78fff", fontFamily: "ui-monospace,Menlo,monospace" }}>rules + ML</span>
+    </div>
+
+    <div style={{ textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.35)", lineHeight: 0.8 }}>↓</div>
+
+    {/* qualified audience → delivered */}
+    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+      <div style={{ flex: 1, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 8, padding: "9px 11px" }}>
+        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 0.8, textTransform: "uppercase", color: "rgba(255,255,255,0.45)" }}>Qualified audience</div>
+        <div style={{ fontSize: 15, fontWeight: 900, color: "#fff", marginTop: 3 }}>High-LTV · in-stock</div>
+      </div>
+      <span style={{ fontSize: 16, color: "#4ade80" }}>→</span>
+      <div style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.35)", borderRadius: 8, padding: "9px 12px", textAlign: "center" }}>
+        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 0.8, textTransform: "uppercase", color: "#4ade80" }}>Delivered</div>
+        <div style={{ fontSize: 15, fontWeight: 900, color: "#fff", marginTop: 3 }}>Variant B</div>
+      </div>
+    </div>
+  </div>
+);
 const FlowMock = () => (
   <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 8 }}>
     {["Audience", "Rules", "Model", "Launch"].map((s, i) => (
@@ -492,4 +541,4 @@ const SafeVibeBadge = () => (
 );
 
 window.SafePortfolio = SafePortfolio;
-Object.assign(window, { MiniMock, FlowMock, PulseMock, NLGMock, ABMock });
+Object.assign(window, { MiniMock, FlowMock, PulseMock, NLGMock, ABMock, RecsMock });

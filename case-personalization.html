@@ -354,7 +354,9 @@
   // If already unlocked this session, jump straight in.
   try {
     if (sessionStorage.getItem(SESSION_KEY) === '1') {
-      window.location.replace(sessionStorage.getItem('cs_return') || TARGET);
+      var dest = sessionStorage.getItem('cs_return') || TARGET;
+      sessionStorage.removeItem('cs_return');
+      window.location.replace(dest);
     }
   } catch (e) { /* sessionStorage may be blocked — show gate normally */ }
 
@@ -397,7 +399,7 @@
       submit.innerHTML = 'Unlocking…';
       wrap.style.borderColor = 'rgba(74,222,128,0.6)';
       wrap.style.background = 'rgba(74,222,128,0.08)';
-      setTimeout(() => { window.location.href = sessionStorage.getItem('cs_return') || TARGET; }, 450);
+      setTimeout(() => { var d = sessionStorage.getItem('cs_return') || TARGET; sessionStorage.removeItem('cs_return'); window.location.href = d; }, 450);
     } else {
       attempts++;
       wrap.classList.add('error');

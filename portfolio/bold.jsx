@@ -479,7 +479,7 @@ const BoldCase = ({ c, expanded, onToggle }) => (
     className="bp-case"
     data-expanded={expanded ? "true" : "false"}
     onClick={() => {
-      if (c.slug === "personalization") { window.location.href = "case-personalization.html"; return; }
+      if (c.slug === "personalization") { window.location.href = "case-personalization-private.html"; return; }
       if (c.slug === "recommendations-engine") { window.location.href = "case-recommendations-engine.html"; return; }
       if (c.slug === "pulse-nexio") { window.location.href = "case-tableau-pulse.html"; return; }
       if (c.slug === "data-stories") { window.location.href = "case-data-stories.html"; return; }

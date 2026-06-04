@@ -10,6 +10,7 @@
     (function () {
       try {
         if (sessionStorage.getItem('cs_unlocked') !== '1') {
+          sessionStorage.setItem('cs_return', 'case-personalization-private.html');
           window.location.replace('case-personalization.html');
         }
       } catch (e) {
@@ -314,9 +315,9 @@
       </div>
 
       <div class="cs-tags">
-        <span class="cs-tag">0→1 Platform</span>
+        <span class="cs-tag">Platform UX</span>
         <span class="cs-tag">Enterprise SaaS</span>
-        <span class="cs-tag">AI / ML UX</span>
+        <span class="cs-tag">0→1</span>
         <span class="cs-tag">Cross-cloud Pattern</span>
         <span class="cs-tag pink">Salesforce</span>
       </div>
