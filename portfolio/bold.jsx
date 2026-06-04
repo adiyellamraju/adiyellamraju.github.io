@@ -2,7 +2,7 @@
 const BoldMiniMock = ({ slug }) => (window.MiniMock ? <window.MiniMock slug={slug}/> : null);
 
 const BoldPortfolio = () => (
-  <div style={{ width: "100%", minHeight: "100%", background: "#1a1a24", color: "#f0f0f5", fontFamily: "'Source Sans 3',sans-serif", position: "relative", overflow: "hidden" }}>
+  <div style={{ width: "100%", minHeight: "100%", background: "#1a1a24", color: "#f0f0f5", fontFamily: "'Source Sans 3',sans-serif", position: "relative", overflowX: "clip" }}>
     <BoldGrid />
     <BoldNav />
     <BoldHero />
@@ -195,9 +195,8 @@ const BoldBubble = ({ role, text }) => (
 
 // ─── VIBE-CODING PROTOTYPES ───────────────────────────────────────────
 const VIBE_PROTOS = [
-  { src: "assets/vibe/proto-1.gif", title: "Agentic chat surface", tool: "Claude + Cursor", desc: "A working conversational UI, prototyped and clickable in an afternoon." },
-  { src: "assets/vibe/proto-2.gif", title: "Config wizard flow", tool: "Figma Make", desc: "Live, navigable wizard — tested with real edge cases, not static frames." },
-  { src: "assets/vibe/proto-3.gif", title: "Data-viz interaction", tool: "Claude Code", desc: "Motion and state explored in code, where the idea actually lives." },
+  { src: "assets/vibe/proto-1.gif", title: "Salesforce Personalization Campaign", tool: "Claude + Cursor", desc: "The core configuration platform, reimagined marketer-friendly — prototyped and clickable, not static frames." },  { src: "assets/vibe/proto-2.gif", title: "Agentic Web Content Personalization", tool: "Cursor", desc: "The platform applied to a conversational, agentic marketing use case — live and navigable." },
+  { src: "assets/vibe/proto-3.gif", title: "Agentic Recommendation Filters Creation", tool: "Claude Code", desc: "Part of the recommendations engine — building catalog filters through a natural-language agent." },
 ];
 const BoldVibeProtos = () => (
   <div style={{ marginTop: 40 }}>
@@ -213,14 +212,11 @@ const BoldVibeProtos = () => (
               onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "flex"; }} />
             <div style={{ display: "none", position: "absolute", inset: 0, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8, color: "rgba(167,143,255,0.8)", textAlign: "center", padding: 16 }}>
               <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>GIF coming</span>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Drop a screen recording here</span>
             </div>
           </div>
           <div style={{ padding: "16px 18px", display: "flex", flexDirection: "column", gap: 6 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 16, fontWeight: 800, color: "#fff" }}>{p.title}</span>
-              <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "#a78fff", background: "rgba(73,28,255,0.15)", border: "1px solid rgba(167,143,255,0.3)", borderRadius: 6, padding: "2px 8px", marginLeft: "auto" }}>{p.tool}</span>
-            </div>
+            <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "#a78fff", background: "rgba(73,28,255,0.15)", border: "1px solid rgba(167,143,255,0.3)", borderRadius: 6, padding: "2px 8px", alignSelf: "flex-start", textTransform: "uppercase", letterSpacing: 0.8 }}>{p.tool}</span>
+            <span style={{ fontSize: 16, fontWeight: 800, color: "#fff", lineHeight: 1.25 }}>{p.title}</span>
             <span style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.5 }}>{p.desc}</span>
           </div>
         </div>
@@ -404,6 +400,12 @@ const BoldNow = () => (
         </div>
       ))}
     </div>
+
+    {/* Featured — Agentblazer Champion (recognition) */}
+    <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%)", borderRadius: 14, marginTop: 16, flexWrap: "wrap" }}>
+      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#ffd6ec", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>★ Recognition</span>
+      <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Salesforce <strong><a href="https://trailhead.salesforce.com/agentblazer" target="_blank" rel="noopener" style={{ color: "#ffd6ec", textDecoration: "none", borderBottom: "1px solid rgba(255,214,236,0.4)" }}>Agentblazer Champion</a></strong> — top-tier status in Salesforce's Agentblazer program, recognizing advanced expertise in building with Agentforce, Data Cloud, and AI on the Salesforce platform.</span>
+    </div>
   </section>
 );
 
@@ -412,37 +414,55 @@ const BoldToolkit = () => (
   <section id="toolkit" className="bp-section" style={{ position: "relative", zIndex: 1, padding: "64px 32px", maxWidth: 1100, margin: "0 auto" }}>
     <SectionKicker>03 · vibe coding toolkit</SectionKicker>
     <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, marginBottom: 8, color: "#ffffff" }}>AI-fluent design isn't a buzzword. It's my workbench.</h2>
-    <p style={{ fontSize: 18, color: "rgba(255,255,255,0.7)", lineHeight: 1.6, marginBottom: 28, maxWidth: 780 }}>
+    <p style={{ fontSize: 18, color: "rgba(255,255,255,0.7)", lineHeight: 1.6, marginBottom: 28, maxWidth: "none" }}>
       Every artifact in this portfolio was built with the tools below. Each one earns its place — I pick the right tool for the moment, not the brand.
     </p>
 
-    {/* Featured — Agentforce Champion */}
-    <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%)", borderRadius: 14, marginBottom: 20, flexWrap: "wrap" }}>
-      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#ffd6ec", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>★ Recognition</span>
-      <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Salesforce <strong><a href="https://trailhead.salesforce.com/agentblazer" target="_blank" rel="noopener" style={{ color: "#ffd6ec", textDecoration: "none", borderBottom: "1px solid rgba(255,214,236,0.4)" }}>Agentblazer Champion</a></strong> — top-tier status in Salesforce's Agentblazer program, recognizing advanced expertise in building with Agentforce, Data Cloud, and AI on the Salesforce platform.</span>
+    {/* Primary toolkit */}
+    <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,153,212,0.9)", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800, marginBottom: 12 }}>Primary toolkit — daily drivers</div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10, marginBottom: 24 }}>
+      {[
+        { name: "Claude", note: "daily driver — chat, agent, code", logo: "https://cdn.simpleicons.org/anthropic/ffffff" },
+        { name: "Claude Code", note: "in-IDE pair programmer", logo: "https://cdn.simpleicons.org/anthropic/ffffff" },
+        { name: "GitHub", note: "version control & deploys", logo: "https://cdn.simpleicons.org/github/ffffff" },
+        { name: "Gemini", note: "multi-modal exploration", logo: "https://cdn.simpleicons.org/googlegemini/ffffff" },
+        { name: "Agentforce", note: "Salesforce agentic platform", logo: "https://www.salesforce.com/news/wp-content/uploads/sites/3/2020/08/cropped-Salesforce_Logo_Web_Notext-1.png", filter: "brightness(0) invert(1)" },
+      ].map((t, i) => (
+        <div key={i} style={{
+          background: "rgba(73,28,255,0.14)",
+          border: "1px solid rgba(167,143,255,0.4)",
+          borderRadius: 12, padding: "14px 16px",
+          display: "flex", gap: 12, alignItems: "center",
+        }}>
+          <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            {t.svg ? t.svg : <img src={t.logo} alt="" width="20" height="20" style={{ opacity: 0.92, filter: t.filter }} onError={(e) => e.currentTarget.style.display = "none"} />}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+            <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{t.name}</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.4 }}>{t.note}</span>
+          </div>
+        </div>
+      ))}
     </div>
 
-    {/* Tool grid */}
+    {/* Also in rotation */}
+    <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.45)", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800, marginBottom: 12 }}>Also in rotation</div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
       {[
-        { name: "Claude", note: "daily driver — chat, agent, code", featured: true, logo: "https://cdn.simpleicons.org/anthropic/ffffff" },
-        { name: "Claude Code", note: "in-IDE pair programmer", featured: true, logo: "https://cdn.simpleicons.org/anthropic/ffffff" },
-        { name: "GitHub", note: "version control & deploys", logo: "https://cdn.simpleicons.org/github/ffffff" },
         { name: "Cursor", note: "AI-native code editor", logo: "https://cdn.simpleicons.org/cursor/ffffff" },
         { name: "Figma Make", note: "AI-powered Figma prototyping", logo: "https://cdn.simpleicons.org/figma/ffffff" },
         { name: "ChatGPT", note: "research + copy generation", svg: <svg viewBox="0 0 24 24" width="20" height="20" fill="#ffffff" aria-hidden="true"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365 2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/></svg> },
         { name: "Google NotebookLM", note: "source-grounded synthesis", logo: "https://cdn.simpleicons.org/google/ffffff" },
-        { name: "Gemini", note: "multi-modal exploration", logo: "https://cdn.simpleicons.org/googlegemini/ffffff" },
       ].map((t, i) => (
         <div key={i} style={{
-          background: t.featured ? "rgba(73,28,255,0.14)" : "rgba(36,36,48,0.7)",
-          border: `1px solid ${t.featured ? "rgba(167,143,255,0.4)" : "rgba(255,255,255,0.08)"}`,
+          background: "rgba(36,36,48,0.7)",
+          border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: 12, padding: "14px 16px",
           display: "flex", gap: 12, alignItems: "center",
         }}>
           {(t.logo || t.svg) && (
             <div style={{ width: 36, height: 36, borderRadius: 8, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              {t.svg ? t.svg : <img src={t.logo} alt="" width="20" height="20" style={{ opacity: 0.92 }} onError={(e) => e.currentTarget.style.display = "none"} />}
+              {t.svg ? t.svg : <img src={t.logo} alt="" width="20" height="20" style={{ opacity: 0.92, filter: t.filter }} onError={(e) => e.currentTarget.style.display = "none"} />}
             </div>
           )}
           <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
