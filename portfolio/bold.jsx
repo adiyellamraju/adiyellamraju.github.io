@@ -72,16 +72,27 @@ const BoldHero = () => (
       <span className="bp-hero-kicker" style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.5)", letterSpacing: 1.5, textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 8, marginTop: 8 }}>
         <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite", color: "#ff99d4", filter: "drop-shadow(0 0 8px rgba(255,153,212,0.7))" }}><SparkleIcon size={14}/></span> To learn more, talk to an agent that knows Aditya — ask it anything
       </span>
-      <button onClick={() => window.dispatchEvent(new Event("open-agent"))} style={{
-        marginTop: 4, display: "inline-flex", alignItems: "center", gap: 10,
-        background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff",
-        border: "none", borderRadius: 100, padding: "15px 28px", cursor: "pointer",
-        fontSize: 16, fontWeight: 700, fontFamily: "inherit",
-        boxShadow: "0 14px 40px rgba(73,28,255,0.5)",
-      }}>
-        <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite" }}><SparkleIcon size={16}/></span>
-        Ask the agent
-      </button>
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 4 }}>
+        <button onClick={() => window.dispatchEvent(new Event("open-agent"))} style={{
+          display: "inline-flex", alignItems: "center", gap: 10,
+          background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff",
+          border: "none", borderRadius: 100, padding: "15px 28px", cursor: "pointer",
+          fontSize: 16, fontWeight: 700, fontFamily: "inherit",
+          boxShadow: "0 14px 40px rgba(73,28,255,0.5)",
+        }}>
+          <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite" }}><SparkleIcon size={16}/></span>
+          Ask the agent
+        </button>
+        <a href="#work" style={{
+          display: "inline-flex", alignItems: "center", gap: 8,
+          background: "transparent", color: "rgba(255,255,255,0.85)",
+          border: "1.5px solid rgba(255,255,255,0.25)", borderRadius: 100,
+          padding: "15px 26px", cursor: "pointer", fontSize: 16, fontWeight: 600,
+          fontFamily: "inherit", textDecoration: "none",
+        }}>
+          Just show me the work →
+        </a>
+      </div>
     </div>
     <BoldHeroStats />
   </section>
@@ -104,11 +115,11 @@ const CANNED_BOLD = {
 const BigAgentChat = ({ compact }) => {
   const [messages, setMessages] = React.useState([
     { role: "system", text: "agent initialized · reading aditya_yellamraju.résumé ·  indexing 9 years of work…" },
-    { role: "agent", text: "Hi — I'm the agent version of Aditya's résumé. He designs AI experiences for a living, so he built me instead of a bio page. Ask me about his work, or try one of the prompts below." },
+    { role: "agent", text: "Heads up — I'm still in training. Aditya's teaching me everything he knows (9 years of it, so… give him a minute). Soon I'll answer anything about his work, his process, and why he vibe-codes. For now, find him on LinkedIn — he replies faster than I load. 🤖✨" },
   ]);
   const [input, setInput] = React.useState("");
   const [typing, setTyping] = React.useState(false);
-  const [sugg, setSugg] = React.useState(SUGGESTIONS_BOLD);
+  const [sugg, setSugg] = React.useState([]);
   const scrollRef = React.useRef(null);
   React.useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [messages, typing]);
 
@@ -118,15 +129,7 @@ const BigAgentChat = ({ compact }) => {
     setInput("");
     setSugg(s => s.filter(x => x !== q));
     setTyping(true);
-    let reply = CANNED_BOLD[q];
-    if (!reply && typeof window.claude?.complete === "function") {
-      try {
-        reply = await window.claude.complete({
-          messages: [{ role: "user", content: "You are the portfolio agent for Aditya Yellamraju. He's a Senior Product Designer, 9 years, Salesforce+Tableau, specialty in AI/ML UX, data storytelling, experimentation, personalization. He vibe-codes with Claude+Cursor and is open to Staff/Lead roles. Tagline: 'Design agentic experiences with agentic tools.' Answer in 2-3 sentences, in his confident professional voice. Question: " + q }],
-        });
-      } catch {}
-    }
-    if (!reply) reply = "Ask me about any of the case studies — Personalization, Tableau Pulse, Data Stories, or Experimentation — or what 'vibe-coded' means in practice.";
+    let reply = "Still in training, still can't help you properly — the irony of an AI portfolio with a not-yet-AI agent isn't lost on me. 😅 Aditya's on it. Catch him on LinkedIn meanwhile.";
     await new Promise(r => setTimeout(r, 700));
     setTyping(false);
     setMessages(m => [...m, { role: "agent", text: reply }]);
