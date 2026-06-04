@@ -556,8 +556,8 @@ const BoldFooter = () => (
       </div>
     </div>
     <div className="bp-footer-meta" style={{ display: "flex", justifyContent: "space-between", marginTop: 32, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
-      <span>© 2026 · aditya yellamraju</span>
-      <span>vibe-coded with Claude</span>
+      <span>© 2026 · aditya yellamraju · handcrafted, then robot-polished</span>
+      <span>no designers were replaced in the making of this site</span>
     </div>
   </footer>
 );

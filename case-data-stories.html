@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Stories — Aditya Yellamraju</title>
+  <script>
+    (function () {
+      try {
+        if (sessionStorage.getItem('cs_unlocked') !== '1') {
+          sessionStorage.setItem('cs_return', 'case-data-stories.html');
+          window.location.replace('case-personalization.html');
+        }
+      } catch (e) { window.location.replace('case-personalization.html'); }
+    })();
+  </script>
   <link rel="stylesheet" href="colors_and_type.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -65,7 +75,7 @@
     .hero-stripe { height: 4px; background: linear-gradient(to right, var(--brand), var(--brand-pink)); }
 
     /* CONTENT */
-    .cs-content { max-width: 1440px; margin: 0 auto; padding: 80px 64px 120px; position: relative; z-index: 1; }
+    .cs-content { width: 80%; max-width: 1700px; margin: 0 auto; padding: 80px 0 120px; position: relative; z-index: 1; }
 
     .cs-section { padding: 80px 0 0; display: grid; grid-template-columns: 280px 1fr; gap: 64px; border-top: 1px solid var(--border-soft); margin-top: 80px; }
     .cs-section:first-child { border-top: none; margin-top: 0; padding-top: 0; }
@@ -136,7 +146,7 @@
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .cs-hero { padding: 140px 40px 64px; }
-      .cs-content { padding: 64px 40px 80px; }
+      .cs-content { width: auto; padding: 64px 40px 80px; }
       .cs-section { grid-template-columns: 1fr; gap: 24px; }
       .cs-section-label { position: static; flex-direction: row; align-items: center; gap: 16px; }
       .cs-footer-cta { padding: 56px 40px; }
@@ -442,6 +452,11 @@
       <p>Personalization Core · AI Recommendations · Tableau Pulse · Experimentation</p>
     </div>
     <a class="btn-back" href="index.html#projects">← Back to all projects</a>
+  </div>
+
+  <div style="background: #14141c; border-top: 1px solid rgba(255,255,255,0.08); padding: 22px 64px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: ui-monospace,Menlo,monospace; font-size: 12px; color: rgba(255,255,255,0.35);">
+    <span>© 2026 · aditya yellamraju · handcrafted, then robot-polished</span>
+    <span>no designers were replaced in the making of this site</span>
   </div>
 
   <!-- VIBE BADGE -->

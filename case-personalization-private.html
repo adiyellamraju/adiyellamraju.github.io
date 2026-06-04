@@ -9,7 +9,7 @@
     // Runs before any rendering so the page never flashes if locked.
     (function () {
       try {
-        if (sessionStorage.getItem('cs_personalization_unlocked') !== '1') {
+        if (sessionStorage.getItem('cs_unlocked') !== '1') {
           window.location.replace('case-personalization.html');
         }
       } catch (e) {
@@ -84,7 +84,7 @@
     .hero-stripe { height: 4px; background: linear-gradient(to right, var(--brand), var(--brand-pink)); }
 
     /* CONTENT */
-    .cs-content { max-width: 1440px; margin: 0 auto; padding: 0 64px 120px; position: relative; z-index: 1; }
+    .cs-content { width: 80%; max-width: 1700px; margin: 0 auto; padding: 0 0 120px; position: relative; z-index: 1; }
 
     .cs-section { padding: 80px 0 0; display: grid; grid-template-columns: 280px 1fr; gap: 64px; border-top: 1px solid var(--border-soft); margin-top: 80px; }
     .cs-section:first-child { border-top: none; margin-top: 0; padding-top: 80px; }
@@ -235,7 +235,7 @@
     @media (max-width: 1024px) {
       .cs-hero { padding: 140px 40px 64px; }
       .cs-hero-img-wrap { padding: 0 40px 48px; }
-      .cs-content { padding: 0 40px 80px; }
+      .cs-content { width: auto; padding: 0 40px 80px; }
       .cs-section { grid-template-columns: 1fr; gap: 24px; }
       .cs-section-label { position: static; flex-direction: row; align-items: center; gap: 16px; }
       .cs-outcomes { grid-template-columns: 1fr 1fr; }
@@ -996,6 +996,11 @@
       <p>Tableau Pulse · Project Nexio · Data Stories · Experimentation UX</p>
     </div>
     <a class="btn-back" href="index.html#projects">← Back to all projects</a>
+  </div>
+
+  <div style="background: #14141c; border-top: 1px solid rgba(255,255,255,0.08); padding: 22px 64px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: ui-monospace,Menlo,monospace; font-size: 12px; color: rgba(255,255,255,0.35);">
+    <span>© 2026 · aditya yellamraju · handcrafted, then robot-polished</span>
+    <span>no designers were replaced in the making of this site</span>
   </div>
 
   <!-- VIBE BADGE -->

@@ -326,7 +326,7 @@
         <div class="gate-hint-text">
           <span class="gate-hint-title">Don't have the magic word?</span>
           <span class="gate-hint-body">
-            Email me at <a href="mailto:hello@adityay.com">hello@adityay.com</a> with a quick note about the role you're hiring for. I usually reply within a day.
+            Email me at <a href="mailto:adiyellamraju@gmail.com">adiyellamraju@gmail.com</a> with a quick note about the role you're hiring for. I usually reply within a day.
           </span>
         </div>
       </div>
@@ -334,7 +334,7 @@
       <div class="gate-meta">
         <span>protected work</span>
         <span class="sep">·</span>
-        <span>respect for client confidentiality</span>
+        <span>respect for employer confidentiality</span>
         <span class="sep">·</span>
         <span>vibe-coded</span>
       </div>
@@ -349,12 +349,12 @@
   //  serve the private file from a backend with auth.)
   const MAGIC = 'magic';                       // ← change this to your password
   const TARGET = 'case-personalization-private.html';
-  const SESSION_KEY = 'cs_personalization_unlocked';
+  const SESSION_KEY = 'cs_unlocked';
 
   // If already unlocked this session, jump straight in.
   try {
     if (sessionStorage.getItem(SESSION_KEY) === '1') {
-      window.location.replace(TARGET);
+      window.location.replace(sessionStorage.getItem('cs_return') || TARGET);
     }
   } catch (e) { /* sessionStorage may be blocked — show gate normally */ }
 
@@ -397,13 +397,13 @@
       submit.innerHTML = 'Unlocking…';
       wrap.style.borderColor = 'rgba(74,222,128,0.6)';
       wrap.style.background = 'rgba(74,222,128,0.08)';
-      setTimeout(() => { window.location.href = TARGET; }, 450);
+      setTimeout(() => { window.location.href = sessionStorage.getItem('cs_return') || TARGET; }, 450);
     } else {
       attempts++;
       wrap.classList.add('error');
       errorEl.classList.add('show');
       if (attempts >= 3) {
-        errorText.innerHTML = 'Still not it? Email <a href="mailto:hello@adityay.com" style="color:#ff99d4;">hello@adityay.com</a> for the word.';
+        errorText.innerHTML = 'Still not it? Email <a href="mailto:adiyellamraju@gmail.com" style="color:#ff99d4;">adiyellamraju@gmail.com</a> for the word.';
       }
       input.select();
     }

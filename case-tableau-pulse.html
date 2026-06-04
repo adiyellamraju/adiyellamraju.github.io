@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tableau Pulse & Project Nexio — Aditya Yellamraju</title>
+  <script>
+    (function () {
+      try {
+        if (sessionStorage.getItem('cs_unlocked') !== '1') {
+          sessionStorage.setItem('cs_return', 'case-tableau-pulse.html');
+          window.location.replace('case-personalization.html');
+        }
+      } catch (e) { window.location.replace('case-personalization.html'); }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet" />
@@ -205,9 +215,10 @@
 
     /* ── CONTENT ── */
     .cs-content {
-      max-width: 1440px;
+      width: 80%;
+      max-width: 1700px;
       margin: 0 auto;
-      padding: 0 64px 120px;
+      padding: 0 0 120px;
     }
 
     /* ── SECTION ── */
@@ -614,7 +625,7 @@
     /* Responsive */
     @media (max-width: 1024px) {
       .cs-hero { padding: 140px 40px 80px; }
-      .cs-content { padding: 0 40px 80px; }
+      .cs-content { width: auto; padding: 0 40px 80px; }
       .cs-section { grid-template-columns: 1fr; gap: 24px; }
       .cs-section-label { flex-direction: row; align-items: center; gap: 16px; }
       .cs-outcomes { grid-template-columns: 1fr 1fr; }
@@ -759,7 +770,10 @@
   <!-- HERO SCREEN -->
   <div style="background: #1c1c1c; padding: 0 64px 64px; max-width:100%;">
     <div class="cs-hero-img">
-      <img src="https://www.figma.com/api/mcp/asset/DNStD0HNjxGEMPCcTTNwTD/13-21908" alt="Tableau Pulse Homepage — Metrics Grid" />
+      <div style="min-height: 420px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
+        <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
+        <span style="font-size:15px; color:rgba(255,255,255,0.55); max-width:420px; line-height:1.5;">Tableau Pulse homepage — metrics grid. Export pending.</span>
+      </div>
     </div>
   </div>
 
@@ -956,7 +970,9 @@
         <div class="cs-screens">
 
           <div class="cs-screen">
-            <img src="https://www.figma.com/api/mcp/asset/S5jrbRyOTG9alP2IPyx5Jb/1-11960" alt="Tableau Pulse — Daily Metrics Email Digest" />
+            <div style="min-height: 300px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
+              <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
+            </div>
             <div class="cs-screen-caption">
               <span class="cs-screen-caption-title">Metrics Email Digest</span>
               <span class="cs-screen-caption-desc">The primary entry point for business users — a personalized daily digest delivered to their inbox, surfacing unusual movements in metrics they follow. Designed to work standalone without any Pulse context.</span>
@@ -964,7 +980,9 @@
           </div>
 
           <div class="cs-screen">
-            <img src="https://www.figma.com/api/mcp/asset/8OFaew9NSguewc77CL3kdk/333-2064" alt="Tableau Pulse — Metric Detail with AI Insight" />
+            <div style="min-height: 300px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
+              <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
+            </div>
             <div class="cs-screen-caption">
               <span class="cs-screen-caption-title">Metric Detail — AI-Powered Insight</span>
               <span class="cs-screen-caption-desc">The drill-down experience. Natural language AI insights explain what's driving change, with a conversational Q&A interface for further investigation. Designed to make statistical analysis feel like a conversation.</span>
@@ -973,14 +991,18 @@
 
           <div class="cs-screens-2up">
             <div class="cs-screen">
-              <img src="https://www.figma.com/api/mcp/asset/DNStD0HNjxGEMPCcTTNwTD/4-14428" alt="Tableau Pulse — Search Typeahead" />
+              <div style="min-height: 240px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
+                <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
+              </div>
               <div class="cs-screen-caption">
                 <span class="cs-screen-caption-title">Search — Typeahead</span>
                 <span class="cs-screen-caption-desc">Instant metric discovery with follower counts as social proof signals, helping users find the right metrics faster.</span>
               </div>
             </div>
             <div class="cs-screen">
-              <img src="https://www.figma.com/api/mcp/asset/DNStD0HNjxGEMPCcTTNwTD/4-15323" alt="Tableau Pulse — Search Results" />
+              <div style="min-height: 240px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
+                <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
+              </div>
               <div class="cs-screen-caption">
                 <span class="cs-screen-caption-title">Search — Results</span>
                 <span class="cs-screen-caption-desc">Full results page showing metric variants by dimension, allowing users to find exactly the slice of data most relevant to their role.</span>
@@ -1059,6 +1081,11 @@
     <a class="btn-back" href="index.html#projects">
       ← Back to all projects
     </a>
+  </div>
+
+  <div style="background: #14141c; border-top: 1px solid rgba(255,255,255,0.08); padding: 22px 64px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: ui-monospace,Menlo,monospace; font-size: 12px; color: rgba(255,255,255,0.35);">
+    <span>© 2026 · aditya yellamraju · handcrafted, then robot-polished</span>
+    <span>no designers were replaced in the making of this site</span>
   </div>
 
   <!-- VIBE BADGE -->

@@ -88,19 +88,19 @@ const CASES = [
 
 const TESTIMONIALS = [
   {
-    quote: "Aditya doesn't just design screens — he redesigns the problem. He's one of a small handful of designers I'd trust to own a 0→1 AI product end-to-end.",
-    name: "PM, Salesforce",
-    role: "Marketing Cloud Personalization",
+    quote: "His ability to see the bigger picture and craft detailed prototypes was instrumental in creating the compelling experiences included in the Dreamforce 2022 main-stage keynote. He brings a high level of empathy and a deep understanding of user needs to his work.",
+    name: "Sr. Director, UX Design",
+    role: "Agentforce Platform, Salesforce · managed Aditya directly",
   },
   {
-    quote: "The clearest translator between ML research and a usable product I've worked with. Our shipped UX was dramatically better because of him.",
-    name: "Eng Lead, Tableau",
-    role: "Pulse & Project Nexio",
+    quote: "An empathetic, curious, and exceptional UX designer. He led multiple research studies and detailed prototypes under tight timelines — always grounded in a deep understanding of real human needs. He breaks complex problems into manageable pieces and brings people together around a shared solution.",
+    name: "Senior Product Designer",
+    role: "Salesforce · partnered with Aditya for 2 years",
   },
   {
-    quote: "He treats vibe-coding as a design medium, not a shortcut. The prototypes he built set the bar for the entire org.",
-    name: "Design Director",
-    role: "Salesforce",
+    quote: "He understands the science and the art of good UX and UI delivery — a rare skill. He can envision an idea, bring it into the execution phase, and deliver it the right way. A truly multi-talented UX professional.",
+    name: "Principal Engineer",
+    role: "Walmart Global Tech · Aditya's client on Flying Squirrel",
   },
 ];
 
