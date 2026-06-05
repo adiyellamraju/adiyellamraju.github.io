@@ -58,6 +58,22 @@ const BoldNav = () => (
 // ─── BOLD HERO: agent as the hero ────────────────────────────────────────
 const BoldHero = () => (
   <section id="home" className="bp-hero" style={{ position: "relative", zIndex: 1, padding: "56px 32px 64px", maxWidth: 1280, margin: "0 auto" }}>
+    <div aria-hidden className="bp-hero-face" style={{
+      position: "absolute", top: -150, left: "50%", transform: "translateX(-50%)",
+      width: "100vw", height: 1940, zIndex: -1, overflow: "hidden", pointerEvents: "none",
+      WebkitMaskImage: "linear-gradient(to bottom, #000 90%, transparent 100%)",
+      maskImage: "linear-gradient(to bottom, #000 90%, transparent 100%)",
+    }}>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#491cff 0%,#a78fff 45%,#ff99d4 100%)" }}/>
+      <img src="assets/aditya-portrait.jpg" alt="" className="bp-hero-face-img" style={{
+        position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
+        objectPosition: "16% 16%", transform: "scale(1.08) translateY(-11%)", transformOrigin: "50% 0%",
+        filter: "grayscale(1) contrast(1.08) brightness(0.86)", mixBlendMode: "luminosity", opacity: 0.6,
+      }}/>
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 44% at 62% 30%, rgba(26,26,36,0.68), transparent 74%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(26,26,36,0.7) 0%, rgba(26,26,36,0.58) 20%, rgba(26,26,36,0.54) 46%, rgba(26,26,36,0.64) 86%, #1a1a24 100%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1a1a24 0%, rgba(26,26,36,0.9) 24%, rgba(26,26,36,0.58) 46%, rgba(26,26,36,0.2) 78%, transparent 94%)" }}/>
+    </div>
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, marginBottom: 40 }}>
       <h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1.08, letterSpacing: -2, textAlign: "center", maxWidth: 1100, margin: 0, color: "#ffffff" }}>
         <span style={{ color: "rgba(255,255,255,0.98)" }}>9 years of UX, from startups to </span>
