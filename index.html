@@ -57,6 +57,10 @@
     .bp-nav-brand .bp-nav-status { display: none !important; }
     .bp-nav-links { gap: 7px !important; font-size: 11px !important; flex-wrap: nowrap !important; white-space: nowrap !important; flex-shrink: 0 !important; }
 
+    /* Center the portrait on mobile so the face isn't pushed off the right edge */
+    .bp-hero-face-img { object-position: 50% 14% !important; transform: scale(1.12) translateY(-6%) !important; }
+    .bp-hero-face > div:nth-of-type(4) { background: linear-gradient(90deg, rgba(26,26,36,0.55), rgba(26,26,36,0.12) 30%, transparent 50%, rgba(26,26,36,0.12) 70%, rgba(26,26,36,0.55)) !important; }
+
     .bp-hero { padding: 28px 16px 40px !important; }
     .bp-hero-kicker { font-size: 11px !important; text-align: center; }
     .bp-hero h1 { font-size: 32px !important; letter-spacing: -0.8px !important; line-height: 1.1 !important; }
