@@ -68,11 +68,11 @@ const BoldHero = () => (
       <img src="assets/aditya-portrait.jpg" alt="" className="bp-hero-face-img" style={{
         position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
         objectPosition: "16% 16%", transform: "scale(1.08) translateY(-11%)", transformOrigin: "50% 0%",
-        filter: "grayscale(1) contrast(1.08) brightness(0.86)", mixBlendMode: "luminosity", opacity: 0.6,
+        filter: "grayscale(1) contrast(1.08) brightness(0.94)", mixBlendMode: "luminosity", opacity: 0.7,
       }}/>
-      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 44% at 62% 30%, rgba(26,26,36,0.68), transparent 74%)" }}/>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(26,26,36,0.7) 0%, rgba(26,26,36,0.58) 20%, rgba(26,26,36,0.54) 46%, rgba(26,26,36,0.64) 86%, #1a1a24 100%)" }}/>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1a1a24 0%, rgba(26,26,36,0.9) 24%, rgba(26,26,36,0.58) 46%, rgba(26,26,36,0.2) 78%, transparent 94%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 44% at 62% 30%, rgba(26,26,36,0.58), transparent 76%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(26,26,36,0.6) 0%, rgba(26,26,36,0.48) 20%, rgba(26,26,36,0.46) 46%, rgba(26,26,36,0.58) 86%, #1a1a24 100%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1a1a24 0%, rgba(26,26,36,0.82) 24%, rgba(26,26,36,0.5) 46%, rgba(26,26,36,0.16) 78%, transparent 94%)" }}/>
     </div>
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, marginBottom: 40 }}>
       <h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1.08, letterSpacing: -2, textAlign: "center", maxWidth: 1100, margin: 0, color: "#ffffff" }}>
@@ -299,9 +299,9 @@ const BoldHeroStats = () => (
     {/* Top row — 3 hero numbers */}
     <div className="bp-stats-row1" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
       {[
-        ["9", "years of UX"],
-        ["2", "0→1 launches"],
-        ["10+", "vibe-coded prototypes"],
+        ["3", "AI / NLG products designed"],
+        ["5", "platform capabilities owned"],
+        ["2", "0→1 platform launches"],
       ].map(([n, l], i) => (
         <div key={i} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 14, padding: "22px 20px", textAlign: "center" }}>
           <div className="bp-stat-num" style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, lineHeight: 1, background: "linear-gradient(90deg,#491cff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 6 }}>{n}</div>
@@ -539,7 +539,19 @@ const BoldCase = ({ c, expanded, onToggle }) => (
         <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#ff99d4" }}>{c.slug === "experimentation" ? "Coming soon" : c.tags[0]}</span>
       </div>
       <h3 style={{ fontSize: 26, fontWeight: 900, lineHeight: 1.15, letterSpacing: -0.5, color: "#ffffff" }}>{c.title}</h3>
+      {c.role && (
+        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+          <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#ff99d4", background: "rgba(255,153,212,0.1)", border: "1px solid rgba(255,153,212,0.25)", borderRadius: 5, padding: "2px 7px", flexShrink: 0 }}>Led</span>
+          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.78)", fontWeight: 600 }}>{c.role}</span>
+        </div>
+      )}
       <p style={{ fontSize: 15, color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>{c.blurb}</p>
+      {c.impact && (
+        <div style={{ display: "flex", gap: 9, alignItems: "flex-start", padding: "10px 12px", background: "rgba(73,28,255,0.1)", border: "1px solid rgba(167,143,255,0.22)", borderRadius: 10 }}>
+          <span aria-hidden style={{ color: "#a78fff", fontSize: 14, lineHeight: 1.5, flexShrink: 0 }}>→</span>
+          <span style={{ fontSize: 13.5, color: "rgba(255,255,255,0.88)", lineHeight: 1.5 }}>{c.impact}</span>
+        </div>
+      )}
       {expanded && (
         <div style={{ paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.06)", marginTop: 8 }}>
           <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,153,212,0.8)", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 8 }}>Outcome</div>
@@ -549,7 +561,7 @@ const BoldCase = ({ c, expanded, onToggle }) => (
         </div>
       )}
       <div style={{ display: "flex", gap: 6, marginTop: "auto", flexWrap: "wrap" }}>
-        {c.tags.map(t => <span key={t} style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "rgba(167,143,255,0.8)", background: "rgba(73,28,255,0.12)", border: "1px solid rgba(73,28,255,0.25)", borderRadius: 6, padding: "3px 8px" }}>{t}</span>)}
+        {c.tags.slice(1).map(t => <span key={t} style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "rgba(167,143,255,0.8)", background: "rgba(73,28,255,0.12)", border: "1px solid rgba(73,28,255,0.25)", borderRadius: 6, padding: "3px 8px" }}>{t}</span>)}
       </div>
     </div>
     <div className="bp-case-mock" style={{ background: c.accent, display: "flex", alignItems: "center", justifyContent: "center", padding: c.hero ? 0 : 28, position: "relative", overflow: "hidden", minHeight: expanded ? 320 : 180 }}>

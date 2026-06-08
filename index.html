@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- @dsCard group="Brand" name="Portfolio — Bold direction (standalone)" -->
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -57,9 +58,13 @@
     .bp-nav-brand .bp-nav-status { display: none !important; }
     .bp-nav-links { gap: 7px !important; font-size: 11px !important; flex-wrap: nowrap !important; white-space: nowrap !important; flex-shrink: 0 !important; }
 
-    /* Center the portrait on mobile so the face isn't pushed off the right edge */
-    .bp-hero-face-img { object-position: 50% 14% !important; transform: scale(1.12) translateY(-6%) !important; }
-    .bp-hero-face > div:nth-of-type(4) { background: linear-gradient(90deg, rgba(26,26,36,0.55), rgba(26,26,36,0.12) 30%, transparent 50%, rgba(26,26,36,0.12) 70%, rgba(26,26,36,0.55)) !important; }
+    /* Mobile-exclusive portrait: larger, centered face with eyes sitting behind the
+       headline so more of the face reads above the fold; fades within the hero */
+    .bp-hero-face { top: 0 !important; height: 680px !important; -webkit-mask-image: linear-gradient(to bottom, #000 64%, transparent 98%) !important; mask-image: linear-gradient(to bottom, #000 64%, transparent 98%) !important; }
+    .bp-hero-face-img { object-position: 50% 24% !important; transform: scale(1.34) translateY(-8%) !important; opacity: 0.88 !important; filter: grayscale(1) contrast(1.08) brightness(0.96) !important; }
+    .bp-hero-face > div:nth-of-type(2) { background: radial-gradient(ellipse 80% 50% at 50% 28%, rgba(26,26,36,0.0), rgba(26,26,36,0.28) 84%) !important; }
+    .bp-hero-face > div:nth-of-type(3) { background: linear-gradient(to bottom, rgba(26,26,36,0.22) 0%, rgba(26,26,36,0.18) 42%, rgba(26,26,36,0.62) 82%, #1a1a24 100%) !important; }
+    .bp-hero-face > div:nth-of-type(4) { background: linear-gradient(90deg, rgba(26,26,36,0.42), transparent 26%, transparent 74%, rgba(26,26,36,0.42)) !important; }
 
     .bp-hero { padding: 28px 16px 40px !important; }
     .bp-hero-kicker { font-size: 11px !important; text-align: center; }
