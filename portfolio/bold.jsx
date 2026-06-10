@@ -462,7 +462,7 @@ const BoldNow = () => (
     {/* Featured — Agentblazer Champion (recognition) */}
     <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%)", borderRadius: 14, marginTop: 16, flexWrap: "wrap" }}>
       <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#ffd6ec", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>★ Recognition</span>
-      <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Salesforce <strong><a href="https://trailhead.salesforce.com/agentblazer" target="_blank" rel="noopener" style={{ color: "#ffd6ec", textDecoration: "none", borderBottom: "1px solid rgba(255,214,236,0.4)" }}>Agentblazer Champion</a></strong> — top-tier status in Salesforce's Agentblazer program, recognizing advanced expertise in building with Agentforce, Data Cloud, and AI on the Salesforce platform.</span>
+      <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Salesforce <strong><a href="https://trailhead.salesforce.com/agentblazer" target="_blank" rel="noopener" style={{ color: "#ffd6ec", textDecoration: "none", borderBottom: "1px solid rgba(255,214,236,0.4)" }}>Agentblazer Champion</a></strong>, a Salesforce Agentblazer status recognizing hands-on skills in building with Agentforce, Data Cloud, and AI on the Salesforce platform.</span>
     </div>
   </section>
 );
@@ -484,7 +484,7 @@ const BoldToolkit = () => (
         { name: "Claude Code", note: "in-IDE pair programmer", logo: "https://cdn.simpleicons.org/anthropic/ffffff" },
         { name: "GitHub", note: "version control & deploys", logo: "https://cdn.simpleicons.org/github/ffffff" },
         { name: "Gemini", note: "multi-modal exploration", logo: "https://cdn.simpleicons.org/googlegemini/ffffff" },
-        { name: "Agentforce", note: "Salesforce agentic platform", logo: "https://www.salesforce.com/news/wp-content/uploads/sites/3/2020/08/cropped-Salesforce_Logo_Web_Notext-1.jpg", filter: "brightness(0) invert(1)" },
+        { name: "Agentforce", note: "Salesforce agentic platform", logo: "assets/agentforce-logo.svg" },
       ].map((t, i) => (
         <div key={i} style={{
           background: "rgba(73,28,255,0.14)",
@@ -645,7 +645,7 @@ const BoldFooter = () => (
       <p style={{ fontSize: 18, color: "rgba(255,255,255,0.7)", marginBottom: 28 }}>Staff / Lead UX · Austin, TX · remote-friendly · open to relocation to Bay Area California, NYC, or Chicago</p>
       <div className="bp-footer-cta" style={{ display: "inline-flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
         <a href="https://www.linkedin.com/in/aditya-yellamraju" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff", fontSize: 15, fontWeight: 700, padding: "14px 28px", borderRadius: 100, textDecoration: "none", boxShadow: "0 14px 40px rgba(73,28,255,0.5)" }}>Message me on LinkedIn <ArrowIcon size={14}/></a>
-        <a href="#" style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1.5px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)", fontSize: 15, fontWeight: 600, padding: "13px 24px", borderRadius: 100, textDecoration: "none" }}><DownloadIcon size={14}/> Résumé</a>
+        <a href="assets/Aditya-Yellamraju-Resume.pdf" target="_blank" rel="noopener" download="Aditya-Yellamraju-Resume.pdf" style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1.5px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)", fontSize: 15, fontWeight: 600, padding: "13px 24px", borderRadius: 100, textDecoration: "none" }}><DownloadIcon size={14}/> Résumé</a>
       </div>
     </div>
     <div className="bp-footer-meta" style={{ display: "flex", justifyContent: "space-between", marginTop: 32, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
