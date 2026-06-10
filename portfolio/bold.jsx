@@ -68,7 +68,7 @@ const BoldHero = () => (
       <img src="assets/aditya-portrait.jpg" alt="" className="bp-hero-face-img" style={{
         position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
         objectPosition: "16% 16%", transform: "scale(1.08) translateY(-11%)", transformOrigin: "50% 0%",
-        filter: "grayscale(1) contrast(1.08) brightness(0.94)", mixBlendMode: "luminosity", opacity: 0.7,
+        filter: "grayscale(1) contrast(1.12) brightness(0.9)", mixBlendMode: "luminosity", opacity: 0.36,
       }}/>
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 44% at 62% 30%, rgba(26,26,36,0.58), transparent 76%)" }}/>
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(26,26,36,0.6) 0%, rgba(26,26,36,0.48) 20%, rgba(26,26,36,0.46) 46%, rgba(26,26,36,0.58) 86%, #1a1a24 100%)" }}/>
