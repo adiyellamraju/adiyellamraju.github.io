@@ -205,6 +205,7 @@
     .cs-hero-img img {
       width: 100%;
       display: block;
+      background: #ffffff;
     }
 
     /* gradient stripe */
@@ -258,7 +259,7 @@
       line-height: 1.2;
     }
 
-    .cs-section-body { display: flex; flex-direction: column; gap: 24px; }
+    .cs-section-body { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 
     .cs-section-body h3 {
       font-size: 26px;
@@ -434,6 +435,7 @@
     .cs-screen img {
       width: 100%;
       display: block;
+      background: #ffffff;
     }
 
     .cs-screen-caption {
@@ -710,6 +712,47 @@
     .cs-dreamforce-text h4 { color: #fff !important; }
     .cs-dreamforce-text p { color: rgba(255,255,255,0.78) !important; }
     .cs-footer-cta { background: #14141c !important; border-top: 1px solid rgba(255,255,255,0.08) !important; }
+
+    /* State-of-project grid */
+    .cs-state { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 4px 0 8px; }
+    .cs-state-item { background: rgba(36,36,48,0.7); border: 1px solid rgba(167,143,255,0.22); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+    .cs-state-k { font-size: 14px; font-weight: 800; color: #fff; }
+    .cs-state-v { font-size: 13.5px; color: rgba(255,255,255,0.62); line-height: 1.5; }
+
+    /* Nexio horizontal scroll gallery */
+    .nx-scroll { position: relative; height: 500vh; margin: 12px 0; }
+    .nx-sticky { position: sticky; top: 96px; height: calc(100vh - 130px); overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    .nx-track { display: flex; gap: 36px; align-items: center; will-change: transform; transition: transform 0.08s linear; }
+    .nx-slide { flex: 0 0 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .nx-img { max-width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #ffffff; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+    .nx-img img { height: 60vh; width: auto; max-width: 100%; object-fit: contain; display: block; }
+    .nx-cap { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 880px; }
+    .nx-cap strong { color: #fff; }
+    .nx-cap .nx-step { font-family: ui-monospace,Menlo,monospace; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a78fff; font-weight: 800; margin-right: 8px; }
+    .nx-dots { display: flex; gap: 8px; justify-content: center; }
+    .nx-dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: background 0.2s, transform 0.2s; }
+    .nx-dots span.active { background: #ff99d4; transform: scale(1.3); }
+
+    /* Flow-map pinned horizontal pan */
+    .fm-scroll { position: relative; height: 320vh; margin: 12px 0; min-width: 0; }
+    .fm-sticky { position: sticky; top: 96px; height: calc(100vh - 130px); width: 100%; overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 14px; background: #f4f4f6; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); padding: 22px; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+    .fm-pan { flex: 1; display: flex; align-items: center; overflow: hidden; min-width: 0; }
+    .fm-pan img { height: 70vh; width: auto; max-width: none; display: block; will-change: transform; transition: transform 0.08s linear; }
+    .fm-cap { font-size: 14px; color: #3a3a48; line-height: 1.5; flex-shrink: 0; }
+    .fm-cap .fm-step { font-family: ui-monospace,Menlo,monospace; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #491cff; font-weight: 800; margin-right: 8px; }
+    @media (max-width: 768px) {
+      .cs-state { grid-template-columns: 1fr; }
+      .nx-scroll { height: auto; }
+      .nx-sticky { position: static; height: auto; overflow: visible; }
+      .nx-track { flex-direction: column; transform: none !important; gap: 28px; }
+      .nx-slide { flex: none; }
+      .nx-img img { max-height: none; }
+      .nx-dots { display: none; }
+      .fm-scroll { height: auto; }
+      .fm-sticky { position: static; height: auto; overflow: visible; }
+      .fm-pan { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .fm-pan img { height: 360px; transform: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -769,10 +812,7 @@
   <!-- HERO SCREEN -->
   <div style="background: #1c1c1c; padding: 0 64px 64px; max-width:100%;">
     <div class="cs-hero-img">
-      <div style="min-height: 420px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
-        <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
-        <span style="font-size:15px; color:rgba(255,255,255,0.55); max-width:420px; line-height:1.5;">Tableau Pulse homepage — metrics grid. Export pending.</span>
-      </div>
+      <img src="assets/case-studies/pulse/01-homepage.jpg" alt="Tableau Pulse homepage — Today's Pulse metrics grid showing Ad Reach and Sales metric cards with sparklines, AI summary, and follower counts" loading="eager" />
     </div>
   </div>
 
@@ -888,10 +928,172 @@
       </div>
     </div>
 
-    <!-- 04 Approach -->
+    <!-- 04 Project Nexio -->
     <div class="cs-section">
       <div class="cs-section-label">
         <span class="cs-section-num">04</span>
+        <h2 class="cs-section-title">Project Nexio</h2>
+      </div>
+      <div class="cs-section-body">
+        <h3>Before Pulse had a name, there was Nexio.</h3>
+        <p>
+          When Narrative Science was acquired, we didn't just join Tableau. We brought a conviction: that AI could make data tell its own story, for <em>everyone</em>, not just analysts. <strong>Project Nexio</strong> was the Salesforce wide vision discovery that carried that conviction forward. My manager and I drove it, rallying the acquired team to pitch a next generation AI data storytelling future to leadership across every cloud.
+        </p>
+        <p>There was a vision, but no structure to make it real:</p>
+        <div class="cs-state">
+          <div class="cs-state-item"><span class="cs-state-k">No UX artifacts</span><span class="cs-state-v">A belief, not a blueprint. Nothing to point to yet.</span></div>
+          <div class="cs-state-item"><span class="cs-state-k">Executive misalignment</span><span class="cs-state-v">The Tableau and Salesforce platform worlds saw the future differently.</span></div>
+          <div class="cs-state-item"><span class="cs-state-k">No model to build on</span><span class="cs-state-v">No existing insights first or metrics first paradigm to inherit.</span></div>
+          <div class="cs-state-item"><span class="cs-state-k">Completely 0 to 1</span><span class="cs-state-v">High expectations, unclear direction, a blank canvas.</span></div>
+        </div>
+        <div class="cs-callout">
+          "Nexio wasn't a feature pitch. It was a north star. It secured the executive buy in and funding that turned a vision into Tableau Pulse, the first GA of that future."
+        </div>
+
+        <h3 style="margin-top: 8px;">Navigating ambiguity with a focused influence framework.</h3>
+        <p>
+          I was loaned in as a design lead, reporting to one manager while being overseen by another. The structure was complex and the direction was rarely clear. So I led with influence, not just craft, using a simple framework to turn ambiguity into momentum.
+        </p>
+        <div class="cs-decisions">
+          <div class="cs-decision">
+            <div class="cs-decision-header">
+              <div class="cs-decision-icon">🧭</div>
+              <span class="cs-decision-title">Identify key connectors</span>
+            </div>
+            <p class="cs-decision-body">Partnered closely with my design manager and the PM leads, the small, influential group who could drive org wide alignment.</p>
+          </div>
+          <div class="cs-decision">
+            <div class="cs-decision-header">
+              <div class="cs-decision-icon">🤝</div>
+              <span class="cs-decision-title">Co-create through workshops</span>
+            </div>
+            <p class="cs-decision-body">Facilitated design workshops to shape a shared vision and gather input from cross functional teams across orgs.</p>
+          </div>
+          <div class="cs-decision">
+            <div class="cs-decision-header">
+              <div class="cs-decision-icon">✨</div>
+              <span class="cs-decision-title">Design to influence</span>
+            </div>
+            <p class="cs-decision-body">Published design explorations early and often, using visuals to align stakeholders and build momentum.</p>
+          </div>
+          <div class="cs-decision">
+            <div class="cs-decision-header">
+              <div class="cs-decision-icon">🎯</div>
+              <span class="cs-decision-title">Deliver with clarity</span>
+            </div>
+            <p class="cs-decision-body">Earned trust and ownership of critical features: the Pulse homepage, search, and follow and metric management.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 8px;">A model for how AI reasons about a metric.</h3>
+        <p>
+          Before any screens, I mapped the conceptual model: how an AI navigates a single metric to generate a story. Analysis <em>from</em> a metric looks sideways and outward, to history, drivers, contributors, and external benchmarks. Movement <em>between</em> metrics chains shifts in time, granularity, and related measures. This systems view became the backbone for every downstream flow.
+        </p>
+        <div class="cs-screen" style="background:#ffffff; margin: 8px auto 12px; max-width: 680px;">
+          <img src="assets/case-studies/pulse/nexio/analysis-map.jpg" alt="Analysis map: a node diagram of how AI reasons about a metric. Analysis From Metric branches a metric in a time period to Historical context (comparisons, change, trend, variability, periodicity, outlier), Drivers (contributors, influencers, distribution, formula, hierarchy), Impacts, and Future context (prediction, goal, benchmark). Movement From Metric chains a metric to higher and lower time granularity, previous and projected periods, impacted and driving metrics." loading="lazy" />
+          <div class="cs-screen-caption">
+            <span class="cs-screen-caption-title">Analysis map, the reasoning model behind the storytelling</span>
+            <span class="cs-screen-caption-desc">How AI moves from one metric to its history, drivers, contributors, and benchmarks, and how it chains between related metrics. The shared model that kept design, PM, and data science aligned.</span>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 8px;">Grounded in three real personas.</h3>
+        <p>
+          The business user was never one person. We anchored the work in three: Maggie, a sales manager who needs to spot and address problems fast; Ian, an individual contributor getting up to speed on what matters; and Emily, an executive deciding where to invest and what to scale. Every flow traced back to one of them.
+        </p>
+        <div class="cs-screen" style="background:#ffffff; margin: 8px 0 12px;">
+          <img src="assets/case-studies/pulse/nexio/personas.jpg" alt="Three personas for the business user. Maggie, a Sales Cloud manager who addresses problems as they are identified, deep dives into what is happening, and evaluates performance. Ian, an individual contributor in Sales and Service Cloud focused on onboarding, deciding which opportunities to focus on, and finding the best playbook. Emily, a Sales Cloud executive who watches team performance, scales best practices, and makes investment decisions." loading="lazy" />
+          <div class="cs-screen-caption">
+            <span class="cs-screen-caption-title">Maggie, Ian, and Emily</span>
+            <span class="cs-screen-caption-desc">Manager, individual contributor, and executive. Three jobs to be done that the storytelling model had to serve at once.</span>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 8px;">From model to flows, across three sprints.</h3>
+        <p>
+          I translated the model into end to end flows, iterating across three sprints to pressure test how the experience held up at real scale. The breadth mattered: each branch explored a different persona, surface, and moment of insight.
+        </p>
+        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to pan across the full breadth of the exploration.</p>
+        <div class="fm-scroll" id="fmScroll">
+          <div class="fm-sticky">
+            <div class="fm-pan">
+              <img id="fmImg" src="assets/case-studies/pulse/nexio/flows-3-sprints.jpg" alt="A wide panorama of end-to-end Tableau Pulse flows explored across three sprints, dozens of connected screen thumbnails branching out from a starting point into many parallel paths" loading="lazy" />
+            </div>
+            <div class="fm-cap"><span class="fm-step">3 sprints</span>A panorama of the exploration. Each branch is a different persona, surface, and moment of insight, traced end to end.</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 4px;">
+          Each flow followed a real persona through a real scene. Here is Ian, an individual contributor in his first week, getting his footing in Salesforce. The story moves from a welcome state to a focused, metric following home that meets him where he is.
+        </p>
+        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to follow Ian's scenario across the flow.</p>
+        <div class="fm-scroll" id="fmScroll2">
+          <div class="fm-sticky">
+            <div class="fm-pan">
+              <img id="fmImg2" src="assets/case-studies/pulse/nexio/flow-ian-scenario.jpg" alt="A persona scenario storyboard for Ian, an individual contributor. It opens with a persona card and a Scene 1 narrative, then walks through a sequence of Salesforce home and dashboard states that progressively personalize to his metrics and goals." loading="lazy" />
+            </div>
+            <div class="fm-cap"><span class="fm-step">Persona · Ian</span>An individual contributor in week one. The scenario traces how the experience personalizes to his goals, from a generic welcome to a focused, metric following home.</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 4px;">
+          The final sprint raised the fidelity all the way up. Emily, an executive, reads the state of her business in a personalized command center, pushes her exploration into a team Slack channel to ask why a number moved, then scales a best practice and coaches her team, all without leaving the flow of work.
+        </p>
+        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to follow Emily's executive flow, the highest-fidelity sprint.</p>
+        <div class="fm-scroll" id="fmScroll3">
+          <div class="fm-sticky">
+            <div class="fm-pan">
+              <img id="fmImg3" src="assets/case-studies/pulse/nexio/flow-emily-scenario.jpg" alt="The high-fidelity Executive Emily flow. Emily reads the state of her business in a personalized Executive Command Center, drills into what is driving a drop in deposits, pushes her exploration into the SalesAMER Slack channel to ask a question and collaborate on a plan, then scales a best practice and coaches her team." loading="lazy" />
+            </div>
+            <div class="fm-cap"><span class="fm-step">Persona · Emily</span>Command center to Slack collaboration to scaling a practice. The last sprint, at full fidelity, showing the storytelling model in an executive's real workflow.</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 8px;">The north-star concepts that sold the vision.</h3>
+        <p>
+          Each concept showed AI authored data stories meeting a different persona where they already work, from Slack to the inbox to the executive command center. Together they made the future tangible enough for leadership to fund.
+        </p>
+        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to move through the five concepts, one persona at a time.</p>
+        <div class="nx-scroll" id="nxScroll">
+          <div class="nx-sticky">
+            <div class="nx-track" id="nxTrack">
+              <figure class="nx-slide">
+                <div class="nx-img"><img src="assets/case-studies/pulse/nexio/concept-data-stories.jpg" alt="North-star concept: the Data Stories app delivering a proactive insight in Slack on mobile. It tells the user their team is off-track to hit quota, explains the drivers, and offers a recommended action, annotated as Personalized Insights, Drivers, and Closing the loop." loading="lazy"></div>
+                <figcaption class="nx-cap"><span class="nx-step">01 · Slack</span><strong>Proactive insight, delivered in Slack.</strong> The agent opens with what is happening, explains the drivers behind it, then closes the loop with an action to take. The what, the why, and the what next, in one glance.</figcaption>
+              </figure>
+              <figure class="nx-slide">
+                <div class="nx-img"><img src="assets/case-studies/pulse/nexio/concept-nexio-channel.jpg" alt="North-star concept: Nexio spinning up a private Slack channel around an off-track sales goal, surfacing a correlation chart between Sales, Leads, and Open Cases, and answering follow-up questions in a thread." loading="lazy"></div>
+                <figcaption class="nx-cap"><span class="nx-step">02 · Agentic</span><strong>Agentic collaboration in the flow of work.</strong> Nexio spins up a private channel around an off track goal, surfaces correlations, and answers the why behind the why, doing the digging before a human has to.</figcaption>
+              </figure>
+              <figure class="nx-slide">
+                <div class="nx-img"><img src="assets/case-studies/pulse/nexio/concept-opportunity.jpg" alt="North-star concept: an Opportunity Insights mobile home screen recommending the top two opportunities to focus on, why they matter, and recommended actions with Call and Email buttons." loading="lazy"></div>
+                <figcaption class="nx-cap"><span class="nx-step">03 · Mobile</span><strong>Shortening the gap from insight to value.</strong> Insights become decisions: which opportunities to focus on, why they matter, and the next action, call or email, right in reach.</figcaption>
+              </figure>
+              <figure class="nx-slide">
+                <div class="nx-img"><img src="assets/case-studies/pulse/nexio/concept-revenue-intelligence.jpg" alt="North-star concept: the storytelling model embedded in Salesforce. A Sales Home with pinned metrics and Einstein Discovery, alongside a Revenue Intelligence command center showing an off-track quota with drivers and team performance." loading="lazy"></div>
+                <figcaption class="nx-cap"><span class="nx-step">04 · Embedded</span><strong>Insight embedded in surfaces people already use.</strong> Pinned metrics and a revenue command center bring the storytelling model into the Salesforce home and forecasting experience.</figcaption>
+              </figure>
+              <figure class="nx-slide">
+                <div class="nx-img"><img src="assets/case-studies/pulse/nexio/concept-command-centers.jpg" alt="North-star concept: executive command centers. A Where to focus view explaining what changed with a KPI and what is causing it, plus a metric-following discovery experience with customizable Default, Team Goals, and What's Hot views." loading="lazy"></div>
+                <figcaption class="nx-cap"><span class="nx-step">05 · Executive</span><strong>A command center for the executive persona.</strong> Where to focus, what changed, and what is causing it, with metric following and customizable views tuned to how leaders scan.</figcaption>
+              </figure>
+            </div>
+            <div class="nx-dots" id="nxDots">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout" style="margin-top: 24px;">
+          From vision to GA: Nexio's exploration narrowed to a single steel thread that shipped as <strong>Tableau Pulse, the first GA of the vision</strong>. It secured executive buy in and funding, and the interaction patterns established here now ship across <strong>Agentforce experiences at Salesforce</strong>.
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 Approach -->
+    <div class="cs-section">
+      <div class="cs-section-label">
+        <span class="cs-section-num">05</span>
         <h2 class="cs-section-title">The Approach</h2>
       </div>
       <div class="cs-section-body">
@@ -911,10 +1113,10 @@
       </div>
     </div>
 
-    <!-- 05 Key Decisions -->
+    <!-- 06 Key Decisions -->
     <div class="cs-section">
       <div class="cs-section-label">
-        <span class="cs-section-num">05</span>
+        <span class="cs-section-num">06</span>
         <h2 class="cs-section-title">Key Decisions</h2>
       </div>
       <div class="cs-section-body">
@@ -956,22 +1158,30 @@
       </div>
     </div>
 
-    <!-- 06 The Designs -->
+    <!-- 07 The Designs -->
     <div class="cs-section">
       <div class="cs-section-label">
-        <span class="cs-section-num">06</span>
+        <span class="cs-section-num">07</span>
         <h2 class="cs-section-title">The Designs</h2>
       </div>
       <div class="cs-section-body">
         <h3>Five surfaces. One coherent system.</h3>
         <p>I owned the end-to-end design for the Pulse steel thread — Homepage, Email Digest, Metric Detail, Search typeahead, and Search results — ensuring they worked as a unified experience across every entry point.</p>
 
+        <p style="margin-top: 28px;">It all starts with one unit: the metric card. Every element earns its place — translating a wall of statistics into something a business user can read in seconds, trust, and act on. Get this right, and it scales across every surface.</p>
+
+        <div class="cs-screen" style="margin: 8px 0 12px;">
+          <img src="assets/case-studies/pulse/06-metric-card-anatomy.jpg" alt="Anatomy of a Pulse metric card — annotated breakdown: BAN and metric title with time period and filters, trend badge showing sentiment through color and text, period-over-period change, trend chart, NLG-generated top-contributor insight with actions, data-freshness timestamp for trust, and follower count to leverage FOMO" loading="lazy" />
+          <div class="cs-screen-caption">
+            <span class="cs-screen-caption-title">Anatomy of a metric card — the science behind the sizzle</span>
+            <span class="cs-screen-caption-desc">Every element is a deliberate decision: a big bold number for instant relatability, sentiment badges that make AI legible, period-over-period change, the trend chart, NLG-generated contributors paired with a next action, a freshness timestamp to earn trust, and follower counts that turn social proof into FOMO.</span>
+          </div>
+        </div>
+
         <div class="cs-screens">
 
           <div class="cs-screen">
-            <div style="min-height: 300px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
-              <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
-            </div>
+            <img src="assets/case-studies/pulse/02-email-digest.jpg" alt="Tableau Pulse daily metric digest delivered to a Gmail inbox — a personalized weekly summary with three metric cards (Website Actions, Clicks, Downloads), each showing the value, period-over-period change, and NLG top-contributor insight, designed to work standalone in the inbox" loading="lazy" />
             <div class="cs-screen-caption">
               <span class="cs-screen-caption-title">Metrics Email Digest</span>
               <span class="cs-screen-caption-desc">The primary entry point for business users — a personalized daily digest delivered to their inbox, surfacing unusual movements in metrics they follow. Designed to work standalone without any Pulse context.</span>
@@ -979,33 +1189,25 @@
           </div>
 
           <div class="cs-screen">
-            <div style="min-height: 300px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
-              <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
-            </div>
+            <img src="assets/case-studies/pulse/03-metric-detail.jpg" alt="Tableau Pulse metric detail — Appliance Sales drill-down with AI insight explaining top product drivers of an unusual increase, conversational follow-on questions, and a contribution bar chart" loading="lazy" />
             <div class="cs-screen-caption">
               <span class="cs-screen-caption-title">Metric Detail — AI-Powered Insight</span>
-              <span class="cs-screen-caption-desc">The drill-down experience. Natural language AI insights explain what's driving change, with a conversational Q&A interface for further investigation. Designed to make statistical analysis feel like a conversation.</span>
+              <span class="cs-screen-caption-desc">The drill-down experience. Natural language AI insights explain what's driving change, with a conversational Q&A interface for further investigation. Designed to make statistical analysis feel like a conversation. Co-designed with a Tableau designer.</span>
             </div>
           </div>
 
-          <div class="cs-screens-2up">
-            <div class="cs-screen">
-              <div style="min-height: 240px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
-                <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
-              </div>
-              <div class="cs-screen-caption">
-                <span class="cs-screen-caption-title">Search — Typeahead</span>
-                <span class="cs-screen-caption-desc">Instant metric discovery with follower counts as social proof signals, helping users find the right metrics faster.</span>
-              </div>
+          <div class="cs-screen">
+            <img src="assets/case-studies/pulse/04-search-typeahead.jpg" alt="Tableau Pulse search typeahead — as the user types 'Ad', a dropdown surfaces matching metrics like Ad Reach and Ad Spend with follower counts as social-proof signals" loading="lazy" />
+            <div class="cs-screen-caption">
+              <span class="cs-screen-caption-title">Search — Typeahead</span>
+              <span class="cs-screen-caption-desc">Instant metric discovery with follower counts as social proof signals, helping users find the right metrics faster.</span>
             </div>
-            <div class="cs-screen">
-              <div style="min-height: 240px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; background: repeating-linear-gradient(45deg, rgba(73,28,255,0.06) 0 10px, transparent 10px 20px), rgba(36,36,48,0.6);">
-                <span style="font-family: ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; color:#a78fff; font-weight:800;">Visual coming</span>
-              </div>
-              <div class="cs-screen-caption">
-                <span class="cs-screen-caption-title">Search — Results</span>
-                <span class="cs-screen-caption-desc">Full results page showing metric variants by dimension, allowing users to find exactly the slice of data most relevant to their role.</span>
-              </div>
+          </div>
+          <div class="cs-screen">
+            <img src="assets/case-studies/pulse/05-search-results.jpg" alt="Tableau Pulse search results — a dedicated results page for 'Ad Reach for Google Ads in North America' showing six metric variant cards by dimension, each with impressions, follower count, and a Follow action" loading="lazy" />
+            <div class="cs-screen-caption">
+              <span class="cs-screen-caption-title">Search — Results</span>
+              <span class="cs-screen-caption-desc">Full results page showing metric variants by dimension, allowing users to find exactly the slice of data most relevant to their role.</span>
             </div>
           </div>
 
@@ -1013,10 +1215,10 @@
       </div>
     </div>
 
-    <!-- 07 Outcomes -->
+    <!-- 08 Outcomes -->
     <div class="cs-section">
       <div class="cs-section-label">
-        <span class="cs-section-num">07</span>
+        <span class="cs-section-num">08</span>
         <h2 class="cs-section-title">Outcomes</h2>
       </div>
       <div class="cs-section-body">
@@ -1048,10 +1250,10 @@
       </div>
     </div>
 
-    <!-- 08 Reflection -->
+    <!-- 09 Reflection -->
     <div class="cs-section">
       <div class="cs-section-label">
-        <span class="cs-section-num">08</span>
+        <span class="cs-section-num">09</span>
         <h2 class="cs-section-title">What I'd Do Differently</h2>
       </div>
       <div class="cs-section-body">
@@ -1092,6 +1294,58 @@
     <div class="vibe-badge-dot"></div>
     <span class="vibe-badge-text">Vibe coded · <span>Claude</span></span>
   </a>
+
+  <script>
+    (function () {
+      var stage = document.getElementById('nxScroll');
+      var track = document.getElementById('nxTrack');
+      var dots = document.getElementById('nxDots');
+      if (!stage || !track) return;
+      var dotEls = dots ? Array.prototype.slice.call(dots.children) : [];
+      function update() {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          track.style.transform = '';
+          return;
+        }
+        var rect = stage.getBoundingClientRect();
+        var total = stage.offsetHeight - window.innerHeight;
+        var scrolled = Math.min(Math.max(-rect.top, 0), total);
+        var progress = total > 0 ? scrolled / total : 0;
+        var maxX = track.scrollWidth - track.clientWidth;
+        track.style.transform = 'translateX(' + (-progress * maxX) + 'px)';
+        if (dotEls.length) {
+          var active = Math.round(progress * (dotEls.length - 1));
+          dotEls.forEach(function (d, i) { d.classList.toggle('active', i === active); });
+        }
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    (function () {
+      var stages = document.querySelectorAll('.fm-scroll');
+      if (!stages.length) return;
+      stages.forEach(function (stage) {
+        var img = stage.querySelector('.fm-pan img');
+        if (!img) return;
+        function pan() {
+          if (window.matchMedia('(max-width: 768px)').matches) { img.style.transform = ''; return; }
+          var rect = stage.getBoundingClientRect();
+          var total = stage.offsetHeight - window.innerHeight;
+          var scrolled = Math.min(Math.max(-rect.top, 0), total);
+          var progress = total > 0 ? scrolled / total : 0;
+          var maxX = img.scrollWidth - img.parentElement.clientWidth;
+          if (maxX < 0) maxX = 0;
+          img.style.transform = 'translateX(' + (-progress * maxX) + 'px)';
+        }
+        window.addEventListener('scroll', pan, { passive: true });
+        window.addEventListener('resize', pan);
+        img.addEventListener('load', pan);
+        pan();
+      });
+    })();
+  </script>
 
 </body>
 </html>

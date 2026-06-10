@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- @dsCard group="Brand" name="Portfolio — Bold direction (standalone)" -->
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -25,6 +24,23 @@
   @keyframes agentDockIn {
     from { transform: translateY(24px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+  }
+  .vibe-badge {
+    position: fixed; bottom: 28px; left: 28px; z-index: 200;
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(18,18,18,0.85); border: 1px solid rgba(255,153,212,0.35);
+    border-radius: 100px; padding: 9px 16px 9px 12px;
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    text-decoration: none; transition: border-color .2s, transform .2s;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .vibe-badge:hover { border-color: rgba(255,153,212,0.7); transform: translateY(-2px); }
+  .vibe-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff99d4; animation: pulse 2s ease-in-out infinite; }
+  .vibe-badge-text { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75); white-space: nowrap; }
+  .vibe-badge-text span { color: #ff99d4; }
+  @media (max-width: 640px) {
+    .vibe-badge { bottom: 16px; left: 16px; padding: 7px 12px 7px 10px; }
+    .vibe-badge-text { font-size: 11px; }
   }
   @media (max-width: 760px) {
     .bp-vibe-grid { grid-template-columns: 1fr !important; }
@@ -118,6 +134,11 @@
 </head>
 <body>
 <div id="root"></div>
+
+<a class="vibe-badge" href="https://claude.ai" target="_blank" rel="noopener">
+  <span class="vibe-badge-dot"></span>
+  <span class="vibe-badge-text">Vibe coded · <span>Claude</span></span>
+</a>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>

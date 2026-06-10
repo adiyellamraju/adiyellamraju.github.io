@@ -211,9 +211,55 @@ const BoldBubble = ({ role, text }) => (
 
 // ─── VIBE-CODING PROTOTYPES ───────────────────────────────────────────
 const VIBE_PROTOS = [
-  { src: "assets/vibe/proto-1.gif", title: "Salesforce Personalization Campaign", tool: "Claude + Cursor", desc: "The core configuration platform, reimagined marketer-friendly — prototyped and clickable, not static frames." },  { src: "assets/vibe/proto-2.gif", title: "Agentic Web Content Personalization", tool: "Cursor", desc: "The platform applied to a conversational, agentic marketing use case — live and navigable." },
+  { clips: ["assets/vibe/proto-1a.webm", "assets/vibe/proto-1b.webm", "assets/vibe/proto-1c.webm"], title: "Salesforce Personalization Campaign", tool: "Claude + Cursor", desc: "The core configuration platform, reimagined marketer-friendly — prototyped and clickable, not static frames." },  { src: "assets/vibe/proto-2.gif", title: "Agentic Web Content Personalization", tool: "Cursor", clips: ["assets/vibe/proto-2a.webm", "assets/vibe/proto-2b.webm", "assets/vibe/proto-2c.webm"], desc: "The platform applied to a conversational, agentic marketing use case — live and navigable." },
   { src: "assets/vibe/proto-3.gif", title: "Agentic Recommendation Filters Creation", tool: "Claude Code", desc: "Part of the recommendations engine — building catalog filters through a natural-language agent." },
 ];
+const VibeMedia = ({ p }) => {
+  const [idx, setIdx] = React.useState(0);
+  const [inView, setInView] = React.useState(false);
+  const boxRef = React.useRef(null);
+  const clips = p.clips;
+  React.useEffect(() => {
+    if (inView) return;
+    const check = () => {
+      const el = boxRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (r.top < vh + 400 && r.bottom > -400) { setInView(true); }
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => { window.removeEventListener("scroll", check); window.removeEventListener("resize", check); };
+  }, [inView]);
+  if (clips) {
+    return (
+      <div ref={boxRef} style={{ position: "absolute", inset: 0 }}>
+        {inView ? (
+          <video key={idx} src={clips[idx]} muted playsInline autoPlay preload="auto"
+            ref={el => { if (el) el.playbackRate = 1.0; }}
+            onLoadedMetadata={e => { e.currentTarget.playbackRate = 1.0; }}
+            onEnded={() => setIdx((idx + 1) % clips.length)}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        ) : (
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, rgba(73,28,255,0.14), rgba(255,153,212,0.1))" }}>
+            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff99d4", animation: "pulse 2s ease-in-out infinite" }} />
+          </div>
+        )}
+      </div>
+    );
+  }
+  return (
+    <React.Fragment>
+      <img src={p.src} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+        onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "flex"; }} />
+      <div style={{ display: "none", position: "absolute", inset: 0, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8, color: "rgba(167,143,255,0.8)", textAlign: "center", padding: 16 }}>
+        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>GIF coming</span>
+      </div>
+    </React.Fragment>
+  );
+};
 const BoldVibeProtos = () => (
   <div style={{ marginTop: 40 }}>
     <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 20, flexWrap: "wrap" }}>
@@ -224,11 +270,7 @@ const BoldVibeProtos = () => (
       {VIBE_PROTOS.map((p, i) => (
         <div key={i} style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgba(167,143,255,0.22)", background: "rgba(36,36,48,0.7)", display: "flex", flexDirection: "column" }}>
           <div style={{ aspectRatio: "16 / 10", background: "rgba(20,20,28,0.6)", position: "relative", overflow: "hidden" }}>
-            <img src={p.src} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "flex"; }} />
-            <div style={{ display: "none", position: "absolute", inset: 0, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8, color: "rgba(167,143,255,0.8)", textAlign: "center", padding: 16 }}>
-              <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>GIF coming</span>
-            </div>
+            <VibeMedia p={p} />
           </div>
           <div style={{ padding: "16px 18px", display: "flex", flexDirection: "column", gap: 6 }}>
             <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "#a78fff", background: "rgba(73,28,255,0.15)", border: "1px solid rgba(167,143,255,0.3)", borderRadius: 6, padding: "2px 8px", alignSelf: "flex-start", textTransform: "uppercase", letterSpacing: 0.8 }}>{p.tool}</span>
@@ -442,7 +484,7 @@ const BoldToolkit = () => (
         { name: "Claude Code", note: "in-IDE pair programmer", logo: "https://cdn.simpleicons.org/anthropic/ffffff" },
         { name: "GitHub", note: "version control & deploys", logo: "https://cdn.simpleicons.org/github/ffffff" },
         { name: "Gemini", note: "multi-modal exploration", logo: "https://cdn.simpleicons.org/googlegemini/ffffff" },
-        { name: "Agentforce", note: "Salesforce agentic platform", logo: "https://www.salesforce.com/news/wp-content/uploads/sites/3/2020/08/cropped-Salesforce_Logo_Web_Notext-1.png", filter: "brightness(0) invert(1)" },
+        { name: "Agentforce", note: "Salesforce agentic platform", logo: "https://www.salesforce.com/news/wp-content/uploads/sites/3/2020/08/cropped-Salesforce_Logo_Web_Notext-1.jpg", filter: "brightness(0) invert(1)" },
       ].map((t, i) => (
         <div key={i} style={{
           background: "rgba(73,28,255,0.14)",

@@ -38,7 +38,7 @@ const CASES = [
     blurb: "Led design for a 0→1 personalization engine on Data Cloud — establishing the benchmarks and patterns for recommendations, decisioning, experimentation, and engagement signals across Marketing Cloud.",
     outcome: "Shipped to enterprise customers; core to Marketing Cloud personalization.",
     accent: "linear-gradient(145deg, #0f0520 0%, #1e0b42 50%, #2d1060 100%)",
-    hero: "portfolio/case-assets/personalization/hero-decisions-step.png",
+    hero: "portfolio/case-assets/personalization/hero-decisions-step.jpg",
   },
   {
     slug: "recommendations-engine",
@@ -63,6 +63,7 @@ const CASES = [
     impact: "Nexio's interaction patterns became established design patterns — now implemented across Agentforce experiences at Salesforce.",
     outcome: "Metrics Digest, Pulse Homepage, AI insight flows shipped.",
     accent: "linear-gradient(145deg, #0d0d1a 0%, #1a0f3a 50%, #2d1060 100%)",
+    hero: "assets/case-studies/pulse/01-homepage.jpg",
   },
   {
     slug: "data-stories",
@@ -75,7 +76,7 @@ const CASES = [
     impact: "One of the fastest integrations to reach GA in the history of Salesforce acquisitions.",
     outcome: "First NLG feature shipped across the Salesforce ecosystem.",
     accent: "linear-gradient(145deg, #0a0f1e 0%, #0f1f3d 60%, #162952 100%)",
-    hero: "portfolio/case-assets/data-stories/hero.png",
+    hero: "portfolio/case-assets/data-stories/hero.jpg",
   },
   {
     slug: "experimentation",
