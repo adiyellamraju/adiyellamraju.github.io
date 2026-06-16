@@ -89,6 +89,19 @@ const CASES = [
     outcome: "Self-serve experimentation, no eng support required.",
     accent: "linear-gradient(145deg, #110520 0%, #2a0a4a 55%, #491cff 100%)",
   },
+  {
+    slug: "flying-squirrel",
+    year: "2016",
+    company: "AY Design Consulting",
+    title: "The Flying Squirrel Coffee",
+    kicker: "E-commerce · Research-led 0→1 storefront",
+    tags: ["E-Commerce", "UX Research"],
+    blurb: "Research-led redesign of an artisan coffee storefront — heuristic evaluation, interviews, personas, IA, and prototyping — to teach newcomers and speed up repeat buyers.",
+    impact: "Grew online sales 80% in under six months.",
+    outcome: "A storefront that educates, then sells.",
+    accent: "linear-gradient(145deg, #1a1206 0%, #3a2710 55%, #c98a3a 100%)",
+    hero: "assets/case-studies/flying-squirrel/card-home.jpg",
+  },
 ];
 
 const TESTIMONIALS = [

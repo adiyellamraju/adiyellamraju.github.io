@@ -130,25 +130,67 @@ const CANNED_BOLD = {
 
 const BigAgentChat = ({ compact }) => {
   const [messages, setMessages] = React.useState([
-    { role: "system", text: "agent initialized · reading aditya_yellamraju.résumé ·  indexing 9 years of work…" },
-    { role: "agent", text: "Heads up — I'm still in training. Aditya's teaching me everything he knows (9 years of it, so… give him a minute). Soon I'll answer anything about his work, his process, and why he vibe-codes. For now, find him on LinkedIn — he replies faster than I load. 🤖✨" },
+    { role: "system", text: "agent initialized · grounded in aditya_yellamraju.résumé · 9+ years of work indexed" },
+    { role: "agent", text: "Hey — I'm Aditya's agent. Ask me anything about his work, his process, or why he vibe-codes. Where do you want to start?" },
   ]);
   const [input, setInput] = React.useState("");
   const [typing, setTyping] = React.useState(false);
-  const [sugg, setSugg] = React.useState([]);
+  const [sugg, setSugg] = React.useState(["What does Aditya do at Salesforce?", "Tell me about Project Nexio", "How does he vibe-code?", "Is he open to new roles?"]);
   const scrollRef = React.useRef(null);
   React.useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [messages, typing]);
 
   const ask = async (q) => {
-    if (!q.trim()) return;
-    setMessages(m => [...m, { role: "user", text: q }]);
+    if (!q.trim() || typing) return;
+    const userText = q.trim();
+    setMessages(m => [...m, { role: "user", text: userText }]);
     setInput("");
-    setSugg(s => s.filter(x => x !== q));
+    setSugg([]);
     setTyping(true);
-    let reply = "Still in training, still can't help you properly — the irony of an AI portfolio with a not-yet-AI agent isn't lost on me. 😅 Aditya's on it. Catch him on LinkedIn meanwhile.";
-    await new Promise(r => setTimeout(r, 700));
-    setTyping(false);
-    setMessages(m => [...m, { role: "agent", text: reply }]);
+
+    const history = [...messages, { role: "user", text: userText }]
+      .filter(m => m.role === "user" || m.role === "agent")
+      .map(m => ({ role: m.role === "agent" ? "assistant" : "user", content: m.text }));
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      if (!res.ok || !res.body) {
+        let msg = "I'm only awake on the live site (aditya.design). Meanwhile, find Aditya on LinkedIn — he replies fast.";
+        try { const j = await res.json(); if (j && j.message) msg = j.message; } catch (e) {}
+        setTyping(false);
+        setMessages(m => [...m, { role: "agent", text: msg }]);
+        return;
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      let started = false;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        if (!acc) continue;
+        if (!started) {
+          started = true;
+          setTyping(false);
+          setMessages(m => [...m, { role: "agent", text: acc }]);
+        } else {
+          setMessages(m => { const c = m.slice(); c[c.length - 1] = { role: "agent", text: acc }; return c; });
+        }
+      }
+      if (!started) {
+        setTyping(false);
+        setMessages(m => [...m, { role: "agent", text: "Hmm, I didn't catch that — mind asking again?" }]);
+      }
+    } catch (e) {
+      setTyping(false);
+      setMessages(m => [...m, { role: "agent", text: "I couldn't reach my brain just now. Try again in a moment, or catch Aditya on LinkedIn." }]);
+    }
   };
 
   return (
@@ -160,7 +202,7 @@ const BigAgentChat = ({ compact }) => {
     }}>
       <div className="bp-chat-header" style={{ padding: "12px 18px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", gap: 12, background: "rgba(26,26,36,0.5)", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)" }}>
         <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ade80" }}/>
-        agent.adityay.com — session #7f3a · claude-haiku-4-5
+        agent.aditya.design — session #7f3a · claude · live
         <span className="bp-chat-header-end" style={{ marginLeft: "auto", color: "rgba(255,255,255,0.3)" }}>vibe-coded</span>
       </div>
       <div ref={scrollRef} className="bp-chat-body" style={{ padding: 24, display: "flex", flexDirection: "column", gap: 14, maxHeight: compact ? 360 : 420, minHeight: compact ? 300 : 380, overflowY: "auto" }}>
@@ -409,8 +451,8 @@ const BoldAbout = () => (
         </div>
         {[
           { k: "Systems thinking", v: "workflows, state models, guardrails, and scalable patterns" },
-          { k: "Measurement maturity", v: "success metrics, experimentation, and learning velocity" },
-          { k: "Cross-functional leadership", v: "tight partnership with PM, Eng, Data Science, and Research" },
+          { k: "AI made usable", v: "turning ML, NLG, and agents into experiences people trust and can configure themselves" },
+          { k: "Cross-functional leadership", v: "tight partnership with PM, Eng, and Data Science — driving alignment across clouds" },
         ].map((item, i) => (
           <div key={i} style={{
             border: "1px solid rgba(167,143,255,0.22)",
@@ -463,6 +505,12 @@ const BoldNow = () => (
     <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%)", borderRadius: 14, marginTop: 16, flexWrap: "wrap" }}>
       <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#ffd6ec", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>★ Recognition</span>
       <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Salesforce <strong><a href="https://trailhead.salesforce.com/agentblazer" target="_blank" rel="noopener" style={{ color: "#ffd6ec", textDecoration: "none", borderBottom: "1px solid rgba(255,214,236,0.4)" }}>Agentblazer Champion</a></strong>, a Salesforce Agentblazer status recognizing hands-on skills in building with Agentforce, Data Cloud, and AI on the Salesforce platform.</span>
+    </div>
+
+    {/* Featured — Accelerate leadership program (recognition) */}
+    <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%)", borderRadius: 14, marginTop: 12, flexWrap: "wrap" }}>
+      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#ffd6ec", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>★ Recognition</span>
+      <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Selected and graduated from <strong>Accelerate</strong> (2024) — Salesforce's competitive leadership &amp; management development program.</span>
     </div>
   </section>
 );
@@ -543,7 +591,7 @@ const BoldWork = () => {
       <div className="bp-work-header" style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 32 }}>
         <div>
           <SectionKicker>04 · work</SectionKicker>
-          <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, color: "#ffffff" }}>Five case studies.</h2>
+          <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, color: "#ffffff" }}>Six case studies.</h2>
         </div>
         <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>click any card to dive in ›</span>
       </div>
@@ -564,6 +612,7 @@ const BoldCase = ({ c, expanded, onToggle }) => (
       if (c.slug === "recommendations-engine") { window.location.href = "case-recommendations-engine.html"; return; }
       if (c.slug === "pulse-nexio") { window.location.href = "case-tableau-pulse.html"; return; }
       if (c.slug === "data-stories") { window.location.href = "case-data-stories.html"; return; }
+      if (c.slug === "flying-squirrel") { window.location.href = "case-flying-squirrel.html"; return; }
       if (c.slug === "experimentation") { return; }
       onToggle();
     }}
