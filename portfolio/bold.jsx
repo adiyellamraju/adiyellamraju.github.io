@@ -30,7 +30,22 @@ const BoldGrid = () => (
   }}/>
 );
 
-const BoldNav = () => (
+const NAV_STATUSES = [
+  { text: "2 case studies being updated", dot: "#fbbf24", bg: "rgba(251,191,36,0.12)", border: "rgba(251,191,36,0.3)" },
+  { text: "agent in training · finalized version coming soon", dot: "#a78fff", bg: "rgba(167,143,255,0.14)", border: "rgba(167,143,255,0.35)" },
+];
+const BoldNav = () => {
+  const [si, setSi] = React.useState(0);
+  const [vis, setVis] = React.useState(true);
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setVis(false);
+      setTimeout(() => { setSi(s => (s + 1) % NAV_STATUSES.length); setVis(true); }, 320);
+    }, 3800);
+    return () => clearInterval(id);
+  }, []);
+  const st = NAV_STATUSES[si];
+  return (
   <nav className="bp-nav" style={{
     position: "sticky", top: 0, zIndex: 100, padding: "20px 32px",
     display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -38,11 +53,14 @@ const BoldNav = () => (
     borderBottom: "1px solid rgba(255,255,255,0.08)",
   }}>
     <div className="bp-nav-brand" style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 13, fontWeight: 700, color: "#fff" }}>
-      <span style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#491cff,#ff99d4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 900, letterSpacing: -1 }}>AY</span>
-      <span>aditya.design</span>
+      <a href="#home" style={{ display: "flex", alignItems: "center", gap: 10, color: "inherit", textDecoration: "none" }}>
+        <span style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#491cff,#ff99d4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 900, letterSpacing: -1 }}>AY</span>
+        <span>aditya.design</span>
+      </a>
       <span style={{ color: "rgba(255,255,255,0.3)" }}>/agent</span>
-      <span className="bp-nav-status" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginLeft: 10, fontSize: 11, color: "rgba(255,255,255,0.6)", background: "rgba(34,197,94,0.12)", padding: "3px 10px", borderRadius: 100, border: "1px solid rgba(34,197,94,0.3)", fontFamily: "'Source Sans 3',sans-serif", fontWeight: 700 }}>
-        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80" }}/> ready
+      <span className="bp-nav-status" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginLeft: 10, fontSize: 11, color: "rgba(255,255,255,0.72)", background: st.bg, padding: "3px 10px", borderRadius: 100, border: `1px solid ${st.border}`, fontFamily: "'Source Sans 3',sans-serif", fontWeight: 700, whiteSpace: "nowrap", transition: "background 0.3s, border-color 0.3s" }}>
+        <span style={{ width: 6, height: 6, borderRadius: "50%", background: st.dot, flexShrink: 0, transition: "background 0.3s" }}/>
+        <span style={{ opacity: vis ? 1 : 0, transition: "opacity 0.3s" }}>{st.text}</span>
       </span>
     </div>
     <div className="bp-nav-links" style={{ display: "flex", gap: 20, fontSize: 13, fontFamily: "ui-monospace,Menlo,monospace" }}>
@@ -53,7 +71,8 @@ const BoldNav = () => (
       ))}
     </div>
   </nav>
-);
+  );
+};
 
 // ─── BOLD HERO: agent as the hero ────────────────────────────────────────
 const BoldHero = () => (
