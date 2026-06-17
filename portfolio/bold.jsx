@@ -681,6 +681,9 @@ const BoldCase = ({ c, expanded, onToggle }) => (
       </div>
     </div>
     <div className="bp-case-mock" style={{ background: c.accent, display: "flex", alignItems: "center", justifyContent: "center", padding: c.hero ? 0 : 28, position: "relative", overflow: "hidden", minHeight: expanded ? 320 : 180 }}>
+      {c.slug === "recommendations-engine" && (
+        <span style={{ position: "absolute", top: 14, left: 14, right: 14, zIndex: 2, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: "uppercase", color: "#1a1a24", background: "#ffd84d", border: "1px solid rgba(0,0,0,0.2)", boxShadow: "0 6px 18px rgba(0,0,0,0.35)", borderRadius: 8, padding: "8px 12px", textAlign: "center", lineHeight: 1.35 }}>Case study being updated · design images coming soon</span>
+      )}
       {c.hero
         ? <img src={c.hero} alt={c.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
         : <BoldMiniMock slug={c.slug}/>}
