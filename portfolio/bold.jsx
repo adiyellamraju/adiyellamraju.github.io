@@ -1,6 +1,10 @@
 // Reference MiniMock via window so bold.jsx can find it — exported from safe.jsx
 const BoldMiniMock = ({ slug }) => (window.MiniMock ? <window.MiniMock slug={slug}/> : null);
 
+// Vercel Analytics custom-event helper. Safe no-op until the tracker loads.
+// (Custom events surface in the dashboard on Vercel Pro/Enterprise; harmless on Hobby.)
+const track = (name, data) => { try { window.va && window.va("event", { name, ...(data || {}) }); } catch (e) {} };
+
 const BoldPortfolio = () => (
   <div style={{ width: "100%", minHeight: "100%", background: "#1a1a24", color: "#f0f0f5", fontFamily: "'Source Sans 3',sans-serif", position: "relative", overflowX: "clip" }}>
     <BoldGrid />
@@ -161,6 +165,7 @@ const BigAgentChat = ({ compact }) => {
   const ask = async (q) => {
     if (!q.trim() || typing) return;
     const userText = q.trim();
+    track("agent_message", { len: userText.length });
     setMessages(m => [...m, { role: "user", text: userText }]);
     setInput("");
     setSugg([]);
@@ -347,7 +352,7 @@ const BoldVibeProtos = () => (
 const BoldAgentDock = () => {
   const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
-    const handler = () => setOpen(true);
+    const handler = () => { setOpen(true); track("agent_opened", { source: "cta" }); };
     window.addEventListener("open-agent", handler);
     const key = (e) => { if (e.key === "Escape") setOpen(false); };
     window.addEventListener("keydown", key);
@@ -358,7 +363,7 @@ const BoldAgentDock = () => {
     <>
       {/* Floating launch button */}
       {!open && (
-        <button onClick={() => setOpen(true)} aria-label="Open the agent" style={{
+        <button onClick={() => { setOpen(true); track("agent_opened", { source: "dock" }); }} aria-label="Open the agent" style={{
           position: "fixed", bottom: 28, right: 28, zIndex: 300,
           display: "inline-flex", alignItems: "center", gap: 10,
           background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff",
@@ -627,6 +632,7 @@ const BoldCase = ({ c, expanded, onToggle }) => (
     className="bp-case"
     data-expanded={expanded ? "true" : "false"}
     onClick={() => {
+      track("case_study_view", { project: c.slug });
       if (c.slug === "personalization") { window.location.href = "case-personalization-private.html"; return; }
       if (c.slug === "recommendations-engine") { window.location.href = "case-recommendations-engine.html"; return; }
       if (c.slug === "pulse-nexio") { window.location.href = "case-tableau-pulse.html"; return; }
@@ -712,8 +718,8 @@ const BoldFooter = () => (
       <h2 style={{ fontSize: 56, fontWeight: 900, letterSpacing: -2, marginTop: 16, marginBottom: 12, color: "#ffffff" }}>Let's build something.</h2>
       <p style={{ fontSize: 18, color: "rgba(255,255,255,0.7)", marginBottom: 28 }}>Staff / Lead UX · Austin, TX · remote-friendly · open to relocation to Bay Area California, NYC, or Chicago</p>
       <div className="bp-footer-cta" style={{ display: "inline-flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-        <a href="https://www.linkedin.com/in/aditya-yellamraju" target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff", fontSize: 15, fontWeight: 700, padding: "14px 28px", borderRadius: 100, textDecoration: "none", boxShadow: "0 14px 40px rgba(73,28,255,0.5)" }}>Message me on LinkedIn <ArrowIcon size={14}/></a>
-        <a href="assets/Aditya-Yellamraju-Resume.pdf" target="_blank" rel="noopener" download="Aditya-Yellamraju-Resume.pdf" style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1.5px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)", fontSize: 15, fontWeight: 600, padding: "13px 24px", borderRadius: 100, textDecoration: "none" }}><DownloadIcon size={14}/> Résumé</a>
+        <a href="https://www.linkedin.com/in/aditya-yellamraju" onClick={() => track("linkedin_click")} target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff", fontSize: 15, fontWeight: 700, padding: "14px 28px", borderRadius: 100, textDecoration: "none", boxShadow: "0 14px 40px rgba(73,28,255,0.5)" }}>Message me on LinkedIn <ArrowIcon size={14}/></a>
+        <a href="assets/Aditya-Yellamraju-Resume.pdf" onClick={() => track("resume_download")} target="_blank" rel="noopener" download="Aditya-Yellamraju-Resume.pdf" style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1.5px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)", fontSize: 15, fontWeight: 600, padding: "13px 24px", borderRadius: 100, textDecoration: "none" }}><DownloadIcon size={14}/> Résumé</a>
       </div>
     </div>
     <div className="bp-footer-meta" style={{ display: "flex", justifyContent: "space-between", marginTop: 32, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
