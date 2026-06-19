@@ -78,7 +78,7 @@
 
     /* ── HERO ── */
     .cs-hero {
-      background: linear-gradient(135deg, var(--dark2) 0%, var(--dark) 100%);
+      background: var(--dark);
       padding: 160px 64px 100px;
       position: relative;
       overflow: hidden;
@@ -648,8 +648,8 @@
     body { background: #1c1c26 !important; color: #f0f0f5 !important; }
     body::before {
       content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      background: radial-gradient(ellipse at 15% -10%, rgba(73,28,255,0.18), transparent 55%),
-                  radial-gradient(ellipse at 85% 110%, rgba(255,153,212,0.10), transparent 55%);
+      background: radial-gradient(ellipse at 20% 0%, rgba(73,28,255,0.08), transparent 55%),
+                  radial-gradient(ellipse at 80% 100%, rgba(255,153,212,0.05), transparent 55%);
     }
     nav a.back { background: linear-gradient(135deg, #491cff, #7b4dff) !important; color: #fff !important; box-shadow: 0 6px 20px rgba(73,28,255,0.4); }
     nav a.back:hover { box-shadow: 0 10px 28px rgba(73,28,255,0.55); }

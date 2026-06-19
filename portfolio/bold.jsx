@@ -24,9 +24,9 @@ const BoldGrid = () => (
   <div aria-hidden style={{
     position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
     backgroundImage: `
-      radial-gradient(ellipse at 20% 0%, rgba(73,28,255,0.35), transparent 55%),
-      radial-gradient(ellipse at 80% 100%, rgba(255,153,212,0.28), transparent 55%),
-      radial-gradient(ellipse at 50% 50%, rgba(167,143,255,0.08), transparent 70%),
+      radial-gradient(ellipse at 20% 0%, rgba(73,28,255,0.08), transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(255,153,212,0.05), transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(167,143,255,0.04), transparent 70%),
       linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)
     `,
