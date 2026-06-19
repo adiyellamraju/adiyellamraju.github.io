@@ -23,8 +23,8 @@
     :root {
       --brand: #491cff;
       --brand-pink: #ff99d4;
-      --dark: #1c1c1c;
-      --dark2: #2b2b2b;
+      --dark: #1c1c26;
+      --dark2: #2a2a38;
       --light-start: #f0f4f8;
       --light-end: #d6dee6;
       --text-dark: #0f0f0f;
@@ -62,7 +62,7 @@
     nav a {
       font-size: 15px;
       font-weight: 600;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.82);
       text-decoration: none;
       padding: 8px 18px;
       border-radius: 40px;
@@ -106,11 +106,11 @@
       gap: 8px;
       font-size: 14px;
       font-weight: 600;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.6);
     }
 
-    .cs-breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
-    .cs-breadcrumb a:hover { color: rgba(255,255,255,0.7); }
+    .cs-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .cs-breadcrumb a:hover { color: rgba(255,255,255,0.82); }
     .cs-breadcrumb span { color: rgba(255,255,255,0.2); }
 
     .cs-tags {
@@ -127,7 +127,7 @@
       padding: 5px 14px;
       border-radius: 100px;
       background: rgba(73,28,255,0.2);
-      color: #a78fff;
+      color: #b9a6ff;
       border: 1px solid rgba(73,28,255,0.4);
     }
 
@@ -157,7 +157,7 @@
     .cs-hero-sub {
       font-size: 20px;
       font-weight: 400;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.8);
       line-height: 1.7;
       max-width: 720px;
     }
@@ -186,7 +186,7 @@
     .cs-stat-label {
       font-size: 13px;
       font-weight: 600;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.6);
       letter-spacing: 0.3px;
     }
 
@@ -523,7 +523,7 @@
 
     .cs-dreamforce-text p {
       font-size: 16px;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.78);
       line-height: 1.6;
     }
 
@@ -562,7 +562,7 @@
 
     .cs-footer-cta p {
       font-size: 16px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.6);
       margin-top: 6px;
     }
 
@@ -645,7 +645,7 @@
       .cs-footer-cta { padding: 48px 24px; }
     }
     /* ─────── DARK THEME OVERRIDES (matches other case studies) ─────── */
-    body { background: #1a1a24 !important; color: #f0f0f5 !important; }
+    body { background: #1c1c26 !important; color: #f0f0f5 !important; }
     body::before {
       content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background: radial-gradient(ellipse at 15% -10%, rgba(73,28,255,0.18), transparent 55%),
@@ -656,7 +656,7 @@
     .cs-content { color: #f0f0f5; }
     .cs-section { border-top: 1px solid rgba(255,255,255,0.08) !important; }
     .cs-section-title { color: #fff !important; }
-    .cs-section-num { color: #a78fff !important; }
+    .cs-section-num { color: #b9a6ff !important; }
     .cs-section-body h3 { color: #fff !important; }
     .cs-section-body p { color: rgba(255,255,255,0.78) !important; }
     .cs-section-body p strong { color: #fff !important; }
@@ -665,17 +665,17 @@
       border-left-color: #ff99d4 !important; color: #fff !important; font-weight: 500 !important;
     }
     .cs-role-item, .cs-team {
-      background: rgba(36,36,48,0.7) !important;
+      background: rgba(40,40,52,0.7) !important;
       border: 1px solid rgba(255,255,255,0.08) !important;
     }
-    .cs-role-item-title { color: #a78fff !important; }
+    .cs-role-item-title { color: #b9a6ff !important; }
     .cs-role-item-desc { color: rgba(255,255,255,0.78) !important; }
     .cs-team-row { border-bottom-color: rgba(255,255,255,0.08) !important; }
     .cs-team-name { color: #fff !important; }
-    .cs-team-role { color: rgba(255,255,255,0.55) !important; }
+    .cs-team-role { color: rgba(255,255,255,0.72) !important; }
     .cs-team-dot.muted { background: rgba(255,255,255,0.25) !important; }
     .cs-decision {
-      background: rgba(36,36,48,0.7) !important;
+      background: rgba(40,40,52,0.7) !important;
       border: 1px solid rgba(167,143,255,0.22) !important;
     }
     .cs-decision:hover { box-shadow: 0 8px 32px rgba(73,28,255,0.25) !important; border-color: rgba(167,143,255,0.45) !important; }
@@ -687,15 +687,15 @@
       border: 1px solid rgba(73,28,255,0.3) !important;
     }
     .cs-screen, .cs-outcome-card, .cs-reflection, .cs-dreamforce {
-      background: rgba(36,36,48,0.7) !important;
+      background: rgba(40,40,52,0.7) !important;
       border: 1px solid rgba(255,255,255,0.08) !important;
     }
     .cs-screen-caption {
-      background: rgba(36,36,48,0.85) !important;
+      background: rgba(40,40,52,0.85) !important;
       border-top: 1px solid rgba(255,255,255,0.08) !important;
     }
     .cs-screen-caption-title { color: #fff !important; }
-    .cs-screen-caption-desc { color: rgba(255,255,255,0.55) !important; }
+    .cs-screen-caption-desc { color: rgba(255,255,255,0.72) !important; }
     .cs-outcome-card {
       background: linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%) !important;
       border: 1px solid rgba(167,143,255,0.22) !important;
@@ -715,7 +715,7 @@
 
     /* State-of-project grid */
     .cs-state { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 4px 0 8px; }
-    .cs-state-item { background: rgba(36,36,48,0.7); border: 1px solid rgba(167,143,255,0.22); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+    .cs-state-item { background: rgba(40,40,52,0.7); border: 1px solid rgba(167,143,255,0.22); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
     .cs-state-k { font-size: 14px; font-weight: 800; color: #fff; }
     .cs-state-v { font-size: 13.5px; color: rgba(255,255,255,0.62); line-height: 1.5; }
 
@@ -726,9 +726,9 @@
     .nx-slide { flex: 0 0 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; }
     .nx-img { max-width: 100%; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #ffffff; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
     .nx-img img { height: 60vh; width: auto; max-width: 100%; object-fit: contain; display: block; }
-    .nx-cap { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; max-width: 880px; }
+    .nx-cap { font-size: 15px; color: rgba(255,255,255,0.82); line-height: 1.6; max-width: 880px; }
     .nx-cap strong { color: #fff; }
-    .nx-cap .nx-step { font-family: ui-monospace,Menlo,monospace; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #a78fff; font-weight: 800; margin-right: 8px; }
+    .nx-cap .nx-step { font-family: ui-monospace,Menlo,monospace; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #b9a6ff; font-weight: 800; margin-right: 8px; }
     .nx-dots { display: flex; gap: 8px; justify-content: center; }
     .nx-dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: background 0.2s, transform 0.2s; }
     .nx-dots span.active { background: #ff99d4; transform: scale(1.3); }
@@ -814,7 +814,7 @@
   <div class="hero-stripe"></div>
 
   <!-- HERO SCREEN -->
-  <div style="background: #1c1c1c; padding: 0 64px 64px; max-width:100%;">
+  <div style="background: #1c1c26; padding: 0 64px 64px; max-width:100%;">
     <div class="cs-hero-img">
       <img src="assets/case-studies/pulse/01-homepage.jpg" alt="Tableau Pulse homepage — Today's Pulse metrics grid showing Ad Reach and Sales metric cards with sparklines, AI summary, and follower counts" loading="eager" />
     </div>
@@ -1017,11 +1017,11 @@
         <p>
           I translated the model into end to end flows, iterating across three sprints to pressure test how the experience held up at real scale. The breadth mattered: each branch explored a different persona, surface, and moment of insight.
         </p>
-        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to pan across the full breadth of the exploration.</p>
+        <p style="color: rgba(255,255,255,0.72); font-style: italic; margin-bottom: 4px;">Scroll to pan across the full breadth of the exploration.</p>
         <div class="fm-scroll" id="fmScroll">
           <div class="fm-sticky">
             <div class="fm-pan">
-              <img id="fmImg" src="assets/case-studies/pulse/nexio/flows-3-sprints.jpg" alt="A wide panorama of end-to-end Tableau Pulse flows explored across three sprints, dozens of connected screen thumbnails branching out from a starting point into many parallel paths" loading="lazy" />
+              <img id="fmImg" src="assets/case-studies/pulse/nexio/flows-3-sprints.jpg" alt="A wide panorama of end-to-end Tableau Pulse flows explored across three sprints, dozens of connected screen thumbnails branching out from a starting point into many parallel paths" />
             </div>
             <div class="fm-cap"><span class="fm-step">3 sprints</span>A panorama of the exploration. Each branch is a different persona, surface, and moment of insight, traced end to end.</div>
           </div>
@@ -1030,11 +1030,11 @@
         <p style="margin-top: 4px;">
           Each flow followed a real persona through a real scene. Here is Ian, an individual contributor in his first week, getting his footing in Salesforce. The story moves from a welcome state to a focused, metric following home that meets him where he is.
         </p>
-        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to follow Ian's scenario across the flow.</p>
+        <p style="color: rgba(255,255,255,0.72); font-style: italic; margin-bottom: 4px;">Scroll to follow Ian's scenario across the flow.</p>
         <div class="fm-scroll" id="fmScroll2">
           <div class="fm-sticky">
             <div class="fm-pan">
-              <img id="fmImg2" src="assets/case-studies/pulse/nexio/flow-ian-scenario.jpg" alt="A persona scenario storyboard for Ian, an individual contributor. It opens with a persona card and a Scene 1 narrative, then walks through a sequence of Salesforce home and dashboard states that progressively personalize to his metrics and goals." loading="lazy" />
+              <img id="fmImg2" src="assets/case-studies/pulse/nexio/flow-ian-scenario.jpg" alt="A persona scenario storyboard for Ian, an individual contributor. It opens with a persona card and a Scene 1 narrative, then walks through a sequence of Salesforce home and dashboard states that progressively personalize to his metrics and goals." />
             </div>
             <div class="fm-cap"><span class="fm-step">Persona · Ian</span>An individual contributor in week one. The scenario traces how the experience personalizes to his goals, from a generic welcome to a focused, metric following home.</div>
           </div>
@@ -1043,11 +1043,11 @@
         <p style="margin-top: 4px;">
           The final sprint raised the fidelity all the way up. Emily, an executive, reads the state of her business in a personalized command center, pushes her exploration into a team Slack channel to ask why a number moved, then scales a best practice and coaches her team, all without leaving the flow of work.
         </p>
-        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to follow Emily's executive flow, the highest-fidelity sprint.</p>
+        <p style="color: rgba(255,255,255,0.72); font-style: italic; margin-bottom: 4px;">Scroll to follow Emily's executive flow, the highest-fidelity sprint.</p>
         <div class="fm-scroll" id="fmScroll3">
           <div class="fm-sticky">
             <div class="fm-pan">
-              <img id="fmImg3" src="assets/case-studies/pulse/nexio/flow-emily-scenario.jpg" alt="The high-fidelity Executive Emily flow. Emily reads the state of her business in a personalized Executive Command Center, drills into what is driving a drop in deposits, pushes her exploration into the SalesAMER Slack channel to ask a question and collaborate on a plan, then scales a best practice and coaches her team." loading="lazy" />
+              <img id="fmImg3" src="assets/case-studies/pulse/nexio/flow-emily-scenario.jpg" alt="The high-fidelity Executive Emily flow. Emily reads the state of her business in a personalized Executive Command Center, drills into what is driving a drop in deposits, pushes her exploration into the SalesAMER Slack channel to ask a question and collaborate on a plan, then scales a best practice and coaches her team." />
             </div>
             <div class="fm-cap"><span class="fm-step">Persona · Emily</span>Command center to Slack collaboration to scaling a practice. The last sprint, at full fidelity, showing the storytelling model in an executive's real workflow.</div>
           </div>
@@ -1057,7 +1057,7 @@
         <p>
           Each concept showed AI authored data stories meeting a different persona where they already work, from Slack to the inbox to the executive command center. Together they made the future tangible enough for leadership to fund.
         </p>
-        <p style="color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 4px;">Scroll to move through the five concepts, one persona at a time.</p>
+        <p style="color: rgba(255,255,255,0.72); font-style: italic; margin-bottom: 4px;">Scroll to move through the five concepts, one persona at a time.</p>
         <div class="nx-scroll" id="nxScroll">
           <div class="nx-sticky">
             <div class="nx-track" id="nxTrack">
@@ -1288,7 +1288,7 @@
     </a>
   </div>
 
-  <div style="background: #14141c; border-top: 1px solid rgba(255,255,255,0.08); padding: 22px 64px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: ui-monospace,Menlo,monospace; font-size: 12px; color: rgba(255,255,255,0.35);">
+  <div style="background: #14141c; border-top: 1px solid rgba(255,255,255,0.08); padding: 22px 64px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: ui-monospace,Menlo,monospace; font-size: 12px; color: rgba(255,255,255,0.55);">
     <span>© 2026 · aditya yellamraju · handcrafted, then robot-polished</span>
     <span>no designers were replaced in the making of this site</span>
   </div>

@@ -18,15 +18,15 @@
   --brand:           #491cff;  /* Electric Indigo — primary accent, CTAs, borders */
   --brand-700:       #3a15cc;
   --brand-500:       #7b4dff;  /* lighter, used inside brand gradients */
-  --brand-300:       #a78fff;  /* soft lavender, for dark-mode accents & labels */
+  --brand-300:       #b9a6ff;  /* soft lavender, for dark-mode accents & labels */
 
   /* Brand secondary */
   --brand-pink:      #ff99d4;  /* Soft pink — gradient companion, accents */
   --brand-pink-deep: #c4006d;  /* Deep magenta — used inside pink gradients */
 
   /* Neutrals — dark (hero, footer) */
-  --dark:            #1c1c1c;
-  --dark-2:          #2b2b2b;
+  --dark:            #1c1c26;
+  --dark-2:          #2a2a38;
   --dark-3:          #0f0f0f;
 
   /* Neutrals — light (body background gradient stops) */
@@ -38,8 +38,8 @@
   --text-mid:        #3a3a3a;
   --text-light:      #ffffff;
   --text-muted-d:    rgba(255, 255, 255, 0.65);
-  --text-subtle-d:   rgba(255, 255, 255, 0.4);
-  --text-dim-d:      rgba(255, 255, 255, 0.3);
+  --text-subtle-d:   rgba(255, 255, 255, 0.6);
+  --text-dim-d:      rgba(255, 255, 255, 0.52);
   --text-muted-l:    rgba(0, 0, 0, 0.55);
   --text-subtle-l:   rgba(0, 0, 0, 0.4);
 
@@ -75,37 +75,37 @@
   --font-mono:       ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Type scale — clamp()-based for fluid layouts */
-  --fs-display:      clamp(48px, 5.5vw, 88px);  /* hero headline */
-  --fs-h1:           38px;                       /* section heads */
-  --fs-h2:           34px;                       /* card titles */
-  --fs-h3:           28px;                       /* sub-heads */
-  --fs-lead:         clamp(17px, 1.4vw, 22px);   /* hero sub, about copy */
-  --fs-body-lg:      20px;
-  --fs-body:         18px;
-  --fs-body-sm:      16px;
-  --fs-small:        14px;
-  --fs-micro:        13px;
-  --fs-caption:      12px;
-  --fs-eyebrow:      11px;
+  --fs-display:      clamp(48px, 5.5vw, 88px); /* @kind font */ /* hero headline */
+  --fs-h1:           38px; /* @kind font */                      /* section heads */
+  --fs-h2:           34px; /* @kind font */                      /* card titles */
+  --fs-h3:           28px; /* @kind font */                      /* sub-heads */
+  --fs-lead:         clamp(17px, 1.4vw, 22px); /* @kind font */ /* hero sub, about copy */
+  --fs-body-lg:      20px; /* @kind font */
+  --fs-body:         18px; /* @kind font */
+  --fs-body-sm:      16px; /* @kind font */
+  --fs-small:        14px; /* @kind font */
+  --fs-micro:        13px; /* @kind font */
+  --fs-caption:      12px; /* @kind font */
+  --fs-eyebrow:      11px; /* @kind font */
 
   /* Weights — bias heavy. 900 for display, 700 for UI, 400 for body. */
-  --fw-light:        300;
-  --fw-regular:      400;
-  --fw-semibold:     600;
-  --fw-bold:         700;
-  --fw-black:        900;
+  --fw-light:        300; /* @kind font */
+  --fw-regular:      400; /* @kind font */
+  --fw-semibold:     600; /* @kind font */
+  --fw-bold:         700; /* @kind font */
+  --fw-black:        900; /* @kind font */
 
   /* Line heights */
-  --lh-tight:        1.02;   /* display */
-  --lh-snug:         1.15;   /* headings */
-  --lh-normal:       1.5;    /* body */
-  --lh-relaxed:      1.7;    /* long-form / subheads */
+  --lh-tight:        1.02; /* @kind font */   /* display */
+  --lh-snug:         1.15; /* @kind font */   /* headings */
+  --lh-normal:       1.5; /* @kind font */    /* body */
+  --lh-relaxed:      1.7; /* @kind font */    /* long-form / subheads */
 
   /* Letter spacing */
-  --tr-display:      -2.5px;  /* big display pulls tight */
-  --tr-head:         -0.5px;
-  --tr-eyebrow:      1.5px;   /* uppercase eyebrow labels */
-  --tr-eyebrow-lg:   1.2px;
+  --tr-display:      -2.5px; /* @kind font */  /* big display pulls tight */
+  --tr-head:         -0.5px; /* @kind font */
+  --tr-eyebrow:      1.5px; /* @kind font */   /* uppercase eyebrow labels */
+  --tr-eyebrow-lg:   1.2px; /* @kind font */
 
   /* ====================================================================
      SHAPE + ELEVATION
@@ -128,18 +128,18 @@
 
   /* Borders */
   --border-brand:    2.5px solid var(--brand);
-  --border-brand-1:  1px solid rgba(73, 28, 255, 0.25);
+  --border-brand-1:  1px solid rgba(73, 28, 255, 0.25); /* @kind other */
 
   /* ====================================================================
      MOTION
      All page-level motion uses the same ease and 0.6–0.9s durations.
      ==================================================================== */
 
-  --ease-out-expo:   cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-fast:        0.2s;
-  --dur-med:         0.3s;
-  --dur-slow:        0.7s;
-  --dur-slower:      0.9s;
+  --ease-out-expo:   cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --dur-fast:        0.2s; /* @kind other */
+  --dur-med:         0.3s; /* @kind other */
+  --dur-slow:        0.7s; /* @kind other */
+  --dur-slower:      0.9s; /* @kind other */
 }
 
 /* ==========================================================================

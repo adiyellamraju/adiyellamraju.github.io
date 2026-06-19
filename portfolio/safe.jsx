@@ -31,7 +31,7 @@ const SafeNav = () => (
     {["Home", "About", "Now", "Work", "Testimonials", "Resume"].map((label, i) => (
       <a key={label} href={`#${label.toLowerCase()}`}
         style={{
-          fontSize: 14, fontWeight: 600, color: i === 0 ? "#0f0f0f" : "rgba(255,255,255,0.7)",
+          fontSize: 14, fontWeight: 600, color: i === 0 ? "#0f0f0f" : "rgba(255,255,255,0.82)",
           background: i === 0 ? "linear-gradient(to bottom,#f0f4f8,#d6dee6 75%)" : "transparent",
           textDecoration: "none", padding: "8px 16px", borderRadius: 40, whiteSpace: "nowrap",
         }}>{label}</a>
@@ -42,7 +42,7 @@ const SafeNav = () => (
 // ─── HERO — with interactive agent chat ──────────────────────────────────
 const SafeHero = () => (
   <section id="home" style={{
-    background: "linear-gradient(135deg,#2b2b2b 0%,#1c1c1c 100%)",
+    background: "linear-gradient(135deg,#2a2a38 0%,#1c1c26 100%)",
     marginTop: -78, paddingTop: 160, paddingBottom: 100, paddingLeft: 64, paddingRight: 64,
     display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 64, position: "relative",
     borderRadius: 0, overflow: "hidden",
@@ -58,7 +58,7 @@ const SafeHero = () => (
         I design <em style={{ fontStyle: "normal", background: "linear-gradient(90deg,#491cff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>agentic experiences<br/></em>
         with agentic tools.
       </h1>
-      <p style={{ fontSize: 20, color: "rgba(255,255,255,0.65)", lineHeight: 1.65, maxWidth: 540, marginBottom: 36 }}>
+      <p style={{ fontSize: 20, color: "rgba(255,255,255,0.8)", lineHeight: 1.65, maxWidth: 540, marginBottom: 36 }}>
         9 years designing <strong style={{ color: "rgba(255,255,255,0.92)", fontWeight: 600 }}>technically-dense enterprise UX</strong> at
         Salesforce and Tableau. Now vibe-coding AI-first prototypes as a daily design medium — because the clarity it creates is the whole point.
       </p>
@@ -98,12 +98,12 @@ const RolePill = () => (
 );
 const ContextChips = () => (
   <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>Shipped at</span>
+    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.52)" }}>Shipped at</span>
     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
       {["Salesforce", "Tableau", "AI / ML UX", "Enterprise SaaS", "0→1", "⌥ Vibe coded"].map((c, i) => (
         <span key={c} style={{
           fontSize: 13, fontWeight: 600,
-          color: i === 5 ? "rgba(255,153,212,0.85)" : "rgba(255,255,255,0.55)",
+          color: i === 5 ? "rgba(255,153,212,0.85)" : "rgba(255,255,255,0.72)",
           border: `1px solid ${i === 5 ? "rgba(255,153,212,0.35)" : "rgba(255,255,255,0.12)"}`,
           borderRadius: 8, padding: "6px 12px", background: "rgba(255,255,255,0.04)",
         }}>{c}</span>
@@ -198,7 +198,7 @@ const AgentChat = () => {
         <div style={{ display: "flex", gap: 6 }}>
           {["#ff5f57","#febc2e","#28c840"].map(c => <span key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }}/>)}
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1, background: "rgba(73,28,255,0.15)", padding: "5px 12px", borderRadius: 6, color: "#a78fff", fontSize: 11, fontWeight: 700, letterSpacing: 0.3 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1, background: "rgba(73,28,255,0.15)", padding: "5px 12px", borderRadius: 6, color: "#b9a6ff", fontSize: 11, fontWeight: 700, letterSpacing: 0.3 }}>
           <SparkleIcon size={12}/> ASK-THE-PORTFOLIO · agent
         </div>
       </div>
@@ -255,7 +255,7 @@ const ChatBubble = ({ role, text }) => (
 );
 const TypingDots = () => (
   <span style={{ display: "inline-flex", gap: 4 }}>
-    {[0,1,2].map(i => <span key={i} style={{ width: 6, height: 6, borderRadius: "50%", background: "#a78fff", animation: `typing 1.2s ease-in-out ${i*0.15}s infinite` }}/>)}
+    {[0,1,2].map(i => <span key={i} style={{ width: 6, height: 6, borderRadius: "50%", background: "#b9a6ff", animation: `typing 1.2s ease-in-out ${i*0.15}s infinite` }}/>)}
   </span>
 );
 
@@ -381,13 +381,13 @@ const RecsMock = () => (
     {/* content variants */}
     <div style={{ display: "flex", gap: 6 }}>
       {[
-        { c: "linear-gradient(135deg,#491cff,#a78fff)", l: "A" },
+        { c: "linear-gradient(135deg,#491cff,#b9a6ff)", l: "A" },
         { c: "linear-gradient(135deg,#c4006d,#ff99d4)", l: "B" },
         { c: "linear-gradient(135deg,#1d4ed8,#93c5fd)", l: "C" },
         { c: "rgba(255,255,255,0.10)", l: "D" },
       ].map((v, i) => (
         <div key={i} style={{ flex: 1, borderRadius: 8, padding: "10px 8px", background: v.c, border: "1px solid rgba(255,255,255,0.14)", display: "flex", flexDirection: "column", gap: 6, alignItems: "center" }}>
-          <div style={{ width: "80%", height: 5, borderRadius: 3, background: "rgba(255,255,255,0.55)" }}/>
+          <div style={{ width: "80%", height: 5, borderRadius: 3, background: "rgba(255,255,255,0.72)" }}/>
           <div style={{ width: "55%", height: 5, borderRadius: 3, background: "rgba(255,255,255,0.30)" }}/>
           <div style={{ fontSize: 9, fontWeight: 800, color: "rgba(255,255,255,0.85)", letterSpacing: 0.5 }}>{v.l}</div>
         </div>
@@ -395,7 +395,7 @@ const RecsMock = () => (
     </div>
 
     {/* funnel arrows into logic */}
-    <div style={{ textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.35)", lineHeight: 0.8 }}>↓ ↓ ↓ ↓</div>
+    <div style={{ textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 0.8 }}>↓ ↓ ↓ ↓</div>
 
     {/* qualifying logic node */}
     <div style={{ background: "rgba(73,28,255,0.22)", border: "1px solid rgba(167,143,255,0.5)", borderRadius: 10, padding: "10px 12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -403,15 +403,15 @@ const RecsMock = () => (
         <span style={{ width: 22, height: 22, borderRadius: 6, background: "linear-gradient(135deg,#491cff,#ff99d4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>✦</span>
         <span style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>Decisioning logic</span>
       </div>
-      <span style={{ fontSize: 10, fontWeight: 700, color: "#a78fff", fontFamily: "ui-monospace,Menlo,monospace" }}>rules + ML</span>
+      <span style={{ fontSize: 10, fontWeight: 700, color: "#b9a6ff", fontFamily: "ui-monospace,Menlo,monospace" }}>rules + ML</span>
     </div>
 
-    <div style={{ textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.35)", lineHeight: 0.8 }}>↓</div>
+    <div style={{ textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 0.8 }}>↓</div>
 
     {/* qualified audience → delivered */}
     <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
       <div style={{ flex: 1, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: 8, padding: "9px 11px" }}>
-        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 0.8, textTransform: "uppercase", color: "rgba(255,255,255,0.45)" }}>Qualified audience</div>
+        <div style={{ fontSize: 9, fontWeight: 800, letterSpacing: 0.8, textTransform: "uppercase", color: "rgba(255,255,255,0.64)" }}>Qualified audience</div>
         <div style={{ fontSize: 15, fontWeight: 900, color: "#fff", marginTop: 3 }}>High-LTV · in-stock</div>
       </div>
       <span style={{ fontSize: 16, color: "#4ade80" }}>→</span>
@@ -426,7 +426,7 @@ const FlowMock = () => (
   <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 8 }}>
     {["Audience", "Rules", "Model", "Launch"].map((s, i) => (
       <div key={s} style={{ display: "flex", alignItems: "center", gap: 12, background: i===1?"rgba(73,28,255,0.25)":"rgba(255,255,255,0.05)", border: `1px solid ${i===1?"rgba(73,28,255,0.5)":"rgba(255,255,255,0.08)"}`, borderRadius: 10, padding: "10px 12px" }}>
-        <span style={{ width: 24, height: 24, borderRadius: "50%", background: i===1?"#491cff":"rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: i<=1?"#fff":"rgba(255,255,255,0.5)" }}>{i+1}</span>
+        <span style={{ width: 24, height: 24, borderRadius: "50%", background: i===1?"#491cff":"rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: i<=1?"#fff":"rgba(255,255,255,0.68)" }}>{i+1}</span>
         <span style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>{s}</span>
         {i===0 && <span style={{ marginLeft: "auto", fontSize: 10, fontWeight: 800, color: "#4ade80" }}>✓</span>}
       </div>
@@ -439,15 +439,15 @@ const PulseMock = () => (
       <span style={{ fontSize: 20 }}>📊</span>
       <div style={{ flex: 1 }}>
         <div style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>Revenue +38% WoW</div>
-        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.6)" }}>Driven by EMEA segment</div>
+        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.78)" }}>Driven by EMEA segment</div>
       </div>
       <div style={{ display: "flex", alignItems: "flex-end", gap: 2, height: 24 }}>
-        {[40,65,50,80,95,72].map((h,i)=> <span key={i} style={{ width: 4, height: `${h}%`, borderRadius: 2, background: i===4?"#ff99d4":"#a78fff" }}/>)}
+        {[40,65,50,80,95,72].map((h,i)=> <span key={i} style={{ width: 4, height: `${h}%`, borderRadius: 2, background: i===4?"#ff99d4":"#b9a6ff" }}/>)}
       </div>
     </div>
     {[{t:"CAC down 12%",d:"paid search"},{t:"Churn flat",d:"enterprise"}].map((x,i)=>(
       <div key={i} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, padding: 10, display: "flex", justifyContent: "space-between" }}>
-        <div><div style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>{x.t}</div><div style={{ fontSize: 10, color: "rgba(255,255,255,0.5)" }}>{x.d}</div></div>
+        <div><div style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>{x.t}</div><div style={{ fontSize: 10, color: "rgba(255,255,255,0.68)" }}>{x.d}</div></div>
       </div>
     ))}
   </div>
@@ -468,18 +468,18 @@ const ABMock = () => (
   <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 10 }}>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
       <div style={{ background: "rgba(73,28,255,0.15)", border: "1px solid rgba(73,28,255,0.4)", borderRadius: 10, padding: 12 }}>
-        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#a78fff" }}>Variant A</div>
-        <div style={{ height: 6, borderRadius: 4, background: "rgba(255,255,255,0.08)", marginTop: 8 }}><div style={{ width: "68%", height: "100%", borderRadius: 4, background: "linear-gradient(to right,#491cff,#a78fff)" }}/></div>
-        <div style={{ fontSize: 16, fontWeight: 900, color: "#a78fff", marginTop: 8 }}>68.2%</div>
+        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#b9a6ff" }}>Variant A</div>
+        <div style={{ height: 6, borderRadius: 4, background: "rgba(255,255,255,0.08)", marginTop: 8 }}><div style={{ width: "68%", height: "100%", borderRadius: 4, background: "linear-gradient(to right,#491cff,#b9a6ff)" }}/></div>
+        <div style={{ fontSize: 16, fontWeight: 900, color: "#b9a6ff", marginTop: 8 }}>68.2%</div>
       </div>
       <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, padding: 12 }}>
-        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "rgba(255,255,255,0.4)" }}>Variant B</div>
+        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>Variant B</div>
         <div style={{ height: 6, borderRadius: 4, background: "rgba(255,255,255,0.08)", marginTop: 8 }}><div style={{ width: "45%", height: "100%", borderRadius: 4, background: "rgba(255,255,255,0.25)" }}/></div>
-        <div style={{ fontSize: 16, fontWeight: 900, color: "rgba(255,255,255,0.5)", marginTop: 8 }}>45.1%</div>
+        <div style={{ fontSize: 16, fontWeight: 900, color: "rgba(255,255,255,0.68)", marginTop: 8 }}>45.1%</div>
       </div>
     </div>
     <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: 8, padding: "10px 12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-      <div><div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 0.8, color: "rgba(255,255,255,0.4)" }}>Confidence</div></div>
+      <div><div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 0.8, color: "rgba(255,255,255,0.6)" }}>Confidence</div></div>
       <div style={{ fontSize: 18, fontWeight: 900, color: "#4ade80" }}>97.3%</div>
     </div>
   </div>
@@ -487,7 +487,7 @@ const ABMock = () => (
 
 // ─── TESTIMONIALS ─────────────────────────────────────────────────────────
 const SafeTestimonials = () => (
-  <section id="testimonials" style={{ background: "#1c1c1c", padding: "96px 64px", position: "relative", overflow: "hidden" }}>
+  <section id="testimonials" style={{ background: "#1c1c26", padding: "96px 64px", position: "relative", overflow: "hidden" }}>
     <HeroNoise/>
     <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 2 }}>
       <h2 style={{ fontSize: 38, fontWeight: 900, color: "#fff", marginBottom: 48 }}>What teammates say.</h2>
@@ -498,7 +498,7 @@ const SafeTestimonials = () => (
             <p style={{ color: "rgba(255,255,255,0.85)", fontSize: 16, lineHeight: 1.6 }}>{t.quote}</p>
             <div>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{t.name}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.45)" }}>{t.role}</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.64)" }}>{t.role}</div>
             </div>
           </div>
         ))}
@@ -513,14 +513,14 @@ const SafeFooter = () => (
     <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 24 }}>
       <div>
         <h3 style={{ fontSize: 32, fontWeight: 900, color: "#ffffff" }}>Let's work together.</h3>
-        <p style={{ fontSize: 16, color: "rgba(255,255,255,0.5)", marginTop: 6 }}>Staff / Lead UX · Austin, TX · Remote-friendly</p>
+        <p style={{ fontSize: 16, color: "rgba(255,255,255,0.68)", marginTop: 6 }}>Staff / Lead UX · Austin, TX · Remote-friendly</p>
       </div>
       <div style={{ display: "flex", gap: 14 }}>
         <a href="#" style={{ ...ctaSec, borderColor: "rgba(255,255,255,0.25)" }}>hello@adityay.com</a>
         <a href="#" style={{ ...ctaPri, background: "linear-gradient(135deg,#491cff,#ff99d4)" }}>LinkedIn <ArrowIcon size={14}/></a>
       </div>
     </div>
-    <div style={{ maxWidth: 1200, margin: "48px auto 0", paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+    <div style={{ maxWidth: 1200, margin: "48px auto 0", paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>
       <span>Designed by me. Vibe-coded with Claude &amp; Cursor · 2026</span>
       <span>↓ Download résumé (PDF)</span>
     </div>

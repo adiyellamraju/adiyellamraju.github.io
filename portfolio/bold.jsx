@@ -6,7 +6,7 @@ const BoldMiniMock = ({ slug }) => (window.MiniMock ? <window.MiniMock slug={slu
 const track = (name, data) => { try { window.va && window.va("event", { name, ...(data || {}) }); } catch (e) {} };
 
 const BoldPortfolio = () => (
-  <div style={{ width: "100%", minHeight: "100%", background: "#1a1a24", color: "#f0f0f5", fontFamily: "'Source Sans 3',sans-serif", position: "relative", overflowX: "clip" }}>
+  <div style={{ width: "100%", minHeight: "100%", background: "#1c1c26", color: "#f0f0f5", fontFamily: "'Source Sans 3',sans-serif", position: "relative", overflowX: "clip" }}>
     <BoldGrid />
     <BoldNav />
     <BoldHero />
@@ -36,7 +36,7 @@ const BoldGrid = () => (
 
 const NAV_STATUSES = [
   { text: "2 case studies being updated", dot: "#fbbf24", bg: "rgba(251,191,36,0.12)", border: "rgba(251,191,36,0.3)" },
-  { text: "agent in training · finalized version coming soon", dot: "#a78fff", bg: "rgba(167,143,255,0.14)", border: "rgba(167,143,255,0.35)" },
+  { text: "agent in training · finalized version coming soon", dot: "#b9a6ff", bg: "rgba(167,143,255,0.14)", border: "rgba(167,143,255,0.35)" },
 ];
 const BoldNav = () => {
   const [si, setSi] = React.useState(0);
@@ -53,7 +53,7 @@ const BoldNav = () => {
   <nav className="bp-nav" style={{
     position: "sticky", top: 0, zIndex: 100, padding: "20px 32px",
     display: "flex", justifyContent: "space-between", alignItems: "center",
-    background: "rgba(26,26,36,0.7)", backdropFilter: "blur(20px)",
+    background: "rgba(28,28,38,0.7)", backdropFilter: "blur(20px)",
     borderBottom: "1px solid rgba(255,255,255,0.08)",
   }}>
     <div className="bp-nav-brand" style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 13, fontWeight: 700, color: "#fff" }}>
@@ -61,7 +61,7 @@ const BoldNav = () => {
         <span style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg,#491cff,#ff99d4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 900, letterSpacing: -1 }}>AY</span>
         <span>aditya.design</span>
       </a>
-      <span style={{ color: "rgba(255,255,255,0.3)" }}>/agent</span>
+      <span style={{ color: "rgba(255,255,255,0.52)" }}>/agent</span>
       <span className="bp-nav-status" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginLeft: 10, fontSize: 11, color: "rgba(255,255,255,0.72)", background: st.bg, padding: "3px 10px", borderRadius: 100, border: `1px solid ${st.border}`, fontFamily: "'Source Sans 3',sans-serif", fontWeight: 700, whiteSpace: "nowrap", transition: "background 0.3s, border-color 0.3s" }}>
         <span style={{ width: 6, height: 6, borderRadius: "50%", background: st.dot, flexShrink: 0, transition: "background 0.3s" }}/>
         <span style={{ opacity: vis ? 1 : 0, transition: "opacity 0.3s" }}>{st.text}</span>
@@ -69,7 +69,7 @@ const BoldNav = () => {
     </div>
     <div className="bp-nav-links" style={{ display: "flex", gap: 20, fontSize: 13, fontFamily: "ui-monospace,Menlo,monospace" }}>
       {[["home","/"],["about","/about"],["work","/work"],["now","/now"],["contact","/hello"]].map(([label, path]) => (
-        <a key={label} href={`#${label}`} style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>
+        <a key={label} href={`#${label}`} style={{ color: "rgba(255,255,255,0.78)", textDecoration: "none" }}>
           {path}
         </a>
       ))}
@@ -87,28 +87,28 @@ const BoldHero = () => (
       WebkitMaskImage: "linear-gradient(to bottom, #000 90%, transparent 100%)",
       maskImage: "linear-gradient(to bottom, #000 90%, transparent 100%)",
     }}>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#491cff 0%,#a78fff 45%,#ff99d4 100%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#491cff 0%,#b9a6ff 45%,#ff99d4 100%)" }}/>
       <img src="assets/aditya-portrait.jpg" alt="" className="bp-hero-face-img" style={{
         position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
         objectPosition: "16% 16%", transform: "scale(1.08) translateY(-11%)", transformOrigin: "50% 0%",
         filter: "grayscale(1) contrast(1.12) brightness(0.9)", mixBlendMode: "luminosity", opacity: 0.36,
       }}/>
-      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 44% at 62% 30%, rgba(26,26,36,0.58), transparent 76%)" }}/>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(26,26,36,0.6) 0%, rgba(26,26,36,0.48) 20%, rgba(26,26,36,0.46) 46%, rgba(26,26,36,0.58) 86%, #1a1a24 100%)" }}/>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1a1a24 0%, rgba(26,26,36,0.82) 24%, rgba(26,26,36,0.5) 46%, rgba(26,26,36,0.16) 78%, transparent 94%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 44% at 62% 30%, rgba(28,28,38,0.58), transparent 76%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(28,28,38,0.6) 0%, rgba(28,28,38,0.48) 20%, rgba(28,28,38,0.46) 46%, rgba(28,28,38,0.58) 86%, #1c1c26 100%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1c1c26 0%, rgba(28,28,38,0.82) 24%, rgba(28,28,38,0.5) 46%, rgba(28,28,38,0.16) 78%, transparent 94%)" }}/>
     </div>
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, marginBottom: 40 }}>
       <h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1.08, letterSpacing: -2, textAlign: "center", maxWidth: 1100, margin: 0, color: "#ffffff" }}>
         <span style={{ color: "rgba(255,255,255,0.98)" }}>9 years of UX, from startups to </span>
-        <span style={{ background: "linear-gradient(90deg,#a78fff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>enterprise AI</span>
+        <span style={{ background: "linear-gradient(90deg,#b9a6ff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>enterprise AI</span>
         <span style={{ color: "rgba(255,255,255,0.98)" }}> at Salesforce.</span>
         <br/>
         <span style={{ background: "linear-gradient(90deg,#491cff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>Now vibe-prototyping at the speed of thought.</span>
       </h1>
-      <p className="bp-hero-sub" style={{ fontSize: 20, color: "rgba(255,255,255,0.7)", textAlign: "center", maxWidth: 720, lineHeight: 1.6, margin: 0 }}>
+      <p className="bp-hero-sub" style={{ fontSize: 20, color: "rgba(255,255,255,0.82)", textAlign: "center", maxWidth: 720, lineHeight: 1.6, margin: 0 }}>
         I'm <strong style={{ color: "#fff", fontWeight: 700 }}>Aditya</strong> — I design core platform and AI experiences for complex systems. These days I vibe-code them too, so design meets engineering the moment an idea lands.
       </p>
-      <span className="bp-hero-kicker" style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.5)", letterSpacing: 1.5, textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 8, marginTop: 8 }}>
+      <span className="bp-hero-kicker" style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.68)", letterSpacing: 1.5, textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 8, marginTop: 8 }}>
         <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite", color: "#ff99d4", filter: "drop-shadow(0 0 8px rgba(255,153,212,0.7))" }}><SparkleIcon size={14}/></span> To learn more, talk to an agent that knows Aditya — ask it anything
       </span>
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 4 }}>
@@ -220,14 +220,14 @@ const BigAgentChat = ({ compact }) => {
   return (
     <div className="bp-chat" style={{
       maxWidth: compact ? "100%" : 900, margin: "0 auto", borderRadius: 20,
-      background: "rgba(36,36,48,0.95)", border: "1px solid rgba(167,143,255,0.3)",
+      background: "rgba(40,40,52,0.95)", border: "1px solid rgba(167,143,255,0.3)",
       backdropFilter: "blur(20px)", overflow: "hidden",
       boxShadow: "0 60px 120px rgba(73,28,255,0.45), 0 0 0 1px rgba(167,143,255,0.12)",
     }}>
-      <div className="bp-chat-header" style={{ padding: "12px 18px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", gap: 12, background: "rgba(26,26,36,0.5)", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)" }}>
+      <div className="bp-chat-header" style={{ padding: "12px 18px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", gap: 12, background: "rgba(28,28,38,0.5)", fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.78)" }}>
         <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ade80" }}/>
         agent.aditya.design — session #7f3a · claude · live
-        <span className="bp-chat-header-end" style={{ marginLeft: "auto", color: "rgba(255,255,255,0.3)" }}>vibe-coded</span>
+        <span className="bp-chat-header-end" style={{ marginLeft: "auto", color: "rgba(255,255,255,0.52)" }}>vibe-coded</span>
       </div>
       <div ref={scrollRef} className="bp-chat-body" style={{ padding: 24, display: "flex", flexDirection: "column", gap: 14, maxHeight: compact ? 360 : 420, minHeight: compact ? 300 : 380, overflowY: "auto" }}>
         {messages.map((m, i) => m.role === "system"
@@ -246,12 +246,12 @@ const BigAgentChat = ({ compact }) => {
           ))}
         </div>
       )}
-      <form onSubmit={e => { e.preventDefault(); ask(input); }} className="bp-chat-form" style={{ display: "flex", gap: 10, padding: "16px 20px", borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(26,26,36,0.5)", alignItems: "center" }}>
-        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 14, color: "#a78fff" }}>›</span>
+      <form onSubmit={e => { e.preventDefault(); ask(input); }} className="bp-chat-form" style={{ display: "flex", gap: 10, padding: "16px 20px", borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(28,28,38,0.5)", alignItems: "center" }}>
+        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 14, color: "#b9a6ff" }}>›</span>
         <input value={input} onChange={e => setInput(e.target.value)}
           placeholder="ask anything…"
           style={{ flex: 1, background: "transparent", border: "none", color: "#fff", fontSize: 15, fontFamily: "'Source Sans 3',sans-serif", outline: "none" }}/>
-        <span className="bp-cmd-hint" style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.35)", display: "flex", alignItems: "center", gap: 4 }}>
+        <span className="bp-cmd-hint" style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.55)", display: "flex", alignItems: "center", gap: 4 }}>
           <CommandIcon size={12}/> ↵
         </span>
         <button type="submit" style={{ background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff", border: "none", borderRadius: 10, padding: "8px 16px", cursor: "pointer", fontSize: 13, fontWeight: 700, fontFamily: "inherit", display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -330,18 +330,18 @@ const BoldVibeProtos = () => (
   <div style={{ marginTop: 40 }}>
     <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 20, flexWrap: "wrap" }}>
       <SectionKicker>Prototypes</SectionKicker>
-      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>design meets engineering the moment an idea lands</span>
+      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>design meets engineering the moment an idea lands</span>
     </div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }} className="bp-vibe-grid">
       {VIBE_PROTOS.map((p, i) => (
-        <div key={i} style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgba(167,143,255,0.22)", background: "rgba(36,36,48,0.7)", display: "flex", flexDirection: "column" }}>
-          <div style={{ aspectRatio: "16 / 10", background: "rgba(20,20,28,0.6)", position: "relative", overflow: "hidden" }}>
+        <div key={i} style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgba(167,143,255,0.22)", background: "rgba(40,40,52,0.7)", display: "flex", flexDirection: "column" }}>
+          <div style={{ aspectRatio: "16 / 10", background: "rgba(22,22,30,0.6)", position: "relative", overflow: "hidden" }}>
             <VibeMedia p={p} />
           </div>
           <div style={{ padding: "16px 18px", display: "flex", flexDirection: "column", gap: 6 }}>
-            <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "#a78fff", background: "rgba(73,28,255,0.15)", border: "1px solid rgba(167,143,255,0.3)", borderRadius: 6, padding: "2px 8px", alignSelf: "flex-start", textTransform: "uppercase", letterSpacing: 0.8 }}>{p.tool}</span>
+            <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "#b9a6ff", background: "rgba(73,28,255,0.15)", border: "1px solid rgba(167,143,255,0.3)", borderRadius: 6, padding: "2px 8px", alignSelf: "flex-start", textTransform: "uppercase", letterSpacing: 0.8 }}>{p.tool}</span>
             <span style={{ fontSize: 16, fontWeight: 800, color: "#fff", lineHeight: 1.25 }}>{p.title}</span>
-            <span style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.5 }}>{p.desc}</span>
+            <span style={{ fontSize: 14, color: "rgba(255,255,255,0.78)", lineHeight: 1.5 }}>{p.desc}</span>
           </div>
         </div>
       ))}
@@ -380,7 +380,7 @@ const BoldAgentDock = () => {
       {open && (
         <div onClick={() => setOpen(false)} style={{
           position: "fixed", inset: 0, zIndex: 400,
-          background: "rgba(10,10,16,0.6)", backdropFilter: "blur(6px)",
+          background: "rgba(12,12,18,0.6)", backdropFilter: "blur(6px)",
           display: "flex", alignItems: "flex-end", justifyContent: "flex-end",
           padding: 28,
         }}>
@@ -391,7 +391,7 @@ const BoldAgentDock = () => {
             <button onClick={() => setOpen(false)} aria-label="Close" style={{
               position: "absolute", top: -14, right: -6, zIndex: 2,
               width: 32, height: 32, borderRadius: "50%", cursor: "pointer",
-              background: "rgba(36,36,48,0.95)", border: "1px solid rgba(255,255,255,0.15)",
+              background: "rgba(40,40,52,0.95)", border: "1px solid rgba(255,255,255,0.15)",
               color: "#fff", fontSize: 16, lineHeight: 1, display: "flex", alignItems: "center", justifyContent: "center",
             }}>×</button>
             <BigAgentChat compact />
@@ -413,13 +413,13 @@ const BoldHeroStats = () => (
       ].map(([n, l], i) => (
         <div key={i} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 14, padding: "22px 20px", textAlign: "center" }}>
           <div className="bp-stat-num" style={{ fontSize: 52, fontWeight: 900, letterSpacing: -2.5, lineHeight: 1, background: "linear-gradient(90deg,#491cff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: 6 }}>{n}</div>
-          <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: 1.2, fontWeight: 600 }}>{l}</div>
+          <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.78)", textTransform: "uppercase", letterSpacing: 1.2, fontWeight: 600 }}>{l}</div>
         </div>
       ))}
     </div>
 
     {/* Design Expertise row */}
-    <div className="bp-stats-card" style={{ background: "rgba(36,36,48,0.6)", border: "1px solid rgba(167,143,255,0.22)", borderRadius: 16, padding: "20px 24px" }}>
+    <div className="bp-stats-card" style={{ background: "rgba(40,40,52,0.6)", border: "1px solid rgba(167,143,255,0.22)", borderRadius: 16, padding: "20px 24px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
         <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, letterSpacing: 1.4, textTransform: "uppercase", color: "rgba(255,153,212,0.9)", fontWeight: 700 }}>Design Expertise</span>
         <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(255,153,212,0.3), transparent)" }}/>
@@ -440,9 +440,9 @@ const BoldHeroStats = () => (
             flexDirection: "column",
             gap: 4,
           }}>
-            <span style={{ fontSize: 11, fontFamily: "ui-monospace,Menlo,monospace", color: "#a78fff", fontWeight: 700 }}>0{i+1}</span>
+            <span style={{ fontSize: 11, fontFamily: "ui-monospace,Menlo,monospace", color: "#b9a6ff", fontWeight: 700 }}>0{i+1}</span>
             <span style={{ fontSize: 15, fontWeight: 700, color: "#ffffff", lineHeight: 1.25 }}>{x.t}</span>
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", lineHeight: 1.4 }}>{x.d}</span>
+            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.72)", lineHeight: 1.4 }}>{x.d}</span>
           </div>
         ))}
       </div>
@@ -480,19 +480,19 @@ const BoldAbout = () => (
         ].map((item, i) => (
           <div key={i} style={{
             border: "1px solid rgba(167,143,255,0.22)",
-            background: "rgba(36,36,48,0.6)",
+            background: "rgba(40,40,52,0.6)",
             borderRadius: 12,
             padding: "16px 18px",
             display: "flex",
             gap: 14,
             alignItems: "flex-start",
           }}>
-            <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#a78fff", marginTop: 2, fontWeight: 700, letterSpacing: 0.5 }}>
+            <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#b9a6ff", marginTop: 2, fontWeight: 700, letterSpacing: 0.5 }}>
               0{i + 1}
             </span>
             <div>
               <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 2 }}>{item.k}</div>
-              <div style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.55 }}>{item.v}</div>
+              <div style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", lineHeight: 1.55 }}>{item.v}</div>
             </div>
           </div>
         ))}
@@ -509,14 +509,14 @@ const BoldNow = () => (
   <section id="now" className="bp-section" style={{ position: "relative", zIndex: 1, padding: "64px 32px", maxWidth: 1000, margin: "0 auto" }}>
     <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 24 }}>
       <SectionKicker>02 · now</SectionKicker>
-      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.4)" }}>
+      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)" }}>
         last synced · 2 days ago
       </span>
     </div>
-    <div style={{ border: "1px solid rgba(167,143,255,0.25)", borderRadius: 18, background: "rgba(36,36,48,0.75)", overflow: "hidden" }}>
+    <div style={{ border: "1px solid rgba(167,143,255,0.25)", borderRadius: 18, background: "rgba(40,40,52,0.75)", overflow: "hidden" }}>
       {NOW.map((n, i) => (
         <div key={i} className="bp-now-row" style={{ padding: "24px 28px", borderBottom: i < NOW.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none", display: "flex", gap: 20, alignItems: "flex-start" }}>
-          <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "#a78fff", marginTop: 4, width: 28, flexShrink: 0, fontWeight: 700 }}>0{i+1}</span>
+          <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "#b9a6ff", marginTop: 4, width: 28, flexShrink: 0, fontWeight: 700 }}>0{i+1}</span>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, letterSpacing: 1.4, textTransform: "uppercase", color: "rgba(255,153,212,0.85)", fontWeight: 700 }}>{n.label}</span>
             <span style={{ fontSize: 18, color: "rgba(255,255,255,0.88)", lineHeight: 1.55 }}>{n.text}</span>
@@ -544,7 +544,7 @@ const BoldToolkit = () => (
   <section id="toolkit" className="bp-section" style={{ position: "relative", zIndex: 1, padding: "64px 32px", maxWidth: 1100, margin: "0 auto" }}>
     <SectionKicker>03 · vibe coding toolkit</SectionKicker>
     <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, marginBottom: 8, color: "#ffffff" }}>AI-fluent design isn't a buzzword. It's my workbench.</h2>
-    <p style={{ fontSize: 18, color: "rgba(255,255,255,0.7)", lineHeight: 1.6, marginBottom: 28, maxWidth: "none" }}>
+    <p style={{ fontSize: 18, color: "rgba(255,255,255,0.82)", lineHeight: 1.6, marginBottom: 28, maxWidth: "none" }}>
       Every artifact in this portfolio was built with the tools below. Each one earns its place — I pick the right tool for the moment, not the brand.
     </p>
 
@@ -569,14 +569,14 @@ const BoldToolkit = () => (
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
             <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{t.name}</span>
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.4 }}>{t.note}</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.78)", lineHeight: 1.4 }}>{t.note}</span>
           </div>
         </div>
       ))}
     </div>
 
     {/* Also in rotation */}
-    <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.45)", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800, marginBottom: 12 }}>Also in rotation</div>
+    <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.64)", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800, marginBottom: 12 }}>Also in rotation</div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 10 }}>
       {[
         { name: "Cursor", note: "AI-native code editor", logo: "assets/logos/cursor.svg" },
@@ -585,7 +585,7 @@ const BoldToolkit = () => (
         { name: "Google NotebookLM", note: "source-grounded synthesis", logo: "assets/logos/google.svg" },
       ].map((t, i) => (
         <div key={i} style={{
-          background: "rgba(36,36,48,0.7)",
+          background: "rgba(40,40,52,0.7)",
           border: "1px solid rgba(255,255,255,0.08)",
           borderRadius: 12, padding: "14px 16px",
           display: "flex", gap: 12, alignItems: "center",
@@ -597,7 +597,7 @@ const BoldToolkit = () => (
           )}
           <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
             <span style={{ fontSize: 15, fontWeight: 700, color: "#fff" }}>{t.name}</span>
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.4 }}>{t.note}</span>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.78)", lineHeight: 1.4 }}>{t.note}</span>
           </div>
         </div>
       ))}
@@ -617,7 +617,7 @@ const BoldWork = () => {
           <SectionKicker>04 · work</SectionKicker>
           <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, color: "#ffffff" }}>Six case studies.</h2>
         </div>
-        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>click any card to dive in ›</span>
+        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>click any card to dive in ›</span>
       </div>
       <div className="bp-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
         {CASES.map(c => (
@@ -643,7 +643,7 @@ const BoldCase = ({ c, expanded, onToggle }) => (
     }}
     style={{
     border: "1px solid rgba(167,143,255,0.25)", borderRadius: 20, overflow: "hidden", cursor: c.slug === "experimentation" ? "default" : "pointer",
-    background: "rgba(36,36,48,0.75)", transition: "border-color .2s, transform .2s",
+    background: "#1c1c26", transition: "border-color .2s, transform .2s",
     gridColumn: expanded ? "span 2" : "span 1",
     display: "grid", gridTemplateColumns: expanded ? "1.2fr 1fr" : "1fr",
   }}
@@ -651,7 +651,7 @@ const BoldCase = ({ c, expanded, onToggle }) => (
     onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(167,143,255,0.25)"}>
     <div className="bp-case-body" style={{ padding: 28, display: "flex", flexDirection: "column", gap: 14 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.4)" }}>{c.year} · {c.company}</span>
+        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)" }}>{c.year} · {c.company}</span>
         <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#ff99d4" }}>{c.slug === "experimentation" ? "Coming soon" : c.tags[0]}</span>
       </div>
       <h3 style={{ fontSize: 26, fontWeight: 900, lineHeight: 1.15, letterSpacing: -0.5, color: "#ffffff" }}>{c.title}</h3>
@@ -661,11 +661,11 @@ const BoldCase = ({ c, expanded, onToggle }) => (
           <span style={{ fontSize: 13, color: "rgba(255,255,255,0.78)", fontWeight: 600 }}>{c.role}</span>
         </div>
       )}
-      <p style={{ fontSize: 15, color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>{c.blurb}</p>
+      <p style={{ fontSize: 15, color: "rgba(255,255,255,0.8)", lineHeight: 1.6 }}>{c.blurb}</p>
       {c.impact && (
-        <div style={{ display: "flex", gap: 9, alignItems: "flex-start", padding: "10px 12px", background: "rgba(73,28,255,0.1)", border: "1px solid rgba(167,143,255,0.22)", borderRadius: 10 }}>
-          <span aria-hidden style={{ color: "#a78fff", fontSize: 14, lineHeight: 1.5, flexShrink: 0 }}>→</span>
-          <span style={{ fontSize: 13.5, color: "rgba(255,255,255,0.88)", lineHeight: 1.5 }}>{c.impact}</span>
+        <div style={{ display: "flex", gap: 9, alignItems: "flex-start", padding: "10px 12px", background: "rgba(99,67,255,0.18)", border: "1px solid rgba(167,143,255,0.38)", borderRadius: 10 }}>
+          <span aria-hidden style={{ color: "#cabfff", fontSize: 14, lineHeight: 1.5, flexShrink: 0 }}>→</span>
+          <span style={{ fontSize: 13.5, color: "rgba(255,255,255,0.96)", lineHeight: 1.5 }}>{c.impact}</span>
         </div>
       )}
       {expanded && (
@@ -677,12 +677,12 @@ const BoldCase = ({ c, expanded, onToggle }) => (
         </div>
       )}
       <div style={{ display: "flex", gap: 6, marginTop: "auto", flexWrap: "wrap" }}>
-        {c.tags.slice(1).map(t => <span key={t} style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, color: "rgba(167,143,255,0.8)", background: "rgba(73,28,255,0.12)", border: "1px solid rgba(73,28,255,0.25)", borderRadius: 6, padding: "3px 8px" }}>{t}</span>)}
+        {c.tags.slice(1).map(t => <span key={t} style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 600, color: "#cabfff", background: "rgba(99,67,255,0.3)", border: "1px solid rgba(167,143,255,0.45)", borderRadius: 6, padding: "3px 9px" }}>{t}</span>)}
       </div>
     </div>
     <div className="bp-case-mock" style={{ background: c.accent, display: "flex", alignItems: "center", justifyContent: "center", padding: c.hero ? 0 : 28, position: "relative", overflow: "hidden", minHeight: expanded ? 320 : 180 }}>
       {c.slug === "recommendations-engine" && (
-        <span style={{ position: "absolute", top: 14, left: 14, right: 14, zIndex: 2, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: "uppercase", color: "#1a1a24", background: "#ffd84d", border: "1px solid rgba(0,0,0,0.2)", boxShadow: "0 6px 18px rgba(0,0,0,0.35)", borderRadius: 8, padding: "8px 12px", textAlign: "center", lineHeight: 1.35 }}>Case study being updated · design images coming soon</span>
+        <span style={{ position: "absolute", top: 14, left: 14, right: 14, zIndex: 2, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: "uppercase", color: "#1c1c26", background: "#ffd84d", border: "1px solid rgba(0,0,0,0.2)", boxShadow: "0 6px 18px rgba(0,0,0,0.35)", borderRadius: 8, padding: "8px 12px", textAlign: "center", lineHeight: 1.35 }}>Case study being updated · design images coming soon</span>
       )}
       {c.hero
         ? <img src={c.hero} alt={c.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
@@ -698,12 +698,12 @@ const BoldTestimonials = () => (
     <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, marginBottom: 40, color: "#ffffff" }}>From people I've shipped with.</h2>
     <div className="bp-testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
       {TESTIMONIALS.map((t, i) => (
-        <div key={i} className="bp-testimonial" style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: 18, padding: 26, background: "rgba(36,36,48,0.6)" }}>
+        <div key={i} className="bp-testimonial" style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: 18, padding: 26, background: "rgba(40,40,52,0.6)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
             <div style={{ width: 32, height: 32, borderRadius: 10, background: `linear-gradient(135deg, hsl(${250+i*30} 70% 55%), hsl(${320+i*20} 70% 65%))`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "#fff" }}>{t.name.split(" ").map(w => w[0]).join("").slice(0,2)}</div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#ffffff" }}>{t.name}</div>
-              <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", fontFamily: "ui-monospace,Menlo,monospace" }}>{t.role}</div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,0.64)", fontFamily: "ui-monospace,Menlo,monospace" }}>{t.role}</div>
             </div>
           </div>
           <p style={{ fontSize: 15, color: "rgba(255,255,255,0.8)", lineHeight: 1.6 }}>{t.quote}</p>
@@ -719,13 +719,13 @@ const BoldFooter = () => (
     <div className="bp-footer-inner" style={{ border: "1px solid rgba(73,28,255,0.4)", borderRadius: 24, padding: "56px 48px", background: "linear-gradient(135deg, rgba(73,28,255,0.15), rgba(255,153,212,0.08))", textAlign: "center", overflow: "hidden", position: "relative" }}>
       <SectionKicker>06 · contact</SectionKicker>
       <h2 style={{ fontSize: 56, fontWeight: 900, letterSpacing: -2, marginTop: 16, marginBottom: 12, color: "#ffffff" }}>Let's build something.</h2>
-      <p style={{ fontSize: 18, color: "rgba(255,255,255,0.7)", marginBottom: 28 }}>Staff / Lead UX · Austin, TX · remote-friendly · open to relocation to Bay Area California, NYC, or Chicago</p>
+      <p style={{ fontSize: 18, color: "rgba(255,255,255,0.82)", marginBottom: 28 }}>Staff / Lead UX · Austin, TX · remote-friendly · open to relocation to Bay Area California, NYC, or Chicago</p>
       <div className="bp-footer-cta" style={{ display: "inline-flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
         <a href="https://www.linkedin.com/in/aditya-yellamraju" onClick={() => track("linkedin_click")} target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff", fontSize: 15, fontWeight: 700, padding: "14px 28px", borderRadius: 100, textDecoration: "none", boxShadow: "0 14px 40px rgba(73,28,255,0.5)" }}>Message me on LinkedIn <ArrowIcon size={14}/></a>
         <a href="assets/Aditya-Yellamraju-Resume.pdf" onClick={() => track("resume_download")} target="_blank" rel="noopener" download="Aditya-Yellamraju-Resume.pdf" style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1.5px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)", fontSize: 15, fontWeight: 600, padding: "13px 24px", borderRadius: 100, textDecoration: "none" }}><DownloadIcon size={14}/> Résumé</a>
       </div>
     </div>
-    <div className="bp-footer-meta" style={{ display: "flex", justifyContent: "space-between", marginTop: 32, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>
+    <div className="bp-footer-meta" style={{ display: "flex", justifyContent: "space-between", marginTop: 32, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.55)" }}>
       <span>© 2026 · aditya yellamraju · handcrafted, then robot-polished</span>
       <span>no designers were replaced in the making of this site</span>
     </div>
