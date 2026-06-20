@@ -109,7 +109,7 @@ const BoldHero = () => (
         I'm <strong style={{ color: "#fff", fontWeight: 700 }}>Aditya</strong> — I design core platform and AI experiences for complex systems. These days I vibe-code them too, so design meets engineering the moment an idea lands.
       </p>
       <span className="bp-hero-kicker" style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.68)", letterSpacing: 1.5, textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 8, marginTop: 8 }}>
-        <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite", color: "#ff99d4", filter: "drop-shadow(0 0 8px rgba(255,153,212,0.7))" }}><SparkleIcon size={14}/></span> To learn more, talk to an agent that knows Aditya — ask it anything
+        <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite", color: "#ff99d4", filter: "drop-shadow(0 0 8px rgba(255,153,212,0.7))" }}><SparkleIcon size={14}/></span> …so naturally, I vibe-coded an agent to do my bragging for me — ask it anything
       </span>
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 4 }}>
         <button onClick={() => window.dispatchEvent(new Event("open-agent"))} style={{
