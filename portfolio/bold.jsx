@@ -5,8 +5,85 @@ const BoldMiniMock = ({ slug }) => (window.MiniMock ? <window.MiniMock slug={slu
 // (Custom events surface in the dashboard on Vercel Pro/Enterprise; harmless on Hobby.)
 const track = (name, data) => { try { window.va && window.va("event", { name, ...(data || {}) }); } catch (e) {} };
 
+// Responsive CSS shipped WITH the component so it works no matter which
+// index.html hosts it (deploy pipelines often swap in their own shell).
+const BOLD_RESPONSIVE_CSS = `
+  html, body { overflow-x: hidden; }
+  @media (max-width: 760px) {
+    .bp-vibe-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 1024px) {
+    .bp-nav { padding: 16px 24px !important; }
+    .bp-nav-links { gap: 14px !important; }
+    .bp-hero { padding: 40px 24px 48px !important; }
+    .bp-hero h1 { font-size: 48px !important; letter-spacing: -1.5px !important; }
+    .bp-hero-sub { font-size: 18px !important; }
+    .bp-section { padding: 64px 24px !important; }
+    .bp-section h2 { font-size: 38px !important; letter-spacing: -1px !important; }
+    .bp-about-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+    .bp-stats-row1 { grid-template-columns: repeat(3, 1fr) !important; }
+    .bp-stats-row2 { grid-template-columns: repeat(2, 1fr) !important; }
+    .bp-work-grid { grid-template-columns: 1fr !important; }
+    .bp-feature { grid-template-columns: 1fr !important; }
+    .bp-feature-body { order: 2 !important; padding: 28px 24px !important; }
+    .bp-feature-mock { order: 1 !important; min-height: 320px !important; }
+    .bp-feature-body h3 { font-size: 26px !important; }
+    .bp-testimonials-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .bp-footer { padding: 64px 24px 40px !important; }
+    .bp-footer-inner { padding: 44px 32px !important; }
+    .bp-footer h2 { font-size: 44px !important; }
+  }
+  @media (max-width: 640px) {
+    .bp-nav { padding: 12px 14px !important; flex-wrap: nowrap !important; gap: 8px !important; }
+    .bp-nav-brand { font-size: 11px !important; gap: 5px !important; flex-wrap: nowrap !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+    .bp-nav-brand .bp-nav-status { display: none !important; }
+    .bp-nav-links { gap: 7px !important; font-size: 11px !important; flex-wrap: nowrap !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+    .bp-hero { padding: 28px 16px 40px !important; }
+    .bp-hero-kicker { font-size: 11px !important; text-align: center; }
+    .bp-hero h1 { font-size: 32px !important; letter-spacing: -0.8px !important; line-height: 1.1 !important; }
+    .bp-hero-sub { font-size: 16px !important; }
+    .bp-chat { border-radius: 16px !important; }
+    .bp-chat-header { font-size: 10px !important; padding: 10px 14px !important; gap: 8px !important; }
+    .bp-chat-header-end { display: none !important; }
+    .bp-chat-body { padding: 16px !important; max-height: 340px !important; min-height: 300px !important; gap: 12px !important; }
+    .bp-chat-body .bp-bubble { max-width: 88% !important; font-size: 14px !important; padding: 10px 14px !important; }
+    .bp-chat-suggestions { padding: 0 16px 12px !important; }
+    .bp-chat-suggestions button { font-size: 11px !important; padding: 6px 10px !important; }
+    .bp-chat-form { padding: 12px 14px !important; gap: 8px !important; }
+    .bp-chat-form input { font-size: 14px !important; }
+    .bp-chat-form .bp-cmd-hint { display: none !important; }
+    .bp-chat-form button[type="submit"] { padding: 8px 14px !important; font-size: 12px !important; }
+    .bp-stats { margin-top: 32px !important; }
+    .bp-stats-row1 { grid-template-columns: 1fr !important; gap: 10px !important; }
+    .bp-stats-row1 > div { padding: 18px 16px !important; }
+    .bp-stats-row1 .bp-stat-num { font-size: 42px !important; }
+    .bp-stats-row2 { grid-template-columns: 1fr !important; }
+    .bp-stats-card { padding: 16px 18px !important; }
+    .bp-section { padding: 48px 16px !important; }
+    .bp-section h2 { font-size: 30px !important; letter-spacing: -0.6px !important; }
+    .bp-about p { font-size: 16px !important; }
+    .bp-now-row { padding: 18px 18px !important; gap: 14px !important; flex-direction: column !important; }
+    .bp-now-row > span:first-child { width: auto !important; }
+    .bp-expertise { padding: 8px 16px 24px !important; }
+    .bp-expertise-grid { grid-template-columns: 1fr !important; }
+    .bp-work { padding: 48px 0 64px !important; }
+    .bp-work-header { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; padding: 0 16px !important; }
+    .bp-work-header h2 { font-size: 30px !important; }
+    .bp-work > div { padding: 0 16px !important; }
+    .bp-testimonials-grid { grid-template-columns: 1fr !important; }
+    .bp-testimonial { padding: 22px !important; }
+    .bp-footer { padding: 48px 16px 32px !important; }
+    .bp-footer-inner { padding: 36px 22px !important; border-radius: 18px !important; }
+    .bp-footer h2 { font-size: 32px !important; letter-spacing: -1px !important; }
+    .bp-footer-cta { flex-direction: column !important; gap: 10px !important; width: 100%; }
+    .bp-footer-cta a { width: 100% !important; justify-content: center !important; }
+    .bp-footer-meta { flex-direction: column !important; gap: 8px !important; text-align: center; }
+  }
+`;
+
 const BoldPortfolio = () => (
   <div style={{ width: "100%", minHeight: "100%", background: "#1c1c26", color: "#f0f0f5", fontFamily: "'Source Sans 3',sans-serif", position: "relative", overflowX: "clip" }}>
+    <style dangerouslySetInnerHTML={{ __html: BOLD_RESPONSIVE_CSS }} />
     <BoldGrid />
     <BoldNav />
     <BoldHero />
@@ -594,7 +671,7 @@ const BoldExpertise = () => (
     <div style={{ marginBottom: 20 }}>
       <SectionKicker>Design expertise</SectionKicker>
     </div>
-    <div className="bp-expertise-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}>
+    <div className="bp-expertise-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14 }}>
       {EXPERTISE.map((x, i) => (
         <div key={i} style={{ background: "rgba(40,40,52,0.6)", border: "1px solid rgba(167,143,255,0.22)", borderRadius: 14, padding: "20px 20px", display: "flex", flexDirection: "column", gap: 6 }}>
           <span style={{ fontSize: 12, fontFamily: "ui-monospace,Menlo,monospace", color: "#b9a6ff", fontWeight: 700 }}>0{i+1}</span>
