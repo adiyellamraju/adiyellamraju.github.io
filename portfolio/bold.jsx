@@ -10,6 +10,7 @@ const BoldPortfolio = () => (
     <BoldGrid />
     <BoldNav />
     <BoldHero />
+    <BoldExpertise />
     <BoldAgentDock />
     <BoldAbout />
     <BoldNow />
@@ -67,35 +68,195 @@ const BoldNav = () => {
         <span style={{ opacity: vis ? 1 : 0, transition: "opacity 0.3s" }}>{st.text}</span>
       </span>
     </div>
-    <div className="bp-nav-links" style={{ display: "flex", gap: 20, fontSize: 13, fontFamily: "ui-monospace,Menlo,monospace" }}>
+    <div className="bp-nav-links" style={{ display: "flex", gap: 20, fontSize: 13, fontFamily: "ui-monospace,Menlo,monospace", alignItems: "center" }}>
       {[["home","/"],["about","/about"],["work","/work"],["now","/now"],["contact","/hello"]].map(([label, path]) => (
         <a key={label} href={`#${label}`} style={{ color: "rgba(255,255,255,0.78)", textDecoration: "none" }}>
           {path}
         </a>
       ))}
+      <a href="assets/Aditya-Yellamraju-Resume.pdf" target="_blank" rel="noopener" download="Aditya-Yellamraju-Resume.pdf" onClick={() => track("resume_download", { source: "nav" })} style={{ color: "#fff", textDecoration: "none", border: "1px solid rgba(167,143,255,0.5)", background: "rgba(73,28,255,0.18)", borderRadius: 100, padding: "5px 14px", fontWeight: 700 }}>
+        /résumé
+      </a>
     </div>
   </nav>
   );
 };
 
+// ─── Halftone portrait: dissolves the face into a purple dot screen ───────
+const HalftoneFace = () => {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const W = 1100, H = 1520, gap = 15;
+    canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      // cover-crop the image into an offscreen buffer, biased to upper-left
+      const off = document.createElement("canvas");
+      off.width = W; off.height = H;
+      const octx = off.getContext("2d");
+      const scale = Math.max(W / img.width, H / img.height);
+      const dw = img.width * scale, dh = img.height * scale;
+      octx.drawImage(img, (W - dw) * 0.16, (H - dh) * 0.16, dw, dh);
+      const data = octx.getImageData(0, 0, W, H).data;
+      ctx.font = "700 " + (gap * 0.92) + "px 'JetBrains Mono', ui-monospace, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      // main brand gradient, painted through the digits
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0, "#491cff");
+      grad.addColorStop(1, "#ff99d4");
+
+      // collect the surviving silhouette cells
+      const cells = [];
+      for (let y = gap / 2; y < H; y += gap) {
+        for (let x = gap / 2; x < W; x += gap) {
+          const i = ((y | 0) * W + (x | 0)) * 4;
+          const lum = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114) / 255;
+          const dark = 1 - lum;
+          if (dark < 0.42) continue;              // only the face/shoulder mass survives
+          cells.push({ x, y, ch: dark > 0.62 ? "1" : "0",
+            a: 0.25 + Math.min(1, (dark - 0.42) / 0.35) * 0.75,
+            flip: 90 + Math.random() * 260, off: Math.random() * 1000 });
+        }
+      }
+
+      // slow top→bottom rain-in, then a steady Matrix flicker (no pulsing)
+      const REVEAL = 5200, FEATHER = 340;
+      const start = performance.now();
+      const draw = (now) => {
+        const el = now - start;
+        const line = Math.min(1, el / REVEAL) * (H + FEATHER);
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = grad;
+        for (const c of cells) {
+          const rise = (line - c.y) / FEATHER;   // 0 as the line arrives, 1 fully in
+          if (rise <= 0) continue;
+          // each cell flips 1↔0 on its own cadence → code-rain shimmer
+          const ch = (Math.floor((now + c.off) / c.flip) % 2) ? c.ch : (c.ch === "1" ? "0" : "1");
+          ctx.globalAlpha = c.a * Math.min(1, rise);
+          ctx.fillText(ch, c.x, c.y);
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(draw);
+      };
+      requestAnimationFrame(draw);
+    };
+    img.src = "assets/aditya-portrait.jpg";
+  }, []);
+  return <canvas ref={ref} style={{
+    position: "absolute", top: 0, right: "2%", height: "108%",
+    aspectRatio: "1100 / 1520", opacity: 1, mixBlendMode: "screen",
+  }}/>;
+};
+
+// ─── Matrix rain: columns of 1s and 0s dropping down the whole hero ───────
+const MatrixRain = () => {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const fontSize = 14, gap = 20;
+    let W = 0, H = 0, cells = [], colX = [], runners = [], raf = 0, maxRunners = 32, spawn = 0.12;
+    const resize = () => {
+      const r = canvas.getBoundingClientRect();
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = Math.max(1, Math.floor(r.width));
+      H = Math.max(1, Math.floor(r.height));
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // fewer, gentler runners on small screens
+      const mobile = W < 640;
+      maxRunners = mobile ? 10 : 32;
+      spawn = mobile ? 0.05 : 0.12;
+      // a calm, static lattice of bits — each flips on its own slow cadence
+      cells = [];
+      colX = [];
+      for (let x = gap; x < W; x += gap) colX.push(x);
+      for (let y = gap; y < H; y += gap) {
+        for (let x = gap; x < W; x += gap) {
+          cells.push({
+            x, y,
+            ch: Math.random() > 0.5 ? "1" : "0",
+            base: 0.05 + Math.random() * 0.07,      // resting brightness (very low)
+            period: 2600 + Math.random() * 4200,    // ms per flip — slow
+            phase: Math.random() * 6000,
+          });
+        }
+      }
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      runners = [];
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    let last = performance.now();
+    const draw = (now) => {
+      const dt = Math.min(64, now - last); last = now;
+      ctx.clearRect(0, 0, W, H);
+      ctx.font = "700 " + fontSize + "px 'JetBrains Mono', ui-monospace, monospace";
+      // resting lattice
+      for (const c of cells) {
+        const t = (now + c.phase) / c.period;
+        const step = Math.floor(t);
+        const ch = step % 2 ? c.ch : (c.ch === "1" ? "0" : "1");
+        const glow = 0.5 + 0.5 * Math.sin(t * Math.PI * 2);
+        ctx.fillStyle = "rgba(180,158,255," + (c.base + glow * 0.05).toFixed(3) + ")";
+        ctx.fillText(ch, c.x, c.y);
+      }
+      // occasional slow matrix runners descending a column with a fading trail
+      if (colX.length && runners.length < maxRunners && Math.random() < spawn) {
+        runners.push({
+          x: colX[(Math.random() * colX.length) | 0],
+          head: -gap * 2,
+          speed: 220 + Math.random() * 160,        // px/sec
+          trail: (6 + Math.random() * 6) * gap,
+        });
+      }
+      for (let k = runners.length - 1; k >= 0; k--) {
+        const rn = runners[k];
+        rn.head += rn.speed * dt / 1000;
+        for (let y = gap; y <= rn.head && y < H; y += gap) {
+          const d = rn.head - y;
+          if (d > rn.trail) continue;
+          const f = 1 - d / rn.trail;               // 1 at head → 0 at tail
+          const ch = ((y + rn.x) / gap | 0) % 2 ? "1" : "0";
+          if (d < gap) {                            // bright head, pink
+            ctx.fillStyle = "rgba(255,196,230," + Math.min(1, 1.5 * f + 0.3).toFixed(3) + ")";
+          } else {
+            ctx.fillStyle = "rgba(185,166,255," + Math.min(1, f).toFixed(3) + ")";
+          }
+          ctx.fillText(Math.random() > 0.5 ? ch : (ch === "1" ? "0" : "1"), rn.x, y);
+        }
+        if (rn.head - rn.trail > H) runners.splice(k, 1);
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, []);
+  return <canvas ref={ref} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}/>;
+};
+
 // ─── BOLD HERO: agent as the hero ────────────────────────────────────────
 const BoldHero = () => (
-  <section id="home" className="bp-hero" style={{ position: "relative", zIndex: 1, padding: "56px 32px 64px", maxWidth: 1280, margin: "0 auto" }}>
+  <section id="home" className="bp-hero" style={{ position: "relative", zIndex: 1, padding: "56px 32px 64px", maxWidth: 1280, margin: "0 auto", overflow: "hidden" }}>
     <div aria-hidden className="bp-hero-face" style={{
-      position: "absolute", top: -150, left: "50%", transform: "translateX(-50%)",
-      width: "100vw", height: 1940, zIndex: -1, overflow: "hidden", pointerEvents: "none",
-      WebkitMaskImage: "linear-gradient(to bottom, #000 90%, transparent 100%)",
-      maskImage: "linear-gradient(to bottom, #000 90%, transparent 100%)",
+      position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+      width: "100vw", height: "100%", zIndex: -1, overflow: "hidden", pointerEvents: "none",
+      WebkitMaskImage: "linear-gradient(to bottom, #000 88%, transparent 100%)",
+      maskImage: "linear-gradient(to bottom, #000 88%, transparent 100%)",
     }}>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#491cff 0%,#b9a6ff 45%,#ff99d4 100%)" }}/>
-      <img src="assets/aditya-portrait.jpg" alt="" className="bp-hero-face-img" style={{
-        position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover",
-        objectPosition: "16% 16%", transform: "scale(1.08) translateY(-11%)", transformOrigin: "50% 0%",
-        filter: "grayscale(1) contrast(1.12) brightness(0.9)", mixBlendMode: "luminosity", opacity: 0.36,
-      }}/>
-      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 44% at 62% 30%, rgba(28,28,38,0.58), transparent 76%)" }}/>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(28,28,38,0.6) 0%, rgba(28,28,38,0.48) 20%, rgba(28,28,38,0.46) 46%, rgba(28,28,38,0.58) 86%, #1c1c26 100%)" }}/>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1c1c26 0%, rgba(28,28,38,0.82) 24%, rgba(28,28,38,0.5) 46%, rgba(28,28,38,0.16) 78%, transparent 94%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "#1c1c26" }}/>
+      <MatrixRain/>
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 66% 52% at 50% 40%, rgba(28,28,38,0.82), rgba(28,28,38,0.35) 68%, transparent 92%)" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(28,28,38,0.35) 0%, rgba(28,28,38,0.2) 40%, rgba(28,28,38,0.55) 82%, #1c1c26 100%)" }}/>
     </div>
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, marginBottom: 40 }}>
       <h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1.08, letterSpacing: -2, textAlign: "center", maxWidth: 1100, margin: 0, color: "#ffffff" }}>
@@ -329,7 +490,7 @@ const VibeMedia = ({ p }) => {
 const BoldVibeProtos = () => (
   <div style={{ marginTop: 40 }}>
     <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 20, flexWrap: "wrap" }}>
-      <SectionKicker>Prototypes</SectionKicker>
+      <SectionKicker rule={false}>Prototypes</SectionKicker>
       <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>design meets engineering the moment an idea lands</span>
     </div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }} className="bp-vibe-grid">
@@ -407,7 +568,7 @@ const BoldHeroStats = () => (
     {/* Top row — 3 hero numbers */}
     <div className="bp-stats-row1" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
       {[
-        ["3", "AI / NLG products designed"],
+        ["3", "AI / NLG products designed to shipped"],
         ["5", "platform capabilities owned"],
         ["2", "0→1 platform launches"],
       ].map(([n, l], i) => (
@@ -417,42 +578,55 @@ const BoldHeroStats = () => (
         </div>
       ))}
     </div>
-
-    {/* Design Expertise row */}
-    <div className="bp-stats-card" style={{ background: "rgba(40,40,52,0.6)", border: "1px solid rgba(167,143,255,0.22)", borderRadius: 16, padding: "20px 24px" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
-        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, letterSpacing: 1.4, textTransform: "uppercase", color: "rgba(255,153,212,0.9)", fontWeight: 700 }}>Design Expertise</span>
-        <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(255,153,212,0.3), transparent)" }}/>
-      </div>
-      <div className="bp-stats-row2" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
-        {[
-          { t: "Agentic UX", d: "chat, canvases, tool-use" },
-          { t: "AI / ML UX", d: "models meet workflows" },
-          { t: "Enterprise SaaS UX", d: "platforms that scale" },
-          { t: "Data Storytelling UX", d: "insights to action" },
-        ].map((x, i) => (
-          <div key={i} style={{
-            background: "rgba(73,28,255,0.1)",
-            border: "1px solid rgba(167,143,255,0.25)",
-            borderRadius: 12,
-            padding: "14px 16px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-          }}>
-            <span style={{ fontSize: 11, fontFamily: "ui-monospace,Menlo,monospace", color: "#b9a6ff", fontWeight: 700 }}>0{i+1}</span>
-            <span style={{ fontSize: 15, fontWeight: 700, color: "#ffffff", lineHeight: 1.25 }}>{x.t}</span>
-            <span style={{ fontSize: 12, color: "rgba(255,255,255,0.72)", lineHeight: 1.4 }}>{x.d}</span>
-          </div>
-        ))}
-      </div>
-    </div>
   </div>
+);
+
+// ─── DESIGN EXPERTISE (own section, lifted out of the hero) ──────────────
+const EXPERTISE = [
+  { t: "Agentic UX", d: "chat, canvases, tool-use" },
+  { t: "AI / ML UX", d: "models meet workflows" },
+  { t: "Enterprise SaaS UX", d: "platforms that scale" },
+  { t: "Data Storytelling UX", d: "insights to action" },
+  { t: "Vibe Coding", d: "prototypes as spec" },
+];
+const BoldExpertise = () => (
+  <section className="bp-section bp-expertise" style={{ position: "relative", zIndex: 1, padding: "8px 32px 40px", maxWidth: 1100, margin: "0 auto" }}>
+    <div style={{ marginBottom: 20 }}>
+      <SectionKicker>Design expertise</SectionKicker>
+    </div>
+    <div className="bp-expertise-grid" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 14 }}>
+      {EXPERTISE.map((x, i) => (
+        <div key={i} style={{ background: "rgba(40,40,52,0.6)", border: "1px solid rgba(167,143,255,0.22)", borderRadius: 14, padding: "20px 20px", display: "flex", flexDirection: "column", gap: 6 }}>
+          <span style={{ fontSize: 12, fontFamily: "ui-monospace,Menlo,monospace", color: "#b9a6ff", fontWeight: 700 }}>0{i+1}</span>
+          <span style={{ fontSize: 17, fontWeight: 800, color: "#fff", lineHeight: 1.2 }}>{x.t}</span>
+          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.72)", lineHeight: 1.45 }}>{x.d}</span>
+        </div>
+      ))}
+    </div>
+  </section>
 );
 
 // ─── ABOUT ──────────────────────────────────────────────────────────────
 const BoldAbout = () => (
-  <section id="about" className="bp-section bp-about" style={{ position: "relative", zIndex: 1, padding: "96px 32px", maxWidth: 1100, margin: "0 auto" }}>
+  <section id="about" className="bp-section bp-about" style={{ position: "relative", zIndex: 1, padding: "96px 32px", maxWidth: 1100, margin: "0 auto", overflow: "hidden" }}>
+    <div aria-hidden style={{
+      position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+      width: "100vw", height: "100%", zIndex: -1, overflow: "hidden", pointerEvents: "none",
+      WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)",
+      maskImage: "linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)",
+    }}>
+      <div style={{ position: "absolute", inset: 0, background: "#1c1c26" }}/>
+      <img src="assets/aditya-portrait.jpg" alt="" style={{
+        position: "absolute", top: 0, right: 0, height: "100%", width: "58%",
+        objectFit: "cover", objectPosition: "center 28%", display: "block",
+        filter: "grayscale(1) contrast(0.9) brightness(1.05) blur(1.5px)",
+        opacity: 0.24,
+        WebkitMaskImage: "radial-gradient(120% 90% at 82% 42%, #000 0%, rgba(0,0,0,0.55) 45%, transparent 78%)",
+        maskImage: "radial-gradient(120% 90% at 82% 42%, #000 0%, rgba(0,0,0,0.55) 45%, transparent 78%)",
+      }} onError={e => { e.currentTarget.style.display = "none"; }}/>
+      <div style={{ position: "absolute", top: 0, right: 0, height: "100%", width: "58%", background: "radial-gradient(120% 90% at 82% 42%, rgba(73,28,255,0.16) 0%, transparent 65%)", mixBlendMode: "screen" }}/>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1c1c26 0%, rgba(28,28,38,0.94) 30%, rgba(28,28,38,0.55) 60%, rgba(28,28,38,0.25) 100%)" }}/>
+    </div>
     <SectionKicker>01 · about</SectionKicker>
     <h2 style={{ fontSize: 52, fontWeight: 900, lineHeight: 1.05, letterSpacing: -1.5, marginTop: 16, marginBottom: 36, color: "#ffffff" }}>
       From <em style={{ fontStyle: "normal", color: "#ff99d4" }}>advertising</em> to{" "}
@@ -500,15 +674,22 @@ const BoldAbout = () => (
     </div>
   </section>
 );
-const SectionKicker = ({ children }) => (
-  <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,153,212,0.8)" }}>{children}</span>
+const SectionKicker = ({ children, rule = true }) => (
+  rule ? (
+    <div style={{ display: "flex", alignItems: "center", gap: 14, width: "100%" }}>
+      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,153,212,0.8)", whiteSpace: "nowrap" }}>{children}</span>
+      <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(255,153,212,0.18), rgba(255,255,255,0.05) 55%, transparent)" }}/>
+    </div>
+  ) : (
+    <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,153,212,0.8)" }}>{children}</span>
+  )
 );
 
 // ─── NOW ────────────────────────────────────────────────────────────────
 const BoldNow = () => (
   <section id="now" className="bp-section" style={{ position: "relative", zIndex: 1, padding: "64px 32px", maxWidth: 1000, margin: "0 auto" }}>
     <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 24 }}>
-      <SectionKicker>02 · now</SectionKicker>
+      <SectionKicker rule={false}>02 · now</SectionKicker>
       <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)" }}>
         last synced · 2 days ago
       </span>
@@ -607,86 +788,107 @@ const BoldToolkit = () => (
   </section>
 );
 
-// ─── WORK — full-bleed horizontal scroller with expandable ───────────
+// ─── WORK — image-forward showcase: featured hero + large image-top cards ───
+const openCase = (c) => {
+  if (c.slug === "experimentation") return;
+  track("case_study_view", { project: c.slug });
+  const map = {
+    "personalization": "case-personalization-private.html",
+    "recommendations-engine": "case-recommendations-engine.html",
+    "pulse-nexio": "case-tableau-pulse.html",
+    "data-stories": "case-data-stories.html",
+    "flying-squirrel": "case-flying-squirrel.html",
+  };
+  if (map[c.slug]) window.location.href = map[c.slug];
+};
 const BoldWork = () => {
-  const [expanded, setExpanded] = React.useState(null);
+  const featured = CASES.find(c => c.slug === "personalization") || CASES[0];
+  const rest = CASES.filter(c => c !== featured);
   return (
-    <section id="work" className="bp-section" style={{ position: "relative", zIndex: 1, padding: "64px 32px 80px", maxWidth: 1280, margin: "0 auto" }}>
-      <div className="bp-work-header" style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 32 }}>
+    <section id="work" className="bp-section bp-work" style={{ position: "relative", zIndex: 1, padding: "64px 0 80px" }}>
+      <div className="bp-work-header" style={{ maxWidth: 1280, margin: "0 auto 32px", padding: "0 32px" }}>
         <div>
           <SectionKicker>04 · work</SectionKicker>
           <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, color: "#ffffff" }}>Six case studies.</h2>
         </div>
-        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.6)" }}>click any card to dive in ›</span>
       </div>
-      <div className="bp-work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 16 }}>
-        {CASES.map(c => (
-          <BoldCase key={c.slug} c={c} expanded={expanded === c.slug} onToggle={() => setExpanded(expanded === c.slug ? null : c.slug)} />
-        ))}
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", display: "flex", flexDirection: "column", gap: 20 }}>
+        <BoldFeatureCase c={featured} featured/>
+        {rest.map(c => <BoldFeatureCase key={c.slug} c={c} />)}
       </div>
     </section>
   );
 };
-const BoldCase = ({ c, expanded, onToggle }) => (
+const BoldFeatureCase = ({ c, featured }) => {
+  const isComingSoon = c.slug === "experimentation";
+  return (
   <div
-    className="bp-case"
-    data-expanded={expanded ? "true" : "false"}
-    onClick={() => {
-      track("case_study_view", { project: c.slug });
-      if (c.slug === "personalization") { window.location.href = "case-personalization-private.html"; return; }
-      if (c.slug === "recommendations-engine") { window.location.href = "case-recommendations-engine.html"; return; }
-      if (c.slug === "pulse-nexio") { window.location.href = "case-tableau-pulse.html"; return; }
-      if (c.slug === "data-stories") { window.location.href = "case-data-stories.html"; return; }
-      if (c.slug === "flying-squirrel") { window.location.href = "case-flying-squirrel.html"; return; }
-      if (c.slug === "experimentation") { return; }
-      onToggle();
-    }}
+    className="bp-feature"
+    onClick={() => { if (!isComingSoon) openCase(c); }}
     style={{
-    border: "1px solid rgba(167,143,255,0.25)", borderRadius: 20, overflow: "hidden", cursor: c.slug === "experimentation" ? "default" : "pointer",
-    background: "#1c1c26", transition: "border-color .2s, transform .2s",
-    gridColumn: expanded ? "span 2" : "span 1",
-    display: "grid", gridTemplateColumns: expanded ? "1.2fr 1fr" : "1fr",
-  }}
-    onMouseEnter={e => e.currentTarget.style.borderColor = "rgba(167,143,255,0.55)"}
-    onMouseLeave={e => e.currentTarget.style.borderColor = "rgba(167,143,255,0.25)"}>
-    <div className="bp-case-body" style={{ padding: 28, display: "flex", flexDirection: "column", gap: 14 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)" }}>{c.year} · {c.company}</span>
-        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "#ff99d4" }}>{c.slug === "experimentation" ? "Coming soon" : c.tags[0]}</span>
+      border: "1px solid rgba(167,143,255,0.22)", borderRadius: 24, overflow: "hidden",
+      cursor: isComingSoon ? "default" : "pointer",
+      background: "#1c1c26", transition: "border-color .2s, transform .2s",
+      display: "grid", gridTemplateColumns: "minmax(0,42%) 1fr", alignItems: "stretch",
+    }}
+    onMouseEnter={e => { if (!isComingSoon) { e.currentTarget.style.borderColor = "rgba(167,143,255,0.6)"; e.currentTarget.style.transform = "translateY(-4px)"; } }}
+    onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(167,143,255,0.22)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+    <div className="bp-feature-body" style={{ padding: "48px 44px", display: "flex", flexDirection: "column", gap: 14, justifyContent: "center" }}>
+      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.55)" }}>{c.year} · {c.company}</span>
+        {(featured || c.slug === "pulse-nexio") && <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, fontWeight: 700, letterSpacing: 0.8, textTransform: "uppercase", color: "#1c1c26", background: "#ff99d4", borderRadius: 6, padding: "3px 8px" }}>Featured</span>}
       </div>
-      <h3 style={{ fontSize: 26, fontWeight: 900, lineHeight: 1.15, letterSpacing: -0.5, color: "#ffffff" }}>{c.title}</h3>
-      {c.role && (
-        <div style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
-          <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#ff99d4", background: "rgba(255,153,212,0.1)", border: "1px solid rgba(255,153,212,0.25)", borderRadius: 5, padding: "2px 7px", flexShrink: 0 }}>Led</span>
-          <span style={{ fontSize: 13, color: "rgba(255,255,255,0.78)", fontWeight: 600 }}>{c.role}</span>
+      <h3 style={{ fontSize: 34, fontWeight: 900, lineHeight: 1.1, letterSpacing: -1, color: "#ffffff", margin: 0 }}>{c.title}</h3>
+      <p style={{ fontSize: 15.5, color: "rgba(255,255,255,0.74)", lineHeight: 1.6, margin: 0 }}>{c.blurb}</p>
+      {c.tags && c.tags.length > 0 && (
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 2 }}>
+          {c.tags.slice(0, 2).map(t => (
+            <span key={t} style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10.5, fontWeight: 700, letterSpacing: 0.4, textTransform: "uppercase", color: "#d9c9ff", background: "rgba(167,143,255,0.14)", border: "1px solid rgba(167,143,255,0.3)", borderRadius: 999, padding: "5px 11px" }}>{t}</span>
+          ))}
         </div>
       )}
-      <p style={{ fontSize: 15, color: "rgba(255,255,255,0.8)", lineHeight: 1.6 }}>{c.blurb}</p>
-      {c.impact && (
-        <div style={{ display: "flex", gap: 9, alignItems: "flex-start", padding: "10px 12px", background: "rgba(99,67,255,0.18)", border: "1px solid rgba(167,143,255,0.38)", borderRadius: 10 }}>
-          <span aria-hidden style={{ color: "#cabfff", fontSize: 14, lineHeight: 1.5, flexShrink: 0 }}>→</span>
-          <span style={{ fontSize: 13.5, color: "rgba(255,255,255,0.96)", lineHeight: 1.5 }}>{c.impact}</span>
-        </div>
-      )}
-      {expanded && (
-        <div style={{ paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.06)", marginTop: 8 }}>
-          <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,153,212,0.8)", textTransform: "uppercase", letterSpacing: 1.2, marginBottom: 8 }}>Outcome</div>
-          <div style={{ fontSize: 16, color: "rgba(255,255,255,0.85)" }}>{c.outcome}</div>
-          <div style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,153,212,0.8)", textTransform: "uppercase", letterSpacing: 1.2, marginTop: 18, marginBottom: 8 }}>Scope</div>
-          <div style={{ fontSize: 16, color: "rgba(255,255,255,0.85)" }}>{c.kicker}</div>
-        </div>
-      )}
-      <div style={{ display: "flex", gap: 6, marginTop: "auto", flexWrap: "wrap" }}>
-        {c.tags.slice(1).map(t => <span key={t} style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 600, color: "#cabfff", background: "rgba(99,67,255,0.3)", border: "1px solid rgba(167,143,255,0.45)", borderRadius: 6, padding: "3px 9px" }}>{t}</span>)}
-      </div>
+      {isComingSoon
+        ? <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "rgba(255,255,255,0.5)", fontSize: 14, fontWeight: 700, marginTop: 6 }}>Coming soon</span>
+        : <span style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#ff99d4", fontSize: 14, fontWeight: 700, marginTop: 6 }}>View case study <ArrowIcon size={13}/></span>}
     </div>
-    <div className="bp-case-mock" style={{ background: c.accent, display: "flex", alignItems: "center", justifyContent: "center", padding: c.hero ? 0 : 28, position: "relative", overflow: "hidden", minHeight: expanded ? 320 : 180 }}>
+    <div className="bp-feature-mock" style={{ background: c.accent, position: "relative", overflow: "hidden", minHeight: 360, display: "flex", alignItems: "center", justifyContent: "center", padding: c.hero ? 0 : 24 }}>
       {c.slug === "recommendations-engine" && (
-        <span style={{ position: "absolute", top: 14, left: 14, right: 14, zIndex: 2, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, fontWeight: 800, letterSpacing: 0.6, textTransform: "uppercase", color: "#1c1c26", background: "#ffd84d", border: "1px solid rgba(0,0,0,0.2)", boxShadow: "0 6px 18px rgba(0,0,0,0.35)", borderRadius: 8, padding: "8px 12px", textAlign: "center", lineHeight: 1.35 }}>Case study being updated · design images coming soon</span>
+        <span style={{ position: "absolute", top: 12, left: 12, right: 12, zIndex: 2, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10.5, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", color: "#1c1c26", background: "#ffd84d", border: "1px solid rgba(0,0,0,0.2)", boxShadow: "0 6px 18px rgba(0,0,0,0.35)", borderRadius: 8, padding: "7px 11px", textAlign: "center", lineHeight: 1.35 }}>Case study being updated · designs coming soon</span>
       )}
       {c.hero
-        ? <img src={c.hero} alt={c.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}/>
+        ? <img src={c.hero} alt={c.title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "left center", display: "block" }}/>
         : <BoldMiniMock slug={c.slug}/>}
+    </div>
+  </div>
+  );
+};
+const BoldCase = ({ c }) => (
+  <div
+    className="bp-case"
+    onClick={() => openCase(c)}
+    style={{
+      border: "1px solid rgba(167,143,255,0.22)", borderRadius: 20, overflow: "hidden",
+      cursor: c.slug === "experimentation" ? "default" : "pointer",
+      background: "#1c1c26", transition: "border-color .2s, transform .2s",
+      display: "flex", flexDirection: "column",
+    }}
+    onMouseEnter={e => { if (c.slug !== "experimentation") { e.currentTarget.style.borderColor = "rgba(167,143,255,0.6)"; e.currentTarget.style.transform = "translateY(-4px)"; } }}
+    onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(167,143,255,0.22)"; e.currentTarget.style.transform = "translateY(0)"; }}>
+    <div className="bp-case-mock" style={{ background: c.accent, position: "relative", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", padding: c.hero ? 0 : 20, height: 300 }}>
+      {c.slug === "recommendations-engine" && (
+        <span style={{ position: "absolute", top: 12, left: 12, right: 12, zIndex: 2, fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10.5, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", color: "#1c1c26", background: "#ffd84d", border: "1px solid rgba(0,0,0,0.2)", boxShadow: "0 6px 18px rgba(0,0,0,0.35)", borderRadius: 8, padding: "7px 11px", textAlign: "center", lineHeight: 1.35 }}>Case study being updated · designs coming soon</span>
+      )}
+      {c.hero
+        ? <img src={c.hero} alt={c.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}/>
+        : <BoldMiniMock slug={c.slug}/>}
+    </div>
+    <div className="bp-case-body" style={{ padding: "22px 24px", display: "flex", flexDirection: "column", gap: 9 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10 }}>
+        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10.5, color: "rgba(255,255,255,0.55)" }}>{c.year} · {c.company}</span>
+        <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 10, fontWeight: 700, letterSpacing: 0.8, textTransform: "uppercase", color: "#ff99d4" }}>{c.slug === "experimentation" ? "Coming soon" : c.tags[0]}</span>
+      </div>
+      <h3 style={{ fontSize: 20, fontWeight: 900, lineHeight: 1.2, letterSpacing: -0.4, color: "#ffffff", margin: 0 }}>{c.title}</h3>
+      <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.66)", lineHeight: 1.5, margin: 0 }}>{c.blurb}</p>
     </div>
   </div>
 );
@@ -717,7 +919,7 @@ const BoldTestimonials = () => (
 const BoldFooter = () => (
   <footer id="contact" className="bp-footer" style={{ position: "relative", zIndex: 1, padding: "96px 32px 48px", maxWidth: 1280, margin: "0 auto" }}>
     <div className="bp-footer-inner" style={{ border: "1px solid rgba(73,28,255,0.4)", borderRadius: 24, padding: "56px 48px", background: "linear-gradient(135deg, rgba(73,28,255,0.15), rgba(255,153,212,0.08))", textAlign: "center", overflow: "hidden", position: "relative" }}>
-      <SectionKicker>06 · contact</SectionKicker>
+      <SectionKicker rule={false}>06 · contact</SectionKicker>
       <h2 style={{ fontSize: 56, fontWeight: 900, letterSpacing: -2, marginTop: 16, marginBottom: 12, color: "#ffffff" }}>Let's build something.</h2>
       <p style={{ fontSize: 18, color: "rgba(255,255,255,0.82)", marginBottom: 28 }}>Staff / Lead UX · Austin, TX · remote-friendly · open to relocation to Bay Area California, NYC, or Chicago</p>
       <div className="bp-footer-cta" style={{ display: "inline-flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
