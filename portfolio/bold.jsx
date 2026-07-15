@@ -246,7 +246,7 @@ const MatrixRain = () => {
 
 // ─── BOLD HERO: agent as the hero ────────────────────────────────────────
 const BoldHero = () => (
-  <section id="home" className="bp-hero" style={{ position: "relative", zIndex: 1, padding: "56px 32px 64px", maxWidth: 1280, margin: "0 auto", overflow: "hidden" }}>
+  <section id="home" className="bp-hero" style={{ position: "relative", zIndex: 1, padding: "56px 32px 64px", maxWidth: 1280, margin: "0 auto" }}>
     <div aria-hidden className="bp-hero-face" style={{
       position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
       width: "100vw", height: "100%", zIndex: -1, overflow: "hidden", pointerEvents: "none",
@@ -608,7 +608,7 @@ const BoldExpertise = () => (
 
 // ─── ABOUT ──────────────────────────────────────────────────────────────
 const BoldAbout = () => (
-  <section id="about" className="bp-section bp-about" style={{ position: "relative", zIndex: 1, padding: "96px 32px", maxWidth: 1100, margin: "0 auto", overflow: "hidden" }}>
+  <section id="about" className="bp-section bp-about" style={{ position: "relative", zIndex: 1, padding: "96px 32px", maxWidth: 1100, margin: "0 auto" }}>
     <div aria-hidden style={{
       position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
       width: "100vw", height: "100%", zIndex: -1, overflow: "hidden", pointerEvents: "none",
@@ -620,7 +620,7 @@ const BoldAbout = () => (
         position: "absolute", top: 0, right: 0, height: "100%", width: "58%",
         objectFit: "cover", objectPosition: "center 28%", display: "block",
         filter: "grayscale(1) contrast(0.9) brightness(1.05) blur(1.5px)",
-        opacity: 0.24,
+        opacity: 0.32,
         WebkitMaskImage: "radial-gradient(120% 90% at 82% 42%, #000 0%, rgba(0,0,0,0.55) 45%, transparent 78%)",
         maskImage: "radial-gradient(120% 90% at 82% 42%, #000 0%, rgba(0,0,0,0.55) 45%, transparent 78%)",
       }} onError={e => { e.currentTarget.style.display = "none"; }}/>
