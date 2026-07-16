@@ -689,17 +689,18 @@ const BoldAbout = () => (
     <div aria-hidden style={{
       position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
       width: "100vw", height: "100%", zIndex: -1, overflow: "hidden", pointerEvents: "none",
-      WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)",
-      maskImage: "linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%)",
+      WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 14%, #000 92%, transparent 100%)",
+      maskImage: "linear-gradient(to bottom, transparent 0%, #000 14%, #000 92%, transparent 100%)",
     }}>
       <div style={{ position: "absolute", inset: 0, background: "#1c1c26" }}/>
       <img src="assets/aditya-portrait.jpg" alt="" style={{
         position: "absolute", top: 0, right: 0, height: "100%", width: "58%",
         objectFit: "cover", objectPosition: "center 28%", display: "block",
         filter: "grayscale(1) contrast(0.9) brightness(1.05) blur(1.5px)",
-        opacity: 0.32,
-        WebkitMaskImage: "radial-gradient(120% 90% at 82% 42%, #000 0%, rgba(0,0,0,0.55) 45%, transparent 78%)",
-        maskImage: "radial-gradient(120% 90% at 82% 42%, #000 0%, rgba(0,0,0,0.55) 45%, transparent 78%)",
+        opacity: 0.4,
+        WebkitMaskImage: "radial-gradient(140% 120% at 65% 34%, #000 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.3) 68%, rgba(0,0,0,0.12) 88%, transparent 100%), linear-gradient(to right, transparent 0%, #000 34%)",
+        maskImage: "radial-gradient(140% 120% at 65% 34%, #000 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.3) 68%, rgba(0,0,0,0.12) 88%, transparent 100%), linear-gradient(to right, transparent 0%, #000 34%)",
+        WebkitMaskComposite: "source-in", maskComposite: "intersect",
       }} onError={e => { e.currentTarget.style.display = "none"; }}/>
       <div style={{ position: "absolute", top: 0, right: 0, height: "100%", width: "58%", background: "radial-gradient(120% 90% at 82% 42%, rgba(73,28,255,0.16) 0%, transparent 65%)", mixBlendMode: "screen" }}/>
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1c1c26 0%, rgba(28,28,38,0.94) 30%, rgba(28,28,38,0.55) 60%, rgba(28,28,38,0.25) 100%)" }}/>
