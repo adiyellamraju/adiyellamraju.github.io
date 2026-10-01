@@ -24,6 +24,21 @@ const BOLD_RESPONSIVE_CSS = `
     .bp-feature-body h3 { font-size: 24px !important; letter-spacing: -0.6px !important; }
     .bp-hero { padding: 64px 16px 56px !important; }
   }
+  @media (max-width: 640px) {
+    .bp-hero-stats > div { padding: 4px 14px !important; gap: 6px !important; }
+    .bp-hero-stats > div > span:first-child { font-size: 28px !important; }
+    .bp-hero-stats > div > span:last-child { font-size: 12.5px !important; max-width: 84px !important; }
+  }
+  .bp-work-index-item:hover .bp-work-index-title { color: #ff99d4; }
+  .bp-work-index-item:hover .bp-work-index-arrow { color: #ff99d4; transform: translateX(3px); }
+  .bp-work-index-item:hover { background: rgba(167,143,255,0.05); }
+  @media (max-width: 1024px) {
+    .bp-work-index > div { grid-template-columns: repeat(2, 1fr) !important; column-gap: 24px !important; }
+  }
+  @media (max-width: 640px) {
+    .bp-work-index { padding: 0 16px !important; margin-bottom: 32px !important; }
+    .bp-work-index > div { grid-template-columns: 1fr !important; }
+  }
   @media (max-width: 1024px) {
     .bp-nav { padding: 16px 24px !important; }
     .bp-nav-spacer { height: 65px !important; }
@@ -367,17 +382,23 @@ const BoldHero = () => (
     </div>
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, marginBottom: 40 }}>
       <h1 style={{ fontSize: 64, fontWeight: 900, lineHeight: 1.08, letterSpacing: -2, textAlign: "center", maxWidth: 1100, margin: 0, color: "#ffffff" }}>
-        <span style={{ color: "rgba(255,255,255,0.98)" }}>9 years of UX, from startups to </span>
-        <span style={{ background: "linear-gradient(90deg,#b9a6ff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>enterprise AI</span>
-        <span style={{ color: "rgba(255,255,255,0.98)" }}> at Salesforce.</span>
-        <br/>
-        <span style={{ background: "linear-gradient(90deg,#491cff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>Now vibe-prototyping at the speed of thought.</span>
+        <span style={{ color: "rgba(255,255,255,0.98)" }}>Lead Product Designer at </span>
+        <span style={{ background: "linear-gradient(90deg,#b9a6ff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>Twilio</span>
+        <span style={{ color: "rgba(255,255,255,0.98)" }}>, designing email for developers and the businesses they build.</span>
       </h1>
+      <div className="bp-hero-stats" style={{ display: "flex", justifyContent: "center", alignItems: "stretch", flexWrap: "wrap", gap: 0, marginTop: 4 }}>
+        {[["3", "AI/NLG products shipped"], ["5", "platform capabilities owned"], ["2", "platforms launched 0→1"]].map(([n, l], k) => (
+          <div key={l} style={{ display: "flex", alignItems: "baseline", gap: 10, padding: "4px 28px", borderLeft: k ? "1px solid rgba(255,255,255,0.22)" : "none" }}>
+            <span style={{ fontSize: 36, fontWeight: 900, letterSpacing: -1, lineHeight: 1, background: "linear-gradient(90deg,#b9a6ff,#ff99d4)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>{n}</span>
+            <span style={{ fontSize: 15, fontWeight: 600, color: "rgba(255,255,255,0.82)", lineHeight: 1.25, maxWidth: 130, textAlign: "left" }}>{l}</span>
+          </div>
+        ))}
+      </div>
       <p className="bp-hero-sub" style={{ fontSize: 20, color: "rgba(255,255,255,0.82)", textAlign: "center", maxWidth: 760, lineHeight: 1.65, margin: 0 }}>
-        I'm <strong style={{ color: "#fff", fontWeight: 700 }}>Aditya</strong> — I design core platform and AI experiences for complex systems. So far that's <strong style={{ color: "#fff", fontWeight: 700 }}>three AI/NLG products shipped</strong>, <strong style={{ color: "#fff", fontWeight: 700 }}>five platform capabilities owned</strong>, and <strong style={{ color: "#fff", fontWeight: 700 }}>two platforms taken from 0→1</strong>. These days I vibe-code them too, so design meets engineering the moment an idea lands.
+        I'm <strong style={{ color: "#fff", fontWeight: 700 }}>Aditya</strong>. Before Twilio, I spent over a decade in UX, most recently shipping AI and platform products at Salesforce. These days I vibe-code prototypes, so ideas meet engineering the moment they land.
       </p>
       <span className="bp-hero-kicker" style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 12, color: "rgba(255,255,255,0.68)", letterSpacing: 1.5, textTransform: "uppercase", display: "inline-flex", alignItems: "center", gap: 8, marginTop: 8 }}>
-        <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite", color: "#ff99d4", filter: "drop-shadow(0 0 8px rgba(255,153,212,0.7))" }}><SparkleIcon size={14}/></span> …so naturally, I vibe-coded an agent to do my bragging for me — ask it anything
+        <span style={{ display: "inline-flex", animation: "sparklePulse 1.6s ease-in-out infinite", color: "#ff99d4", filter: "drop-shadow(0 0 8px rgba(255,153,212,0.7))" }}><SparkleIcon size={14}/></span> Naturally, I built an agent to brag for me. Take it for a spin
       </span>
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 4 }}>
         <button onClick={() => window.dispatchEvent(new Event("open-agent"))} style={{
@@ -931,6 +952,31 @@ const BoldWork = () => {
           <h2 style={{ fontSize: 42, fontWeight: 900, letterSpacing: -1, marginTop: 10, color: "#ffffff" }}>Six case studies.</h2>
         </div>
       </div>
+      <div className="bp-work-index" style={{ maxWidth: 1280, margin: "0 auto 48px", padding: "0 32px" }}>
+        <div style={{ borderTop: "1px solid rgba(167,143,255,0.18)", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", columnGap: 32 }}>
+          {CASES.map((c) => (
+            <a
+              key={c.slug}
+              href={"#case-" + c.slug}
+              className="bp-work-index-item"
+              style={{
+                display: "block", cursor: "pointer",
+                padding: "16px 4px", borderBottom: "1px solid rgba(167,143,255,0.14)",
+                textDecoration: "none", transition: "opacity .2s",
+              }}
+            >
+              <span style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
+                <span className="bp-work-index-title" style={{ fontSize: 15.5, fontWeight: 700, color: "#f0f0f5", letterSpacing: -0.2, lineHeight: 1.3, transition: "color .2s" }}>{c.indexTitle || c.title}</span>
+                <span className="bp-work-index-arrow" style={{ flexShrink: 0, color: "rgba(185,166,255,0.55)", transition: "transform .2s, color .2s", display: "inline-flex" }}><ArrowIcon size={12}/></span>
+              </span>
+              <span style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 7 }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: 0.4, textTransform: "uppercase", color: "rgba(214,201,255,0.9)", background: "rgba(167,143,255,0.14)", border: "1px solid rgba(167,143,255,0.28)", borderRadius: 999, padding: "3px 9px", whiteSpace: "nowrap" }}>{c.indexTag}</span>
+                <span style={{ fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.52)" }}>{c.company}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
       <div className="bp-work-cards" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", display: "flex", flexDirection: "column", gap: 56 }}>
         <BoldFeatureCase c={featured} featured i={0}/>
         {rest.map((c, i) => <BoldFeatureCase key={c.slug} c={c} i={i + 1} />)}
@@ -943,6 +989,7 @@ const BoldFeatureCase = ({ c, featured, i }) => {
   const flip = i % 2 === 1;
   return (
   <div
+    id={"case-" + c.slug}
     className="bp-feature"
     onClick={() => { if (!isComingSoon) openCase(c); }}
     style={{
@@ -1048,7 +1095,7 @@ const BoldFooter = () => (
     <div className="bp-footer-inner" style={{ border: "1px solid rgba(73,28,255,0.4)", borderRadius: 24, padding: "56px 48px", background: "linear-gradient(135deg, rgba(73,28,255,0.15), rgba(255,153,212,0.08))", textAlign: "center", overflow: "hidden", position: "relative" }}>
       <SectionKicker rule={false}>06 · contact</SectionKicker>
       <h2 style={{ fontSize: 56, fontWeight: 900, letterSpacing: -2, marginTop: 16, marginBottom: 12, color: "#ffffff" }}>Let's build something.</h2>
-      <p style={{ fontSize: 18, color: "rgba(255,255,255,0.82)", marginBottom: 28 }}>Staff / Lead UX · Austin, TX · remote-friendly · open to relocation to Bay Area California, NYC, or Chicago</p>
+      <p style={{ fontSize: 18, color: "rgba(255,255,255,0.82)", marginBottom: 28 }}>Lead Product Designer · Twilio Email · Austin, TX</p>
       <div className="bp-footer-cta" style={{ display: "inline-flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
         <a href="https://www.linkedin.com/in/aditya-yellamraju" onClick={() => track("linkedin_click")} target="_blank" rel="noopener" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg,#491cff,#ff99d4)", color: "#fff", fontSize: 15, fontWeight: 700, padding: "14px 28px", borderRadius: 100, textDecoration: "none", boxShadow: "0 14px 40px rgba(73,28,255,0.5)" }}>Message me on LinkedIn <ArrowIcon size={14}/></a>
         <a href="assets/Aditya-Yellamraju-Resume.pdf" onClick={() => track("resume_download")} target="_blank" rel="noopener" download="Aditya-Yellamraju-Resume.pdf" style={{ display: "inline-flex", alignItems: "center", gap: 10, border: "1.5px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.85)", fontSize: 15, fontWeight: 600, padding: "13px 24px", borderRadius: 100, textDecoration: "none" }}><DownloadIcon size={14}/> Résumé</a>

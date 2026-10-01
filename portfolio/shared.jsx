@@ -29,6 +29,7 @@ const CommandIcon = ({ size = 14 }) => (
 const CASES = [
   {
     slug: "personalization",
+    indexTag: "Platform UX",
     year: "2023–present",
     company: "Salesforce",
     title: "Personalization Core Platform",
@@ -42,6 +43,7 @@ const CASES = [
   },
   {
     slug: "recommendations-engine",
+    indexTag: "Agentic AI",
     year: "2023–present",
     company: "Salesforce",
     title: "AI Recommendations Engine",
@@ -55,6 +57,7 @@ const CASES = [
   },
   {
     slug: "pulse-nexio",
+    indexTag: "Data Storytelling",
     year: "2021–2023",
     company: "Tableau",
     title: "Tableau Pulse & Project Nexio",
@@ -68,6 +71,8 @@ const CASES = [
   },
   {
     slug: "data-stories",
+    indexTitle: "Data Stories",
+    indexTag: "AI/ML NLG",
     year: "2021–2022",
     company: "Tableau · Salesforce",
     title: "Data Stories — Salesforce's first NLG feature",
@@ -81,6 +86,7 @@ const CASES = [
   },
   {
     slug: "experimentation",
+    indexTag: "Platform UX",
     year: "2024",
     company: "Salesforce",
     title: "Experimentation Infrastructure UX",
@@ -94,6 +100,7 @@ const CASES = [
   },
   {
     slug: "flying-squirrel",
+    indexTag: "E-Commerce",
     year: "2016",
     company: "AY Design Consulting",
     title: "The Flying Squirrel Coffee",
