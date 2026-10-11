@@ -134,12 +134,16 @@ const TESTIMONIALS = [
 
 const NOW = [
   {
-    label: "Active project at work",
-    text: "Personalization Core — designing the configuration experience both inside the product and as a platform that integrates with other Salesforce clouds. Includes LLM-based recommender creation and filtering.",
+    label: "Leading at Twilio",
+    text: "Strategy, design, and shipping for Twilio Email: bringing every email capability together in one Twilio console.",
+  },
+  {
+    label: "Recently shipped",
+    text: "Personalization Core at Salesforce: the configuration experience inside the product, and the platform that integrates with other Salesforce clouds, including LLM-based recommender creation and filtering.",
   },
   {
     label: "Sharpening",
-    text: "The new-age vibe-coding design process — using Claude, Cursor, and live prototypes as primary design tools, not afterthoughts.",
+    text: "A vibe-coding design process, with Claude and live prototypes as primary design tools.",
   },
 ];
 

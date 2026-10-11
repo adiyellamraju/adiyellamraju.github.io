@@ -66,7 +66,9 @@ const BOLD_RESPONSIVE_CSS = `
     .bp-nav-spacer { height: 53px !important; }
     .bp-nav-brand { font-size: 11px !important; gap: 5px !important; flex-wrap: nowrap !important; white-space: nowrap !important; flex-shrink: 0 !important; }
     .bp-nav-brand .bp-nav-status { display: none !important; }
-    .bp-nav-links { gap: 7px !important; font-size: 11px !important; flex-wrap: nowrap !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+    .bp-nav-links { gap: 10px !important; font-size: 12px !important; flex-wrap: nowrap !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+    .bp-nav-links .bp-nav-link { display: none !important; }
+    .bp-nav-burger { display: flex !important; width: 38px !important; height: 38px !important; }
     .bp-hero { padding: 28px 16px 40px !important; }
     .bp-hero-kicker { font-size: 11px !important; text-align: center; }
     .bp-hero h1 { font-size: 32px !important; letter-spacing: -0.8px !important; line-height: 1.1 !important; }
@@ -155,6 +157,8 @@ const BoldNav = () => {
     return () => clearInterval(id);
   }, []);
   const st = NAV_STATUSES[si];
+  const [open, setOpen] = React.useState(false);
+  const NAV_LINKS = [["home","/home"],["about","/about"],["work","/work"],["now","/now"],["contact","/contact"]];
   return (
   <><div className="bp-nav-spacer" style={{ height: 73 }}/>
   <nav className="bp-nav" style={{
@@ -175,15 +179,27 @@ const BoldNav = () => {
       </span>
     </div>
     <div className="bp-nav-links" style={{ display: "flex", gap: 20, fontSize: 13, fontFamily: "ui-monospace,Menlo,monospace", alignItems: "center" }}>
-      {[["home","/"],["about","/about"],["work","/work"],["now","/now"],["contact","/hello"]].map(([label, path]) => (
-        <a key={label} href={`#${label}`} style={{ color: "rgba(255,255,255,0.78)", textDecoration: "none" }}>
+      {NAV_LINKS.map(([label, path]) => (
+        <a key={label} className="bp-nav-link" href={`#${label}`} style={{ color: label === "contact" ? "#ffd6ec" : "rgba(255,255,255,0.78)", textDecoration: "none", fontWeight: label === "contact" ? 700 : 400 }}>
           {path}
         </a>
       ))}
       <a href="assets/Aditya-Yellamraju-Resume.pdf" target="_blank" rel="noopener" download="Aditya-Yellamraju-Resume.pdf" onClick={() => track("resume_download", { source: "nav" })} style={{ color: "#fff", textDecoration: "none", border: "1px solid rgba(167,143,255,0.5)", background: "rgba(73,28,255,0.18)", borderRadius: 100, padding: "5px 14px", fontWeight: 700 }}>
         /résumé
       </a>
+      <button className="bp-nav-burger" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(o => !o)} style={{ display: "none", width: 44, height: 44, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 5, background: "transparent", border: "1px solid rgba(255,255,255,0.18)", borderRadius: 10, cursor: "pointer", padding: 0 }}>
+        <span style={{ width: 18, height: 2, borderRadius: 2, background: "#fff", transition: "transform .25s", transform: open ? "translateY(7px) rotate(45deg)" : "none" }}/>
+        <span style={{ width: 18, height: 2, borderRadius: 2, background: "#fff", transition: "opacity .2s", opacity: open ? 0 : 1 }}/>
+        <span style={{ width: 18, height: 2, borderRadius: 2, background: "#fff", transition: "transform .25s", transform: open ? "translateY(-7px) rotate(-45deg)" : "none" }}/>
+      </button>
     </div>
+    {open && (
+      <div className="bp-nav-menu" style={{ position: "absolute", top: "100%", left: 0, right: 0, display: "flex", flexDirection: "column", padding: "8px 14px 16px", background: "rgba(28,28,38,0.96)", backdropFilter: "blur(22px)", WebkitBackdropFilter: "blur(22px)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+        {NAV_LINKS.map(([label, path]) => (
+          <a key={label} href={`#${label}`} onClick={() => setOpen(false)} style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 16, color: label === "contact" ? "#ffd6ec" : "rgba(255,255,255,0.88)", fontWeight: label === "contact" ? 700 : 400, textDecoration: "none", padding: "14px 4px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>{path}</a>
+        ))}
+      </div>
+    )}
   </nav></>
   );
 };
@@ -828,11 +844,8 @@ const SectionKicker = ({ children, rule = true }) => (
 // ─── NOW ────────────────────────────────────────────────────────────────
 const BoldNow = () => (
   <section id="now" className="bp-section" style={{ position: "relative", zIndex: 1, padding: "64px 32px", maxWidth: 1280, margin: "0 auto" }}>
-    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 24 }}>
-      <SectionKicker rule={false}>02 · now</SectionKicker>
-      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "rgba(255,255,255,0.6)" }}>
-        last synced · 2 days ago
-      </span>
+    <div style={{ marginBottom: 24 }}>
+      <SectionKicker>02 · now</SectionKicker>
     </div>
     <div style={{ border: "1px solid rgba(167,143,255,0.25)", borderRadius: 18, background: "rgba(40,40,52,0.75)", overflow: "hidden" }}>
       {NOW.map((n, i) => (
@@ -846,16 +859,13 @@ const BoldNow = () => (
       ))}
     </div>
 
-    {/* Featured — Agentblazer Champion (recognition) */}
-    <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%)", borderRadius: 14, marginTop: 16, flexWrap: "wrap" }}>
+    {/* Recognition — combined */}
+    <div style={{ display: "flex", alignItems: "baseline", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "rgba(73,28,255,0.14)", borderRadius: 14, marginTop: 16, flexWrap: "wrap" }}>
       <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#ffd6ec", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>★ Recognition</span>
-      <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Salesforce <strong><a href="https://trailhead.salesforce.com/agentblazer" target="_blank" rel="noopener" style={{ color: "#ffd6ec", textDecoration: "none", borderBottom: "1px solid rgba(255,214,236,0.4)" }}>Agentblazer Champion</a></strong>, a Salesforce Agentblazer status recognizing hands-on skills in building with Agentforce, Data Cloud, and AI on the Salesforce platform.</span>
-    </div>
-
-    {/* Featured — Accelerate leadership program (recognition) */}
-    <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 22px", border: "1px solid rgba(255,153,212,0.4)", background: "linear-gradient(135deg, rgba(73,28,255,0.18) 0%, rgba(255,153,212,0.08) 100%)", borderRadius: 14, marginTop: 12, flexWrap: "wrap" }}>
-      <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#ffd6ec", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 800 }}>★ Recognition</span>
-      <span style={{ fontSize: 16, color: "#fff", fontWeight: 600, flex: 1, minWidth: 240 }}>Selected and graduated from <strong>Accelerate</strong> (2024) — Salesforce's competitive leadership &amp; management development program.</span>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 240 }}>
+        <span style={{ fontSize: 16, color: "#fff", fontWeight: 600 }}>Salesforce <a href="https://trailhead.salesforce.com/agentblazer" target="_blank" rel="noopener" style={{ color: "#ffd6ec", textDecoration: "none", borderBottom: "1px solid rgba(255,214,236,0.4)", fontWeight: 700 }}>Agentblazer Champion</a></span>
+        <span style={{ fontSize: 16, color: "#fff", fontWeight: 600 }}>Graduate of <strong>Accelerate</strong> (2024), Salesforce's leadership development program</span>
+      </div>
     </div>
   </section>
 );
