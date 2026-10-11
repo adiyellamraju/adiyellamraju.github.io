@@ -472,7 +472,7 @@ const BigAgentChat = ({ compact }) => {
   ]);
   const [input, setInput] = React.useState("");
   const [typing, setTyping] = React.useState(false);
-  const [sugg, setSugg] = React.useState(["What does Aditya do at Salesforce?", "Tell me about Project Nexio", "How does he vibe-code?", "Is he open to new roles?"]);
+  const [sugg, setSugg] = React.useState(["What's Aditya working on at Twilio?", "What did he ship at Salesforce?", "Tell me about Project Nexio", "How does he vibe-code?"]);
   const scrollRef = React.useRef(null);
   React.useEffect(() => { if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight; }, [messages, typing]);
 
