@@ -87,14 +87,14 @@
     /* CONTENT */
     .cs-content { width: 80%; max-width: 1700px; margin: 0 auto; padding: 0 0 120px; position: relative; z-index: 1; }
 
-    .cs-section { padding: 80px 0 0; display: grid; grid-template-columns: 280px 1fr; gap: 64px; border-top: 1px solid var(--border-soft); margin-top: 80px; }
+    .cs-section { padding: 80px 0 0; display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 64px; border-top: 1px solid var(--border-soft); margin-top: 80px; }
     .cs-section:first-child { border-top: none; margin-top: 0; padding-top: 80px; }
 
     .cs-section-label { display: flex; flex-direction: column; gap: 8px; padding-top: 4px; position: sticky; top: 110px; align-self: start; }
     .cs-section-num { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #b9a6ff; }
     .cs-section-title { font-size: 22px; font-weight: 900; color: #fff; line-height: 1.2; }
 
-    .cs-section-body { display: flex; flex-direction: column; gap: 24px; }
+    .cs-section-body { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
     .cs-section-body h3 { font-size: 28px; font-weight: 900; color: #fff; line-height: 1.2; letter-spacing: -0.4px; }
     .cs-section-body p { font-size: 18px; font-weight: 400; color: var(--text-mid); line-height: 1.75; }
     .cs-section-body p strong { color: #fff; font-weight: 700; }
@@ -237,7 +237,7 @@
       .cs-hero { padding: 140px 40px 64px; }
       .cs-hero-img-wrap { padding: 0 40px 48px; }
       .cs-content { width: auto; padding: 0 40px 80px; }
-      .cs-section { grid-template-columns: 1fr; gap: 24px; }
+      .cs-section { grid-template-columns: minmax(0, 1fr); gap: 24px; }
       .cs-section-label { position: static; flex-direction: row; align-items: center; gap: 16px; }
       .cs-outcomes { grid-template-columns: 1fr 1fr; }
       .cs-screens-2up, .cs-pattern-points, .cs-placeholder-grid { grid-template-columns: 1fr; }
@@ -910,25 +910,30 @@
       <div class="cs-section-body">
         <h3>The configuration core was the spine. The recommendations engine is where the AI actually shows up for marketers.</h3>
         <p>
-          Recommenders are the surface that decides <em>which</em> item, product, or piece of content a customer sees in any given moment. I designed the setup experience end-to-end — including <strong>complex catalog filters</strong>, an <strong>agent-based natural-language filter builder</strong>, and an <strong>agent-led recommender setup conversation</strong> that walks marketers from intent to a working strategy.
+          Recommenders decide <em>which</em> product, article, or piece of content each customer sees in the moment. Because the campaign spine was flexible enough, recommenders reused the same guided setup: <strong>Data → Recommender Type → Objective → Filters → Review</strong>, ending in a simulation against a real customer profile. A marketer who has configured a campaign already knows how to configure a recommender.
         </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; margin: 28px 0 8px;">
+          <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px;">
+            <img src="assets/case-studies/recs/flow-06-filters-generated.png" alt="A natural-language filter request rendered as three editable filter rows" style="width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); display: block;">
+            <figcaption style="font-size: 13px; color: var(--text-mid); font-style: italic;">Agentic filters. One sentence becomes real, editable filter rows, grounded in the fields the catalog actually has.</figcaption>
+          </figure>
+          <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px;">
+            <img src="assets/case-studies/recs/agent-01-created.png" alt="Agentforce panel showing a created recommender summary card" style="width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); display: block;">
+            <figcaption style="font-size: 13px; color: var(--text-mid); font-style: italic;">Agent-led setup. State the outcome; the agent proposes the strategy and hands back a recommender you can edit or add to a decision.</figcaption>
+          </figure>
+        </div>
+
+        <figure style="margin: 20px 0 8px; display: flex; flex-direction: column; gap: 10px;">
+          <img src="assets/case-studies/recs/01-simulate.png" alt="Simulate step with a profile explorer and live recommendation preview" style="width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12); display: block;">
+          <figcaption style="font-size: 13px; color: var(--text-mid); font-style: italic;">Simulate. Pick a real profile and see exactly what that person would be shown before anything ships.</figcaption>
+        </figure>
 
         <a href="case-recommendations-engine.html" class="cs-deep-dive-card">
           <div class="cs-deep-dive-tag">Companion case study</div>
-          <div class="cs-deep-dive-title">AI-powered Salesforce Personalization Recommendations Engine →</div>
-          <div class="cs-deep-dive-desc">Catalog filters, agentic NL filter creation, and agent-led recommender setup — a deeper look at the AI surfaces that extend the configuration core.</div>
+          <div class="cs-deep-dive-title">AI Recommendations Engine →</div>
+          <div class="cs-deep-dive-desc">The full recommender flow, agentic filters, agent-led setup, and the four principles that kept the AI editable and auditable.</div>
         </a>
-
-        <div class="cs-placeholder-grid">
-          <div class="cs-placeholder">
-            <span class="cs-placeholder-tag">Teaser visual</span>
-            <span class="cs-placeholder-text">Recommender setup — agent-led conversation that scaffolds the strategy</span>
-          </div>
-          <div class="cs-placeholder">
-            <span class="cs-placeholder-tag">Teaser visual</span>
-            <span class="cs-placeholder-text">Catalog filters — complex scoping rules, with a natural-language agent fallback</span>
-          </div>
-        </div>
       </div>
     </div>
 
