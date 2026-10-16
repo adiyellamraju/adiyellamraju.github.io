@@ -772,12 +772,12 @@ const BoldAbout = () => (
     }}>
       <div style={{ position: "absolute", inset: 0, background: "#1c1c26" }}/>
       <img src="assets/aditya-portrait.jpg" alt="" style={{
-        position: "absolute", top: 0, right: 0, height: "100%", width: "58%",
-        objectFit: "cover", objectPosition: "center 28%", display: "block",
+        position: "absolute", top: 0, right: "4%", height: "100%", width: "auto", maxWidth: "62%",
+        objectFit: "cover", objectPosition: "center 40%", display: "block",
         filter: "grayscale(1) contrast(0.9) brightness(1.05) blur(1.5px)",
         opacity: 0.4,
-        WebkitMaskImage: "radial-gradient(140% 120% at 65% 34%, #000 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.3) 68%, rgba(0,0,0,0.12) 88%, transparent 100%), linear-gradient(to right, transparent 0%, #000 34%)",
-        maskImage: "radial-gradient(140% 120% at 65% 34%, #000 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.3) 68%, rgba(0,0,0,0.12) 88%, transparent 100%), linear-gradient(to right, transparent 0%, #000 34%)",
+        WebkitMaskImage: "radial-gradient(90% 75% at 55% 46%, #000 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.3) 72%, transparent 100%), linear-gradient(to right, transparent 0%, #000 30%, #000 78%, transparent 100%)",
+        maskImage: "radial-gradient(90% 75% at 55% 46%, #000 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.3) 72%, transparent 100%), linear-gradient(to right, transparent 0%, #000 30%, #000 78%, transparent 100%)",
         WebkitMaskComposite: "source-in", maskComposite: "intersect",
       }} onError={e => { e.currentTarget.style.display = "none"; }}/>
       <div style={{ position: "absolute", top: 0, right: 0, height: "100%", width: "58%", background: "radial-gradient(120% 90% at 82% 42%, rgba(73,28,255,0.16) 0%, transparent 65%)", mixBlendMode: "screen" }}/>
